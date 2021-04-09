@@ -12,11 +12,12 @@ import CreateNewTrip from './components/CreateNewTrip/CreateNewTrip';
 import CurrentTrips from './components/CurrentTrips/CurrentTrips';
 import Recommendations from './components/Recommendations/Recommendations';
 import Landing from './components/Landing/Landing'
+import TripPage from "./components/TripPage/TripPage.jsx";
 function App() {
   return (
     <Router>
       <Navbar />
-//     <ProfilePage />
+   {/* <ProfilePage /> */}
       <Switch>
         <Route path='/login'>
           <Login />
@@ -25,7 +26,7 @@ function App() {
           <Signup />
         </Route>
         <Route path='/create'>
-          <CreateNewTrip />
+          <TripPage />
         </Route>
         <Route path='/currentTrips'>
           <CurrentTrips />

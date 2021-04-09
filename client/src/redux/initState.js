@@ -4,6 +4,11 @@ const initState = {
     token: '',
     uid: '',
   },
+  todos: [
+    {id:Date.now(), text:'топор'},
+  {id:Date.now(), text:'удочки'},
+  {id:Date.now(), text:'водка'},
+  ],
   trip: {},
   recommends: [],
 }
