@@ -14,7 +14,7 @@ import Recommendations from './components/Recommendations/Recommendations';
 import Landing from './components/Landing/Landing'
 import ProfilePage from "./components/ProfilePage/ProfilePage.jsx";
 
-
+import TripPage from "./components/TripPage/TripPage.jsx";
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
           <ProfilePage />
         </Route>
         <Route path='/create'>
-          <CreateNewTrip />
+          <TripPage />
         </Route>
         <Route path='/currentTrips'>
           <CurrentTrips />
