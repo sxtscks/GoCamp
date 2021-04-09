@@ -12,12 +12,27 @@ import Signup from './components/Signup/Signup';
 import CreateNewTrip from './components/CreateNewTrip/CreateNewTrip';
 import CurrentTrips from './components/CurrentTrips/CurrentTrips';
 import Recommendations from './components/Recommendations/Recommendations';
+import { useEffect } from 'react';
+
+import firebase from './firebase/firebase' 
+import { useDispatch } from 'react-redux';
+import { setUserData } from './redux/actionCreators/userAC';
 
 function App() {
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      console.log(user);
+      if(user) {
+        dispatch(setUserData(user.displayName, user.refreshToken, user.uid))
+      }
+    })
+  })
   return (
     <Router>
       <Navbar />
-    {/* <ProfilePage /> */}
+      {/* <ProfilePage /> */}
       <Switch>
         <Route path='/login'>
           <Login />

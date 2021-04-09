@@ -1,0 +1,34 @@
+.login-button {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background: rgba(59, 89, 152, .1);
+}
+
+.login-facebook-icon {
+  background-color: #3b5998;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 48px;
+  text-align: center;
+  height: 48px;
+  width: 58px;   
+  float: left;
+}
+
+.login-facebook-text {
+  color: #3b5998;
+  font-family: HelveticaNeueW01-55Roma, HelveticaNeueW02-55Roma, HelveticaNeueW10-55Roma, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 46px;
+  text-align: center;
+  width: 239px;
+  height: 46px;
+  padding-left: 58px;
+  border: 1px solid #3b5998;
+}

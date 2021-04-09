@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +9,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import firebase from '../../firebase/firebase'
+
 
 import {
   Link,
@@ -36,8 +38,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const [user, setUser] = useState({ userPassword: '', userEmail: '' })
+
   const classes = useStyles();
 
+  const inputHandler = (e) => {
+    console.log({ [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value })
+  }
+
+
+  const userSignIn = async () => {
+    console.log(user, 'USER');
+    await firebase.auth().signInWithEmailAndPassword(user.userEmail, user.userPassword)
+      .then(data => console.log(data))
+  }
+
+
+  const submitHandler = (e) => {
+    console.log("SUBMIT");
+    e.preventDefault()
+    userSignIn()
+    setUser({ userPassword: '', userEmail: '' })
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -48,7 +71,7 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Войти
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={submitHandler} className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -59,6 +82,9 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            name="userEmail"
+            value={user.userEmail}
+            onChange={inputHandler}
           />
           <TextField
             variant="outlined"
@@ -70,6 +96,9 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            name="userPassword"
+            value={user.userPassword}
+            onChange={inputHandler}
           />
           <Button
             type="submit"
