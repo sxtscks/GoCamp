@@ -9,11 +9,12 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import CurrentTrips from './components/CurrentTrips/CurrentTrips';
-import Recommendations from './components/Recommendations/Recommendations';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 
 import Landing from './components/Landing/Landing'
 import CurrentTripPage from "./components/CurrentTripPage/CurrentTripPage.jsx";
+import TripPage from "./components/TripPage/TripPage.jsx";
+
 function App() {
   return (
     <Router>
@@ -35,7 +36,7 @@ function App() {
           <CurrentTrips />
         </Route>
         <Route path='/recommendations'>
-          <Recommendations />
+        <TripPage />
         </Route>
         <Route path="/">
           <Landing />
