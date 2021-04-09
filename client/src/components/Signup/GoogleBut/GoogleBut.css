@@ -1,6 +1,3 @@
-// Google Identity and Google+ Sign in buttons
-// https://developers.google.com/+/branding-guidelines
-
 .google-button {
   height: 40px;
   border-width: 0;
@@ -48,9 +45,9 @@
   font-family: 'Roboto',arial,sans-serif;
 }
 
-// Boilerplate stuff
+/* // Boilerplate stuff */
 
-html, body {
+/* html, body {
   height: 100%;
 }
 
@@ -63,4 +60,4 @@ body {
 
 button ~ button {
   margin-left: 20px;
-}
+} */
