@@ -2,9 +2,13 @@ import { Grid } from '@material-ui/core';
 import CheckList from '../CheckList/CheckList'
 import DateOfTrip from '../DateOfTrip/DateOfTrip'
 import CheckRing from '../CheckRing/CheckRing'
+import Form from '../Form/Form'
+import './CurrentTripPage.css'
 
 function CurrentTripPage() {
     return (
+        <div className="mainCont">
+
  <div className="tripPage">
 
         <div className="container">
@@ -17,6 +21,9 @@ function CurrentTripPage() {
     
 
             <Grid item  sm={6} style={{marginTop:30}} >
+            <Grid item xs={12}>
+                <Form/>
+            </Grid>
                 <CheckList/>
             </Grid>
             <Grid item
@@ -26,7 +33,7 @@ function CurrentTripPage() {
             alignItems="center"
             style={{marginLeft:150}}>
 
-            <Grid  item sm={8} xs={3} style={{marginTop:30, marginLeft:30}}>
+            <Grid  item sm={8} xs={3} style={{marginTop:40, marginLeft:30}}>
                 <DateOfTrip/>
             </Grid>
             <Grid  item    xs={4}>
@@ -38,6 +45,7 @@ function CurrentTripPage() {
                 </div>
         </Grid>
     </div>
+                </div>
                 </div>
     
     )

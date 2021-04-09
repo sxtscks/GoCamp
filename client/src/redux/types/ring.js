@@ -1,0 +1,1 @@
+export const CHANGE_RING = 'CHANGE_RING'

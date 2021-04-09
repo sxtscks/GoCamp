@@ -1,4 +1,8 @@
 .tripPage {
-    background: url('./forest-1617962836087-1268.jpg');
+    height: 100vh;
+    margin-top: 3%;
+    background:  url('./forest-1617962836087-1268.jpg');
+    /* background:chocolate; */
     min-height: 900px;
+    
 }

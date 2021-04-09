@@ -1,4 +1,4 @@
-import { ADD_TODO, CHANGE_STATUS, DELETE_TODO, SET_TODO } from '../types/todo'
+import { ADD_TODO, CHANGE_STATUS, DELETE_TODO, SET_TODO,CONFIRM_TODO, IMPORTANT_TODO } from '../types/todo'
 import { v4 as uuidv4 } from 'uuid';
 
 export const addTodo = (text) => {
@@ -7,7 +7,8 @@ export const addTodo = (text) => {
     payload: {
       id: uuidv4(),
       text,
-      completed: false
+      confirmed: false,
+      important:false,
     }
   }
 }
@@ -15,6 +16,19 @@ export const addTodo = (text) => {
 export const deleteTodo = (id) => {
   return {
     type: DELETE_TODO,
+    payload: id
+  }
+}
+export const confirmTodo = (id) => {
+  console.log('here id>>>>>>', id)
+  return {
+    type: CONFIRM_TODO,
+    payload: id
+  }
+}
+export const importantTodo = (id) => {
+  return {
+    type: IMPORTANT_TODO,
     payload: id
   }
 }

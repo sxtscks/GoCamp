@@ -41,7 +41,7 @@ export default function Navbar() {
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <div className="logoContainer ">
-                <Link to='/'><img src="/GoCampLogoPlug2332.png" alt="" style={{ width: 110, margin: 6, position: 'absolute', top: -3, left: -20, paddingTop: 2, zIndex: 3 }} /></Link>
+                <Link to='/'><img src="/GoCampLogoPlugGraph.png" alt="" style={{ width: 110, margin: 6, position: 'absolute', top: 3, left: -20, paddingTop: 2, zIndex: 3 }} /></Link>
                 {/* <div style={{width:108,height:67,position:'absolute',left:-5,zIndex:2, backgroundColor:'red'}}></div> */}
                 <SlideInLeft style={{ display: 'inline-block' }}><img src="/WhiteText.svg" className="logoMove object van move-right" alt="" style={{ width: 240, marginLeft: 78, paddingTop: 5 }} /></SlideInLeft>
               </div>
