@@ -139,10 +139,10 @@ export default function Login() {
                 {"Нет аккаунта? Зарегистрируйся!"}
               </Link>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+          </form>
+        </div>
+      </Container>
+    </div>
   );
 }
 
