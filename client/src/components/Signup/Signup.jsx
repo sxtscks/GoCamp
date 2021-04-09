@@ -79,14 +79,7 @@ export default function Signup() {
     <Container component="main" maxWidth="xs" style={{ marginTop: '12%' }}>
       <CssBaseline />
       <div className={classes.paper}>
-<<<<<<< HEAD
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" constiant="h5">
-=======
         <Typography component="h1" variant="h5">
->>>>>>> 2b59b26bca90eed91d6040c3f592e858368fad4a
           Зарегистрироваться
         </Typography>
         <form className={classes.form} noValidate>
@@ -133,16 +126,13 @@ export default function Signup() {
           <Button
             type="submit"
             fullWidth
-<<<<<<< HEAD
             constiant="contained"
             color="primary"
             className={classes.submit}
             onClick={emailHandler}
-=======
             variant="contained"
             className={classes.submit}
             style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}
->>>>>>> 2b59b26bca90eed91d6040c3f592e858368fad4a
           >
             Зарегистрироваться
           </Button>

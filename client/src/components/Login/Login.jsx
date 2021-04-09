@@ -7,8 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import firebase from '../../firebase/firebase'
-import {googleProvider, sigInFacebook} from '../../redux/actionCreators/userAC'
-import {useHistory} from 'react-router-dom'
+import { googleProvider, sigInFacebook } from '../../redux/actionCreators/userAC'
+import { useHistory } from 'react-router-dom'
 
 import {
   Link,
@@ -65,12 +65,12 @@ export default function Login() {
     history.push("/");
   }
 
- 
+
 
   const googleHandler = (e) => {
     e.preventDefault()
     dispatch(googleProvider())
-    setUser({userPassword: '', userEmail: '' })
+    setUser({ userPassword: '', userEmail: '' })
     history.push("/");
 
   }
@@ -79,7 +79,7 @@ export default function Login() {
   const facebookHandler = (e) => {
     e.preventDefault()
     dispatch(sigInFacebook())
-    setUser({userPassword: '', userEmail: '' })
+    setUser({ userPassword: '', userEmail: '' })
     history.push("/");
 
   }
@@ -131,18 +131,18 @@ export default function Login() {
           >
             Войти
           </Button>
-          <Facebook facebookHandler={facebookHandler}/>
-          <GoogleBut googleHandler={googleHandler}/>
+          <Facebook facebookHandler={facebookHandler} />
+          <GoogleBut googleHandler={googleHandler} />
           <Grid container>
             <Grid item>
               <Link to="/signup" variant="body2">
                 {"Нет аккаунта? Зарегистрируйся!"}
               </Link>
             </Grid>
-          </form>
-        </div>
-      </Container>
-    </div>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   );
 }
 
