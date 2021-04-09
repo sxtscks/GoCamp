@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="375pt" height="112.499997pt" viewBox="0 0 375 112.499997" version="1.2">
+<defs>
+<clipPath id="clip1">
+  <path d="M 6.207031 10.5 L 94.3125 10.5 L 94.3125 98.609375 L 6.207031 98.609375 Z M 6.207031 10.5 "/>
+</clipPath>
+</defs>
+<g id="surface1">
+<path style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 0.500427 0.0000448849 L 20.072034 0.0000448849 " transform="matrix(0.000000000000000273,-4.464774,5.012686,0.000000000000000307,110.738056,100.796792)"/>
+<g clip-path="url(#clip1)" clip-rule="nonzero">
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(95.689392%,43.139648%,8.628845%);fill-opacity:1;" d="M 94.3125 54.554688 C 94.3125 78.886719 74.589844 98.609375 50.261719 98.609375 C 25.929688 98.609375 6.207031 78.886719 6.207031 54.554688 C 6.207031 30.226562 25.929688 10.5 50.261719 10.5 C 74.589844 10.5 94.3125 30.226562 94.3125 54.554688 "/>
+</g>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;" d="M 27.335938 77.890625 L 73.183594 77.890625 L 50.25 39.144531 Z M 75.207031 79.046875 L 25.316406 79.046875 L 49.578125 38.011719 L 45.28125 30.753906 L 46.273438 30.164062 L 50.25 36.878906 L 54.21875 30.164062 L 55.210938 30.753906 L 50.917969 38.011719 L 75.207031 79.046875 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;" d="M 39.980469 78.78125 L 38.988281 78.191406 L 50.261719 59.175781 L 61.515625 78.167969 L 60.527344 78.757812 L 50.261719 61.4375 L 39.980469 78.78125 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;" d="M 50.835938 78.488281 L 49.683594 78.488281 L 49.683594 60.304688 L 50.835938 60.304688 L 50.835938 78.488281 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;" d="M 49.765625 60.601562 L 43.152344 49.464844 L 44.144531 48.878906 L 50.753906 60.011719 L 49.765625 60.601562 "/>
+</g>
+</svg>
