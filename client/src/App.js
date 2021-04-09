@@ -1,4 +1,3 @@
-import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,11 +13,13 @@ import CurrentTrips from './components/CurrentTrips/CurrentTrips';
 import Recommendations from './components/Recommendations/Recommendations';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 
+import Landing from './components/Landing/Landing'
+import TripPage from "./components/TripPage/TripPage.jsx";
 function App() {
   return (
     <Router>
       <Navbar />
-     <ProfilePage />
+      < TripPage />
       <Switch>
         <Route path='/login'>
           <Login />
@@ -36,7 +37,7 @@ function App() {
           <Recommendations />
         </Route>
         <Route path="/">
-          <Main />
+          <Landing />
         </Route>
       </Switch>
     </Router>
