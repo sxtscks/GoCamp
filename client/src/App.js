@@ -14,11 +14,27 @@ import ProfilePage from './components/ProfilePage/ProfilePage';
 import Landing from './components/Landing/Landing'
 import CurrentTripPage from "./components/CurrentTripPage/CurrentTripPage.jsx";
 import TripPage from "./components/TripPage/TripPage.jsx";
+import { useEffect } from 'react';
+
+import firebase from './firebase/firebase'
+import { useDispatch } from 'react-redux';
+import { setUserData } from './redux/actionCreators/userAC';
 
 function App() {
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      console.log(user);
+      if (user) {
+        dispatch(setUserData(user.displayName, user.refreshToken, user.uid))
+      }
+    })
+  })
   return (
     <Router>
       <Navbar />
+      {/* <ProfilePage /> */}
       <Switch>
         <Route path='/login'>
           <Login />
