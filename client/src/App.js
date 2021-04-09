@@ -1,12 +1,44 @@
 import './App.css';
-import Form from './components/Form/Form';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+
+} from "react-router-dom";
+import Navbar from './components/Navbar/Navbar.jsx';
+import Main from './components/Main/Main';
+import Login from './components/Login/Login';
+import Signup from './components/Signup/Signup';
+import CreateNewTrip from './components/CreateNewTrip/CreateNewTrip';
+import CurrentTrips from './components/CurrentTrips/CurrentTrips';
+import Recommendations from './components/Recommendations/Recommendations';
 
 function App() {
   return (
-    <div className="App">
-      Here comes ya boi
-      <Form/>
-    </div>
+    <Router>
+      <Navbar />
+    {/* <ProfilePage /> */}
+      <Switch>
+        <Route path='/login'>
+          <Login />
+        </Route>
+        <Route path='/signup'>
+          <Signup />
+        </Route>
+        <Route path='/create'>
+          <CreateNewTrip />
+        </Route>
+        <Route path='/currentTrips'>
+          <CurrentTrips />
+        </Route>
+        <Route path='/recommendations'>
+          <Recommendations />
+        </Route>
+        <Route path="/">
+          <Main />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
