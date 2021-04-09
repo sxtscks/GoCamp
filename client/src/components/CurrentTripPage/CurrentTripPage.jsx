@@ -1,9 +1,7 @@
-import React from 'react'
 import { Grid } from '@material-ui/core';
-import './TripPage.css'
 import CheckList from '../CheckList/CheckList'
-import CheckRing from '../CheckRing/CheckRing'
 import DateOfTrip from '../DateOfTrip/DateOfTrip'
+import CheckRing from '../CheckRing/CheckRing'
 
 function CurrentTripPage() {
     return (

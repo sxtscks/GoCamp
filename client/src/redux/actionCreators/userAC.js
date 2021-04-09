@@ -7,8 +7,8 @@ export const userSignUp = (userName = '', userEmail = '', userPass = '') => asyn
         displayName: userName,
       })
     })
-  const { user: { token, uid } } = getState()
-  dispatch( setUserData(userName, token, uid))
+  // const { user: { token, uid } } = getState()
+  // dispatch( setUserData(userName, token, uid))
 }
 
 
