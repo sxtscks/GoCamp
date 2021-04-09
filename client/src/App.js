@@ -12,12 +12,13 @@ import Signup from './components/Signup/Signup';
 import CreateNewTrip from './components/CreateNewTrip/CreateNewTrip';
 import CurrentTrips from './components/CurrentTrips/CurrentTrips';
 import Recommendations from './components/Recommendations/Recommendations';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 
 function App() {
   return (
     <Router>
       <Navbar />
-//     <ProfilePage />
+     <ProfilePage />
       <Switch>
         <Route path='/login'>
           <Login />
