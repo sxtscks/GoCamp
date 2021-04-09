@@ -11,10 +11,11 @@ import Signup from './components/Signup/Signup';
 import CreateNewTrip from './components/CreateNewTrip/CreateNewTrip';
 import CurrentTrips from './components/CurrentTrips/CurrentTrips';
 import Recommendations from './components/Recommendations/Recommendations';
-import Landing from './components/Landing/Landing'
-import ProfilePage from "./components/ProfilePage/ProfilePage.jsx";
+import ProfilePage from './components/ProfilePage/ProfilePage';
 
+import Landing from './components/Landing/Landing'
 import TripPage from "./components/TripPage/TripPage.jsx";
+
 
 function App() {
   return (
