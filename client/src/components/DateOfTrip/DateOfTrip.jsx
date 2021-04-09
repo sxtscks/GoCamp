@@ -13,15 +13,15 @@ function DateOfTrip() {
 
 
     return (
-        <div className='d-flex'>
+        <div className='d-flex' style={{fontFamily:'Montserrat', fontWeight:700, color:'white', fontSize:20}}>
             <form action="" onSubmit={handlerDate}>
                 {/* <div className="inp"> */}
             <input type="date" name='date'/>
-            <button className='btn btn-primary'type='submit'> Выбрать дату</button>
+            <button className='btn 'type='submit' style={{fontFamily:'Montserrat', fontWeight:700, color:'white', fontSize:20,marginTop:30,background:'#F46E16'}}> Выбрать дату</button>
                 {/* </div> */}
             {/* <div className="date"> */}
             {/* </div> */}
-            <div className="but">
+            <div className="but" style={{marginTop:15}}>
                 <span>  Дата поездки: {date} </span>
             </div>
             </form>

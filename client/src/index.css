@@ -16,3 +16,7 @@ code {
     monospace;
 }
 
+::-webkit-scrollbar-thumb{
+  background:chocolate;
+  
+}
