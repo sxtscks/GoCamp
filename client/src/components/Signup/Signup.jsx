@@ -64,12 +64,9 @@ export default function Signup() {
 
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{ marginTop: '12%' }}>
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">
           Зарегистрироваться
         </Typography>
@@ -118,8 +115,8 @@ export default function Signup() {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
             className={classes.submit}
+            style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}
           >
             Зарегистрироваться
           </Button>

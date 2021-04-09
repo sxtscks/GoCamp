@@ -39,55 +39,54 @@ export default function Login() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs" style={{ marginTop: '10%' }} className='logForm' >
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar} >
-
-        </Avatar>
-        <h4 className='formText'>Войти</h4>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Пароль"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            className={classes.submit}
-            style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}
-          >
-            Войти
+    <div className='logForm' style={{ marginTop: '12%' }}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <h4 className='formText'>Войти</h4>
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Пароль"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              className={classes.submit}
+              style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}
+            >
+              Войти
           </Button>
-          <Grid container>
-            <Grid item>
-              <Link to="/signup" variant="body2">
-                {"Нет аккаунта? Зарегистрируйся!"}
-              </Link>
+            <Grid container>
+              <Grid item>
+                <Link to="/signup" variant="body2" style={{color: '#32384d', textDecoration: 'none'}}>
+                  {"Нет аккаунта? Зарегистрируйся!"}
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+          </form>
+        </div>
+      </Container>
+    </div>
   );
 }
 
