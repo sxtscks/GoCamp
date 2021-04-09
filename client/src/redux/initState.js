@@ -1,6 +1,6 @@
 const initState = {
   user: {
-    name: '',
+    displayName: '',
     token: '',
     uid: '',
   },

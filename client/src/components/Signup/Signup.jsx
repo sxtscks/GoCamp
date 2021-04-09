@@ -8,8 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch } from 'react-redux';
-import { userSignUp } from '../../redux/actionCreators/userAC';
+import { googleProvider, userSignUp, sigInFacebook } from '../../redux/actionCreators/userAC';
 import firebase from '../../firebase/firebase'
+import GoogleBut from './GoogleBut/GoogleBut';
+import Facebook from '../Facebook/Facebook';
+import { useHistory } from 'react-router-dom'
 
 
 
@@ -37,32 +40,41 @@ export default function Signup() {
   const classes = useStyles();
 
   const dispatch = useDispatch()
+  const history = useHistory()
+
+
 
   const [user, setUser] = useState({ userName: '', userPassword: '', userEmail: '' })
 
   const inputHandler = (e) => {
-    console.log({ [e.target.name]: e.target.value });
     setUser({ ...user, [e.target.name]: e.target.value })
   }
 
-  const userSignup = async () => {
-    await firebase.auth().createUserWithEmailAndPassword(user.userEmail, user.userPassword)
-      .then(data => {
-        console.log('here', data);
-        firebase.auth().currentUser.updateProfile({
-          displayName: user.userName,
-        })
-      })
-  }
 
-  const submitHandler = (e) => {
+
+  const emailHandler = (e) => {
     e.preventDefault()
-    // dispatch(userSignUp(user.userName, user.userPassword, user.userEmail))
-    userSignup()
+    dispatch(userSignUp(user.userName, user.userEmail, user.userPassword))
     setUser({ userName: '', userPassword: '', userEmail: '' })
+    history.push("/");
+
+  }
+
+  const googleHandler = (e) => {
+    e.preventDefault()
+    dispatch(googleProvider())
+    setUser({ userName: '', userPassword: '', userEmail: '' })
+    history.push("/");
   }
 
 
+  const facebookHandler = (e) => {
+    e.preventDefault()
+    dispatch(sigInFacebook())
+    setUser({ userName: '', userPassword: '', userEmail: '' })
+    history.push("/");
+
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -70,12 +82,12 @@ export default function Signup() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" constiant="h5">
           Зарегистрироваться
         </Typography>
-        <form onSubmit={submitHandler} className={classes.form} noValidate>
+        <form className={classes.form} noValidate>
           <TextField
-            variant="outlined"
+            constiant="outlined"
             margin="normal"
             required
             fullWidth
@@ -88,7 +100,7 @@ export default function Signup() {
             onChange={inputHandler}
           />
           <TextField
-            variant="outlined"
+            constiant="outlined"
             margin="normal"
             required
             fullWidth
@@ -102,7 +114,7 @@ export default function Signup() {
 
           />
           <TextField
-            variant="outlined"
+            constiant="outlined"
             margin="normal"
             required
             fullWidth
@@ -117,12 +129,16 @@ export default function Signup() {
           <Button
             type="submit"
             fullWidth
-            variant="contained"
+            constiant="contained"
             color="primary"
             className={classes.submit}
+            onClick={emailHandler}
           >
             Зарегистрироваться
           </Button>
+          <GoogleBut googleHandler={googleHandler} />
+          <Facebook facebookHandler={facebookHandler} />
+          <button onClick={() => firebase.auth().signOut()}>sign out</button>
         </form>
       </div>
     </Container>
