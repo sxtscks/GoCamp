@@ -11,16 +11,15 @@
   transition-timing-function: ease-in-out;
   padding: 0;
   
-  &:focus,
-  &:hover {
+  /* &:hover {
     box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.1);
-  }
+  } */
   
-  &:active {
+  /* &:active {
     background-color: #e5e5e5;
     box-shadow: none;
     transition-duration: 10ms;
-  }
+  } */
 }
     
 .google-button__icon {
