@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useDispatch } from 'react-redux';
+import { userSignUp } from '../../redux/actionCreators/userAC';
+import firebase from '../../firebase/firebase'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -33,6 +35,33 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup() {
   const classes = useStyles();
+
+  const dispatch = useDispatch()
+
+  const [user, setUser] = useState({ userName: '', userPassword: '', userEmail: '' })
+
+  const inputHandler = (e) => {
+    console.log({ [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value })
+  }
+
+  const userSignup = async () => {
+    await firebase.auth().createUserWithEmailAndPassword(user.userEmail, user.userPassword)
+      .then(data => {
+        console.log('here', data);
+        firebase.auth().currentUser.updateProfile({
+          displayName: user.userName,
+        })
+      })
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    // dispatch(userSignUp(user.userName, user.userPassword, user.userEmail))
+    userSignup()
+    setUser({ userName: '', userPassword: '', userEmail: '' })
+  }
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -44,7 +73,7 @@ export default function Signup() {
         <Typography component="h1" variant="h5">
           Зарегистрироваться
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={submitHandler} className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -52,9 +81,11 @@ export default function Signup() {
             fullWidth
             id="name"
             label="Введите имя"
-            name="name"
+            name="userName"
             autoComplete="name"
             autoFocus
+            value={user.userName}
+            onChange={inputHandler}
           />
           <TextField
             variant="outlined"
@@ -63,20 +94,25 @@ export default function Signup() {
             fullWidth
             id="email"
             label="Введите Email"
-            name="email"
+            name="userEmail"
             autoComplete="email"
             autoFocus
+            value={user.userEmail}
+            onChange={inputHandler}
+
           />
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            name="password"
+            name="userPassword"
             label="Придумайте пароль"
             type="password"
             id="password"
             autoComplete="current-password"
+            value={user.userPassword}
+            onChange={inputHandler}
           />
           <Button
             type="submit"
