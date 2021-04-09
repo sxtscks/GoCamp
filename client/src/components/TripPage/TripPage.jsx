@@ -1,4 +1,3 @@
-import React from 'react'
 import TripInfo from './TripInfo/TripInfo'
 import TripPhotoSlider from './TripPhotoSlider/TripPhotoSlider'
 import { Grid } from '@material-ui/core';

@@ -1,7 +1,7 @@
 .landing {
-    background:  linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url('https://images.unsplash.com/photo-1610158085616-a227fd2c74fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80') no-repeat;
+    background:  linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('./background.svg') no-repeat;
     background-attachment: fixed;
-    background-size:100%
+    background-size:100%;
 }
 
 .firstScreen {
@@ -11,21 +11,21 @@
     flex-direction: column;
     align-self: center;
     width: 50%;
-    height: 760px;
+    height: 1000px;
     color: white;
 }
 
 .textOne h1 {
     text-align: center;
-    border-bottom: 2px solid white;
 }
 .textTwo h2 {
     text-align: center;
 }
-.textThree h1 {
+.textThree {
     text-align: center;
-    border-top: 2px solid white;
+    margin: 10px;
 }
+
 
 
 .сolors1 {
@@ -42,3 +42,60 @@
     fourth: #211f30;
 }
 
+.secondScreen {
+  height: 760px;
+  color: #333;
+	background: #f6f6f6;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.secondPageContent {
+  display: flex;
+  justify-content: center;
+}
+
+.secondPageContent h3 {
+  margin-top: 50px;
+}
+
+.thirdScreen {
+  height: 560px;
+  color: #333;
+	background: #217ca3;
+}
+
+.thirdPageContent {
+  display: flex;
+  justify-content: center;
+}
+
+.thirdPageContent h3 {
+  margin-top: 50px;
+}
+
+.footer {
+  height: 90px;
+  color: white;
+	background: #333;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  align-self: center;
+}
+
+.footerContent {
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  align-self: center;
+}
+
+.footerContent h5 {
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  align-self: center;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+}

@@ -4,8 +4,8 @@ import {
   Route,
 
 } from "react-router-dom";
+
 import Navbar from './components/Navbar/Navbar.jsx';
-import Main from './components/Main/Main';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import CreateNewTrip from './components/CreateNewTrip/CreateNewTrip';
@@ -15,11 +15,12 @@ import ProfilePage from './components/ProfilePage/ProfilePage';
 
 import Landing from './components/Landing/Landing'
 import TripPage from "./components/TripPage/TripPage.jsx";
+
+
 function App() {
   return (
     <Router>
       <Navbar />
-      < TripPage />
       <Switch>
         <Route path='/login'>
           <Login />
@@ -27,8 +28,11 @@ function App() {
         <Route path='/signup'>
           <Signup />
         </Route>
+        <Route path="/profile">
+          <ProfilePage />
+        </Route>
         <Route path='/create'>
-          <CreateNewTrip />
+          <TripPage />
         </Route>
         <Route path='/currentTrips'>
           <CurrentTrips />
