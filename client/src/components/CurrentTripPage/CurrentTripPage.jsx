@@ -5,7 +5,7 @@ import CheckList from '../CheckList/CheckList'
 import CheckRing from '../CheckRing/CheckRing'
 import DateOfTrip from '../DateOfTrip/DateOfTrip'
 
-function TripPage() {
+function CurrentTripPage() {
     return (
  <div className="tripPage">
 
@@ -45,4 +45,4 @@ function TripPage() {
     )
 }
 
-export default TripPage
+export default CurrentTripPage
