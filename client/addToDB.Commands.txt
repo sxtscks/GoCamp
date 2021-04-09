@@ -1,0 +1,65 @@
+currentTrip={
+    name: String,
+    author: {
+        type: Object.Id,
+        ref: ‘User’
+    },
+    date: String,
+    persons: [],
+    benzin: Number,
+    markBenzin: [],
+    wayLength: Number,
+    checkList: {
+        type:Object.id,
+        ref:‘CheckList’
+    }
+}
+
+
+ const trip = firebase.database().ref('trips');
+      const newTrip = {
+        name: state.name,
+        start: state.start,
+        finish: state.finish,
+        persons: [],
+        benzin: Number,
+        markBenzin: [],
+        wayLength: Number,
+        author: ref
+        checkList: ref
+      }
+      userRef.push(newUser)
+
+
+-----------------------------------------------------
+item={
+    name: String,
+    important: Boolean,
+    confirmed: Boolean,
+    whoTakes: {
+        type: Object.Id,
+        ref:‘User’,
+    },
+}
+
+
+const itemRef = firebase.database().ref('items');
+      const newItem = {
+        name: state.name,
+        important: state.important,
+    confirmed: false,
+     whoTakes:ref to User,
+      }
+      itemRef.push(newItem)
+
+
+-------------------------------------------------
+checkList={
+    items: []
+}
+
+const checkListRef = firebase.database().ref('checkLists');
+      const newCheckList = {
+       items : ref to item
+      }
+      checkListRef.push(newCheckList)
