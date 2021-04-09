@@ -62,6 +62,7 @@ export default function DropDownButton() {
           aria-haspopup="true"
           onClick={handleToggle}
           color="inherit"
+          style={{color: 'white', fontWeight: 700 }}
         >
           Поездки
         </Button>

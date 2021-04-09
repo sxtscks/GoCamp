@@ -4,26 +4,31 @@ import {
   Route,
 
 } from "react-router-dom";
+
 import Navbar from './components/Navbar/Navbar.jsx';
-import Main from './components/Main/Main';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import CreateNewTrip from './components/CreateNewTrip/CreateNewTrip';
 import CurrentTrips from './components/CurrentTrips/CurrentTrips';
 import Recommendations from './components/Recommendations/Recommendations';
 import Landing from './components/Landing/Landing'
+import ProfilePage from "./components/ProfilePage/ProfilePage.jsx";
+
 import TripPage from "./components/TripPage/TripPage.jsx";
+
 function App() {
   return (
     <Router>
       <Navbar />
-   {/* <ProfilePage /> */}
       <Switch>
         <Route path='/login'>
           <Login />
         </Route>
         <Route path='/signup'>
           <Signup />
+        </Route>
+        <Route path="/profile">
+          <ProfilePage />
         </Route>
         <Route path='/create'>
           <TripPage />
