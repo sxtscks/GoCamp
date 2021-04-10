@@ -2,17 +2,18 @@ import React from 'react'
 import ProgressBar from 'react-customizable-progressbar'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-
+import {setCheckedRing} from '../../redux/actionCreators/ringAC'
 
 
 function CheckRing () {
     const ring = useSelector((state) => state.ring)
     const todos = useSelector((state) => state.todos)
-    useEffect(()=>{
-        return ring
-    },[todos])
-    console.log('ringring',ring)
+    const dispatch = useDispatch()
 
+     useEffect(() => {
+         dispatch(setCheckedRing(todos))
+      }, [todos])
+    
     return (
     <div className="item" style={{
         position:'relative',
@@ -28,15 +29,11 @@ function CheckRing () {
         >
             <div className="indicator" style={{
                 position:'absolute',
-                top:'35,3%',
+                top:'35%',
                 left:'29%',
                 color:'#f46e16',
                 fontSize:'50px',
                 fontWeight:800,
-                
-
-                
-
         }}>
                 <div>{ring}%</div>
             </div>
