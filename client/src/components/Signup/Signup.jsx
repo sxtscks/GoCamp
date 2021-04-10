@@ -79,44 +79,42 @@ export default function Signup() {
     <Container component="main" maxWidth="xs" style={{ marginTop: '12%' }}>
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Зарегистрироваться
+        <Typography component="h1" variant="h5" style={{ fontFamily: "Montserrat", fontWeight: '500'}}>
+          Добро Пожаловать!
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
-            constiant="outlined"
+            variant="outlined"
             margin="normal"
-            required
             fullWidth
             id="name"
-            label="Введите имя"
-            name="userName"
+            placeholder="Как тебя зовут?"
+            name="name"
             autoComplete="name"
-            autoFocus
+            name="userName"
             value={user.userName}
             onChange={inputHandler}
           />
           <TextField
-            constiant="outlined"
+            variant="outlined"
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Введите Email"
+            placeholder="Напиши свой Email"
             name="userEmail"
             autoComplete="email"
-            autoFocus
             value={user.userEmail}
             onChange={inputHandler}
 
           />
           <TextField
-            constiant="outlined"
+            variant="outlined"
             margin="normal"
             required
             fullWidth
             name="userPassword"
-            label="Придумайте пароль"
+            placeholder="Придумай пароль"
             type="password"
             id="password"
             autoComplete="current-password"
@@ -132,13 +130,11 @@ export default function Signup() {
             onClick={emailHandler}
             variant="contained"
             className={classes.submit}
-            style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}
+            style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700, fontSize: '17px', height: '50px' }}
           >
             Зарегистрироваться
           </Button>
-          <GoogleBut googleHandler={googleHandler} />
-          <Facebook facebookHandler={facebookHandler} />
-          <button onClick={() => firebase.auth().signOut()}>sign out</button>
+          {/* <button onClick={() => firebase.auth().signOut()}>sign out</button> */}
         </form>
       </div>
     </Container>
