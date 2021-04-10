@@ -15,17 +15,15 @@ function CurrentTrips() {
   }, [])
 
   return (
-    <div style={{marginTop: '5%'}}>
+    <div style={{ marginTop: '5%' }} className="container">
       <div>
         <h2>Текущие Поездки:</h2>
       </div>
-      <div>
         {
           trips.length ?
-            trips.map((trip) => <CurrentTripItem key={trip.id} name={trip.name} author={trip.author} date={trip.date} persons={trip.persons} id={trip.id} />)
+            trips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} author={trip.author} date={trip.date} persons={trip.persons} id={trip.id} /></ul>)
             : <h3>Список пуст. Создайте новую поездку!</h3>
         }
-      </div>
     </div>
   )
 }

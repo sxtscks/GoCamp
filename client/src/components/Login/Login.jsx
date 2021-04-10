@@ -9,6 +9,7 @@ import Container from '@material-ui/core/Container';
 import firebase from '../../firebase/firebase'
 import { googleProvider, sigInFacebook } from '../../redux/actionCreators/userAC'
 import { useHistory } from 'react-router-dom'
+import logo from './GoCampLogoGraph (1).png'
 
 import {
   Link,
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -84,65 +85,66 @@ export default function Login() {
 
   }
   return (
-    <Container component="main" maxWidth="xs" style={{ marginTop: '10%' }} className='logForm' >
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar} >
-
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Войти
-        </Typography>
-        <form onSubmit={submitHandler} className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            name="userEmail"
-            value={user.userEmail}
-            onChange={inputHandler}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Пароль"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            name="userPassword"
-            value={user.userPassword}
-            onChange={inputHandler}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            className={classes.submit}
-            style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}
-          >
-            Войти
+    <div className='loginPage' >
+      <Container component="main" maxWidth="xs"  className='logForm' >
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5" style={{ marginTop: '30%' }}>
+            <img src={logo} style={{ width: "100px" }}></img>
+          </Typography>
+          <form onSubmit={submitHandler} className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="email"
+              placeholder="Email"
+              name="email"
+              autoComplete="email"
+              name="userEmail"
+              value={user.userEmail}
+              onChange={inputHandler}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              name="password"
+              placeholder="Пароль"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              name="userPassword"
+              value={user.userPassword}
+              onChange={inputHandler}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              className={classes.submit}
+              style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700, fontSize: '17px', height: '50px' }}
+            >
+              Войти
           </Button>
-          <Facebook facebookHandler={facebookHandler} />
-          <GoogleBut googleHandler={googleHandler} />
-          <Grid container>
-            <Grid item>
-              <Link to="/signup" variant="body2">
+            <Grid container justify='center'>
+              <Typography style={{ fontFamily: "Montserrat", fontWeight: '400', fontSize: '14px', color: 'grey', marginTop: '20px' }}>
+                Войти с помощью
+        </Typography>
+            </Grid>
+            <Grid container justify='space-between'>
+              <GoogleBut googleHandler={googleHandler} />
+              <Facebook facebookHandler={facebookHandler} />
+            </Grid>
+            <Grid container justify='center'>
+              <Link to="/signup" variant="body2" style={{ color: '#32384d', textDecoration: 'none', marginTop: "20px" }}>
                 {"Нет аккаунта? Зарегистрируйся!"}
               </Link>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+          </form>
+        </div>
+      </Container>
+    </div >
   );
 }
 

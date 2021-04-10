@@ -1,11 +1,17 @@
 import "./Facebook.css";
+import fbLogo from './f_logo_RGB-White_1024.png'
+
 
 const Facebook = ({ facebookHandler }) => {
   return (
-    <div className="login-button">
-      <div className="login-facebook-icon">f</div>
-      <button onClick={facebookHandler} className="login-facebook-text">With Facebook</button>
-    </div>
+    <button onClick={facebookHandler} className="btn btn-primary login-facebook-text">
+      <span className="google-button__icon">
+        <img style={{ width: "30px" }} src={fbLogo}></img>
+      </span>
+      <span className="google-button__text">
+        Facebook
+      </span>
+    </button>
   );
 }
 
