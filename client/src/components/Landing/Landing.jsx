@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import {
   Link,
 } from "react-router-dom";
+import TripMap from '../TripMap/TripMap';
 
 
 function Landing() {
@@ -22,7 +23,7 @@ function Landing() {
           <div className="textThree">
             <h1>Погнали в поход</h1>
             <Button className='buttonCreateTrip' component={Link} to="/create" variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
-                Создать поездку
+              Создать поездку
 </Button>
           </div>
         </div>
