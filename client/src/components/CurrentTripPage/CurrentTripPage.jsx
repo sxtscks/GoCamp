@@ -4,6 +4,7 @@ import DateOfTrip from '../DateOfTrip/DateOfTrip'
 import CheckRing from '../CheckRing/CheckRing'
 import Form from '../Form/Form'
 import './CurrentTripPage.css'
+import BenzinForm from '../BenzinForm/BenzinForm';
 
 function CurrentTripPage() {
     return (
@@ -38,10 +39,10 @@ function CurrentTripPage() {
             </Grid>
             <Grid  item    xs={4}>
                 <CheckRing/>
+                    <BenzinForm/>
             </Grid>
             </Grid>
                 <div className="roadMap">
-
                 </div>
         </Grid>
     </div>

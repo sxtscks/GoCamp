@@ -10,7 +10,7 @@ function CheckList() {
   const todos = useSelector(state => state.todos)
 
   useEffect(() => {
-    dispatch(setRing(todos.length*10))
+    // dispatch(setRing(todos.length*10))
     dispatch(setTodo(todos))
   }, [])
 
