@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,12 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+.loginContainer {
+min-height: 90px;
+background: url('bg5.png');
+background-size:cover;
+background-attachment: fixed;
+min-height: 900px;
 }
