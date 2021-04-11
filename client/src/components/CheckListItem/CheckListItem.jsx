@@ -20,7 +20,7 @@ function CheckListItem({ todo, id }) {
 
     <li className="list-group-item d-flex justify-content-between mx-8" style={{backgroundColor: todo.important ? "#FF9F5F": null}}>
 
-      <span className="mt-2" > {todo.text}</span>
+      <span className="mt-2" style={{fontFamily:'Montserrat', fontWeight:700, color:"#211f30", fontSize:15}}> {todo.text}</span>
 
 
 
