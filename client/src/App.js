@@ -15,22 +15,40 @@ import Landing from './components/Landing/Landing'
 import { useEffect } from 'react';
 
 import firebase from './firebase/firebase'
+import {db} from './firebase/firebase'
 import { useDispatch } from 'react-redux';
-import { setUserData } from './redux/actionCreators/userAC';
+import { setUserData } from './redux/reducers/userReducer';
+import AddTripForm from "./components/AddTrip/AddTripForm.js";
 
 function App() {
 
-  const dispatch = useDispatch()
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      console.log(user);
-      if (user) {
-        dispatch(setUserData(user.displayName, user.refreshToken, user.uid))
-      }
-    })
-  })
+  // const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged(user => {
+
+  //     if (user) {
+  //       db.collection('Users').add({
+  //         name: user.displayName,
+  //         email: user.email,
+  //         image: '',
+  //         uid: user.uid,
+  //         lastTrips: [],
+  //         futureTrips: [],
+  //         friends: [],
+  //       }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
+        
+  //     }
+  //   })
+  // }, [])
+
+
+
+
+
   return (
     <Router>
+      <AddTripForm />
       <Navbar />
       {/* <ProfilePage /> */}
       <Switch>

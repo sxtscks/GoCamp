@@ -10,14 +10,14 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import firebase from '../../firebase/firebase'
-import {googleProvider, sigInFacebook} from '../../redux/actionCreators/userAC'
+import {googleProvider, sigInFacebook} from '../../redux/reducers/userReducer'
 import {useHistory} from 'react-router-dom'
 
 import {
   Link,
 } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { userSignIn } from '../../redux/actionCreators/userAC';
+import { userSignIn } from '../../redux/reducers/userReducer';
 import Facebook from '../Facebook/Facebook';
 import GoogleBut from '../Signup/GoogleBut/GoogleBut';
 
