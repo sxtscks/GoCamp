@@ -14,7 +14,7 @@ function BenzinForm() {
       console.log('km here', e.target.km.value)
       console.log('gas here', e.target.gas.value)
       console.log('person here', e.target.person.value)
-      setCost(Math.floor((e.target.km.value * e.target.gas.value) / e.target.person.value))
+      setCost(`${Math.floor((e.target.km.value * e.target.gas.value) / e.target.person.value)} рублей с человека`)
     }
 
     return (
@@ -44,7 +44,7 @@ function BenzinForm() {
                 fontSize:'20px',
                 fontWeight:800,
         }}>
-                <div> рублей с человека:{cost}</div>
+                <div>{cost}</div>
             </div>
         </div>
     )

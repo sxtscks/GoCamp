@@ -1,3 +1,4 @@
+import { CREATE_TRIP, GET_TRIPS } from "../types/trips";
 import { db } from '../../firebase/firebase'
 import firebase from '../../firebase/firebase'
 import dotProp from 'dot-prop'
@@ -36,6 +37,13 @@ const tripReducer = (state = initState, action) => {
     //   finish: action.payload.finish,
     //   description: action.payload.description
     // }
+    case GET_TRIPS:
+      return action.payload
+
+    case CREATE_TRIP:
+      return [
+        ...state, action.payload
+      ]
 
     default:
       return state;

@@ -11,6 +11,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import {
   Link,
@@ -19,6 +21,7 @@ import {
 import './Navbar.css'
 import { slideInLeft } from 'react-animations'
 import styled, { keyframes } from 'styled-components';
+import { createTrip } from '../../redux/actionCreators/tripsAC';
 
 const SlideInLeft = styled.div`animation: 1s ${keyframes`${slideInLeft} infinite`}`;
 
@@ -41,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const classes = useStyles();
 
-
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -51,6 +53,46 @@ export default function Navbar() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const [form, setForm] = useState({
+    name: '',
+    place: '',
+    date: '',
+  })
+  const dispatch = useDispatch()
+
+
+  const inputHandler = async (event) => {
+    let address
+    if (event.target.name === 'place') {
+      address = event.target.value
+      const response = await fetch(
+        `https://geocode-maps.yandex.ru/1.x/?apikey=51ad9d93-9100-4ffa-8ebf-138a17d2a225&format=json&geocode=${address}`
+      );
+      const resBody = await response.json()
+      const coordinates = resBody?.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point?.pos;
+      setForm(prev => {
+        return {
+          ...prev,
+          coordinates,
+          [event.target.name]: event.target.value,
+        }
+      })
+    } else {
+      setForm((prev) => {
+        return { ...prev, [event.target.name]: event.target.value };
+      });
+    }
+  }
+
+  console.log(form);
+
+  const handlerSubmit = (e) => {
+    e.preventDefault()
+
+    dispatch(createTrip(form))
+    setOpen(false);
+  }
 
   return (
     <div className={classes.root}>
@@ -70,29 +112,51 @@ export default function Navbar() {
                 Создать поездку
 </Button>
               <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We will send updates
-                    occasionally.
+                <form onSubmit={handlerSubmit}>
+                  <DialogTitle id="form-dialog-title">Создать поездку</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      Введи название поездки и выбери дату(после можно будет изменить)
           </DialogContentText>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Email Address"
-                    type="email"
-                    fullWidth
-                  />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose} color="primary">
-                    Cancel
+                    <TextField
+                      autoFocus
+                      name='name'
+                      margin="dense"
+                      id="name"
+                      label="Название"
+                      type="text"
+                      fullWidth
+                      onChange={inputHandler}
+                    />
+                    <TextField
+                      name='place'
+                      margin="dense"
+                      label="Куда"
+                      id="place"
+                      type="text"
+                      fullWidth
+                      onChange={inputHandler}
+
+                    />
+                    <TextField
+                      name='date'
+                      margin="dense"
+                      id="name"
+                      type="date"
+                      fullWidth
+                      onChange={inputHandler}
+
+                    />
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                      Отмена
           </Button>
-                  <Button onClick={handleClose} color="primary">
-                    Subscribe
+                    <Button type='submit' color="primary">
+                      Поехали!
           </Button>
-                </DialogActions>
+                  </DialogActions>
+                </form>
               </Dialog>
               <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
               <DropDownButton />
@@ -102,6 +166,5 @@ export default function Navbar() {
         </div>
       </AppBar>
     </div>
-
   );
 }
