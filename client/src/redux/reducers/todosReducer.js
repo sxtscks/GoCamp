@@ -17,11 +17,13 @@ const todosReducer = (state = [], action) => {
         return todo
       })
     case IMPORTANT_TODO:
-      return state.map(todo => {
-        if (todo.id === action.payload.id) {
+      return [...state].map(todo => {
+        if (todo.id === action.payload) {
+          console.log('here confirmed>>>>>>', todo.important)
           todo.important = !todo.important
           return todo
         }
+        return todo
       })
     // case EDIT_TODO:
     //   return state.map(todo => {

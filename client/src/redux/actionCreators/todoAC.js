@@ -27,6 +27,7 @@ export const confirmTodo = (id) => {
   }
 }
 export const importantTodo = (id) => {
+  console.log('here idВАЖНО>>>>>>', id)
   return {
     type: IMPORTANT_TODO,
     payload: id

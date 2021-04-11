@@ -1,4 +1,4 @@
-import { YMaps, Map, Placemark, RouteButton, RouteEditor, GeolocationControl, Clusterer } from 'react-yandex-maps'
+import { YMaps, Map, Placemark, RouteButton, GeolocationControl, Clusterer, RoutePanel } from 'react-yandex-maps'
 import './TripMap.css'
 import icon from './GoCampLogoGraph (1).png'
 
@@ -12,13 +12,20 @@ function TripMap({ myTrip }) {
       <div>
         <Map defaultState={{
           center: myTrip.coordinates,
-          zoom: 8,
+          zoom: 6,
           controls: ['zoomControl', 'fullscreenControl'],
         }}
           modules={['control.ZoomControl', 'control.FullscreenControl', 'geocode']}
           className='map'>
-          <RouteButton options={{ float: 'right' }} />
-          <RouteEditor />
+          <RouteButton instanceRef={ref => {
+            if (ref) {
+              ref.routePanel.state.set({
+                from: "Москва",
+                to: myTrip.coordinates,
+                type: "auto"
+              });
+            }
+          }} options={{ float: 'right' }} />
           <GeolocationControl options={{ float: 'left' }} />
           <Clusterer options={{ groupByCoordinates: false }}>
             <Placemark
