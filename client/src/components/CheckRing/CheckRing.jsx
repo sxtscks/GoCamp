@@ -21,7 +21,7 @@ function CheckRing () {
         }}>
         <ProgressBar
             radius={100}
-            progress={ring}
+            progress={ring >= 98 ? 100 : ring}
             strokeWidth={18}
             strokeColor="#f46e16"
             strokeLinecap="square"
@@ -35,7 +35,7 @@ function CheckRing () {
                 fontSize:'50px',
                 fontWeight:800,
         }}>
-                <div>{ring}%</div>
+                <div>{ring >= 98 ? 100 : ring}%</div>
             </div>
         </ProgressBar>
     </div>
