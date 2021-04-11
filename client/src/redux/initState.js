@@ -85,22 +85,28 @@ const initState = {
       name: 'Поездка на Алтай',
       author: 'Игорь',
       date: '21.04.2021 - 29.04.2021',
+      place: 'республика Алтай',
       persons: ['Андрей', 'Ирина', 'Николай'],
-      id: Date.now()
+      id: Date.now(),
+      coordinates: '',
     },
     {
       name: 'Рыбалка в подмосковье',
       author: 'Николай',
       date: '01.05.2021 - 03.05.2021',
+      place: 'Пестовское водохранилище',
       persons: ['Алексей', 'Федя'],
-      id: Date.now()
+      id: Date.now(),
+      coordinates: '',
     },
     {
       name: 'Восхождение на Эльбрус',
       author: 'Георгий',
       date: '09.01.2021 - 16.04.2021',
+      place: 'город Москва',
       persons: ['Николай', 'Илья', 'Аяна'],
-      id: Date.now()
+      id: Date.now(),
+      coordinates: '',
     }
   ],
 }

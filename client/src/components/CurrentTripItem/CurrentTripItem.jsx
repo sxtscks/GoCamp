@@ -40,21 +40,29 @@ export default function CurrentTripItem({ name, author, id, persons, date }) {
           Создатель: {author}
         </Typography> */}
         <Typography variant="h5" component="h2" className={classes.title}>
-        {name}
+          {name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-        {date}
+          {date}
         </Typography>
         <Typography variant="body2" component="p">
-          Количество людей: {persons.length}
-          
+          Количество людей: {
+            persons ?
+              persons.length
+              : '0'
+          }
           <br />
-          {`Едут: ${persons.join(', ')}`}
+          Едут: {
+            persons ?
+              persons.join(', ')
+              : '0'
+          }
+
         </Typography>
       </CardContent>
       <CardActions>
-      <Button className='buttonCreateTrip' component={Link} to="/create" variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
-                Подробнее
+        <Button className='buttonCreateTrip' component={Link} to="/create" variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+          Подробнее
 </Button>
       </CardActions>
     </Card>
