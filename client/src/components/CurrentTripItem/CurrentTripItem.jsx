@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({ name, author, id, persons, date }) {
+export default function CurrentTripItem({ name, id, persons, startDate, endDate }) {
   const classes = useStyles();
 
   return (
@@ -43,25 +43,22 @@ export default function CurrentTripItem({ name, author, id, persons, date }) {
           {name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {date}
+          {startDate} - {endDate}
         </Typography>
         <Typography variant="body2" component="p">
-          Количество людей: {
+          {
             persons ?
-              persons.length
-              : '0'
+              <div>
+                Количество людей: {persons.length}
+                <br />
+                Едут: {persons.join(', ')}
+              </div>
+              : <p>Возьми кого-нибудь с собой!</p>
           }
-          <br />
-          Едут: {
-            persons ?
-              persons.join(', ')
-              : '0'
-          }
-
         </Typography>
       </CardContent>
       <CardActions>
-        <Button className='buttonCreateTrip' component={Link} to="/create" variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+        <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
           Подробнее
 </Button>
       </CardActions>

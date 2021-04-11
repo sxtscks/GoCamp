@@ -6,8 +6,18 @@ import Form from '../Form/Form'
 import './CurrentTripPage.css'
 import BenzinForm from '../BenzinForm/BenzinForm';
 import TripMap from '../TripMap/TripMap';
+import { useParams } from 'react-router';
+import { useSelector } from 'react-redux';
 
 function CurrentTripPage() {
+
+
+  const { id } = useParams()
+
+  const trips = useSelector(state => state.trips)
+  const myTrip = trips.find((trip) => trip.id === id)
+
+
   return (
     <div className="mainCont">
 
@@ -27,7 +37,7 @@ function CurrentTripPage() {
                 <Form />
               </Grid>
               <CheckList />
-              <TripMap />
+              <TripMap myTrip={myTrip} />
             </Grid>
             <Grid item
               spacing={2}
@@ -42,9 +52,10 @@ function CurrentTripPage() {
               <Grid item xs={4}>
                 <CheckRing />
               </Grid>
-              <Grid item sm={7}  style={{ marginTop: 70}}>
+              <Grid item sm={7} style={{ marginTop: 70 }}>
                 <BenzinForm />
-                  </Grid>
+              </Grid>
+              <h5 style={{ color: 'white' }}>Едут: </h5>
             </Grid>
             <div className="roadMap">
             </div>
