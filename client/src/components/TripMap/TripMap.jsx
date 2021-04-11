@@ -1,5 +1,6 @@
 import { YMaps, Map, Placemark, RouteButton, RouteEditor, GeolocationControl } from 'react-yandex-maps'
 import './TripMap.css'
+import icon from './GoCampLogoGraph (1).png'
 
 function TripMap() {
 
@@ -19,10 +20,11 @@ function TripMap() {
           <RouteEditor />
           <GeolocationControl options={{ float: 'left' }} />
           <Placemark
+            geometry='55.75, 37.57'
             options={{
-              // iconLayout: 'default#image',
-              // iconImageHref: `http://localhost:3001${event.thumbnail}`,
-              // iconImageSize: [40, 40],
+              iconLayout: 'default#image',
+              iconImageHref: {icon},
+              iconImageSize: [40, 40],
             }}
           />
         </Map>
