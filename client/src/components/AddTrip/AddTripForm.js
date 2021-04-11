@@ -5,8 +5,6 @@ import { addUserTrip } from "../../redux/reducers/userReducer";
 import firebase from '../../firebase/firebase'
 import { db } from '../../firebase/firebase'
 
-import { useAuthState } from 'react-firebase-hooks/auth';
-
 const AddTripForm = () => {
   const tripFromState = useSelector(state => state.trip)
   const userFromState = useSelector(state => state.user)

@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 
 const ProfileInfo = () => {
   return (
-    <div>
+    <div style={{marginTop: '5%'}}>
       <Grid container direction="row" justify="center" alignItems="center">
         <AvatarPicture />
         <AboutMe />

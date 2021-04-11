@@ -1,0 +1,2 @@
+export const CHANGE_RING = 'CHANGE_RING'
+export const CHECKED_RING = 'CHECKED_RING'
