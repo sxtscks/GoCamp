@@ -10,31 +10,48 @@ function BenzinForm() {
 
     const handlerCost = (e) => {
       e.preventDefault()
-      console.log('HELLO')
-      console.log('km here', e.target.km.value)
-      console.log('gas here', e.target.gas.value)
-      console.log('person here', e.target.person.value)
-      setCost(`${Math.floor((e.target.km.value * e.target.gas.value) / e.target.person.value)} рублей с человека`)
+      
+      if(!e.target.km.value.match(/^\d+$/)){
+        alert('В поле "Расстояние" должно стоять числовое значение(только цифры)!');
+        return e.target.km.value = ''
+        } else {
+       
+      return  setCost(`${Math.floor((e.target.km.value * e.target.gas.value) / e.target.person.value)} рублей с человека`)
+        }
     }
 
     return (
         <div>
-            <form action="" className="d-flex"onSubmit={handlerCost}  >
-            <input type="text"style={{width:100, margin:5}} name='km'className="form-control" id="exampleFormControlInput1" placeholder="km" onChange={handlerKm}/>
-
-            <select className="form-select" name='gas' style={{width:110, margin:5}} aria-label="Default select example" >
-              <option value="4.6">АИ92</option>
-              <option value="4.9">АИ95</option>
-              <option value="4.9">ДТ</option>
-            </select>
-            <select className="form-select"  name='person'style={{width:80, margin:5}} aria-label="Default select example">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button type="submit" className="btn mx-3" style={{height:40,fontFamily:'Montserrat',margin:5, fontWeight:700, color:'white', fontSize:15,background:'#F46E16'}}>Добавить</button>
+            <form action="" className="d-flex"onSubmit={handlerCost}>
+              <div className="km">
+                <div className="kmText" style={{fontFamily:'Montserrat',margin:5, fontWeight:700, color:'white', fontSize:15, textAlign:'end'}}>
+                  <span>Расстояние:</span>
+                </div>
+                <input type="text"style={{width:100, margin:5}} name='km'className="form-control" id="exampleFormControlInput1" placeholder="km" onChange={handlerKm}/>
+              </div>
+            <div className="gas">
+              <div className="gasText" style={{fontFamily:'Montserrat',margin:5, fontWeight:700, color:'white', fontSize:15, textAlign:'end'}}>
+                <span>Топливо:</span>
+              </div>
+              <select className="form-select" name='gas' style={{width:110, margin:5}} aria-label="Default select example" >
+               <option value="4.6">АИ92</option>
+               <option value="4.9">АИ95</option>
+               <option value="4.9">ДТ</option>
+              </select>
+            </div>
+            <div className="person">
+              <div className="personText" style={{fontFamily:'Montserrat',margin:5, fontWeight:700, color:'white', fontSize:15, textAlign:'end'}}>
+                <span>Люди:</span>
+              </div>
+              <select className="form-select"  name='person'style={{width:80, margin:5}} aria-label="Default select example">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <button type="submit" className="btn mx-3" style={{height:38,fontFamily:'Montserrat',margin:32, fontWeight:700, color:'white', fontSize:15,background:'#F46E16'}}>Посчитать</button>
             </form>
             <div className="indicator" style={{
                 
