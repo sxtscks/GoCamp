@@ -5,9 +5,17 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import DropDownButton from '../DropDownButton/DropDownButton';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+
 import {
   Link,
 } from "react-router-dom";
+
 import './Navbar.css'
 import { slideInLeft } from 'react-animations'
 import styled, { keyframes } from 'styled-components';
@@ -33,11 +41,30 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const classes = useStyles();
 
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+const handlerSubmit = (e) => {
+  e.preventDefault()
+  console.log('NAMEHERE>>>>>',e.target.label.value)
+  console.log('Date Here>>>>>',e.target.date.value)
+  setOpen(false);
+}
+
   return (
     <div className={classes.root}>
 
-      <AppBar position="fixed" style={{ background: '#32384d'}} >
-        <div className="container topContainer" style={{positin:'relative'}}>
+      <AppBar position="fixed" style={{ background: '#32384d' }} >
+        <div className="container topContainer" style={{ positin: 'relative' }}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <div className="logoContainer ">
@@ -47,9 +74,44 @@ export default function Navbar() {
               </div>
             </Typography>
             <div style={{ display: 'flex', justifyContent: "space-between", width: 550 }}>
-              <Button className='buttonCreateTrip' component={Link} to="/create" variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+              <Button onClick={handleClickOpen} className='buttonCreateTrip' variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                 Создать поездку
 </Button>
+              <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <form onSubmit={handlerSubmit}>
+                <DialogTitle id="form-dialog-title">Создать поездку</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Введи название поездки и выбери дату(после можно будет изменить)
+          </DialogContentText>
+                  <TextField
+                    autoFocus
+                    name='label'
+                    margin="dense"
+                    id="name"
+                    label="Название"
+                    type="text"
+                    fullWidth
+                  />
+                  <TextField
+                    autoFocus
+                    name='date'
+                    margin="dense"
+                    id="name"
+                    type="date"
+                    fullWidth
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Отмена
+          </Button>
+                  <Button type='submit' color="primary">
+                    Поехали!
+          </Button>
+                </DialogActions>
+                </form>
+              </Dialog>
               <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
               <DropDownButton />
               <Button component={Link} to="/login" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Войти</Button>
