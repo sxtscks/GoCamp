@@ -15,7 +15,7 @@ function CheckListItem({ todo, id }) {
 
   return (
 
-    <li className="list-group-item d-flex justify-content-around mx-8" style={{ backgroundColor: todo.confirmed ? "#3deb63" : null }}>
+    <li className="list-group-item d-flex justify-content-between mx-8" style={{ backgroundColor: todo.confirmed ? "#3deb63" : null }}>
 
       <span className="mt-2" > {todo.text}</span>
 
