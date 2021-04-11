@@ -6,18 +6,13 @@ function BenzinForm() {
   const handlerBenz = (e) => {
     e.preventDefault()
     const apiURL = 'https://www.globalpetrolprices.com/api_gpp_cities.php?cts=1338&ind=gp,dp&prd=latest&uid=2438&uidc=ea8b4b52b2d203692c12743bab6c21c9'
-    const apiURL1 = 'https://multigo.ru/informer/avprices3'
-    let dataAsJson = {};
     fetch(apiURL, {
       method: 'GET',
       mode: 'no-cors'
     })
-      .then(response => response.text())
-      .then(str => {
-        dataAsJson = JSON.parse(convert.xml2json(str));
-      }).then(() => {
-        console.log(dataAsJson);
-      });
+    .then(response=>response.json())
+    .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+  .then(data => console.log(data));
 
 
 
