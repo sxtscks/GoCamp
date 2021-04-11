@@ -24,6 +24,15 @@ function TripMap({ myTrip }) {
                 to: myTrip.coordinates,
                 type: "auto"
               });
+              const obj = ref.routePanel.getRouteAsync()
+              obj.then(function (multiRoute) {
+                multiRoute.model.events.add('requestsuccess', function () {
+                  const activeRoute = multiRoute.getActiveRoute()
+                  if (activeRoute) {
+                    console.log('distance', activeRoute.properties.get('distance').text);
+                  }
+                })
+              })
             }
           }} options={{ float: 'right' }} />
           <GeolocationControl options={{ float: 'left' }} />
