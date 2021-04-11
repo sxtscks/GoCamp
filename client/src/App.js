@@ -51,7 +51,6 @@ function App() {
   return (
     <Router>
       <Navbar />
-      {/* <ProfilePage /> */}
       <Switch>
         <Route path='/login'>
           <Login />
@@ -71,8 +70,14 @@ function App() {
         <Route path='/currentTrips'>
           <CurrentTrips />
         </Route>
+        <Route path='/recommendations/topic/:id'>
+          <TripPage />
+        </Route>
+        <Route path='/recommendations/:id'>
+          <RecommendsList />
+        </Route>
         <Route path='/recommendations'>
-        <TripPage />
+          <CategoriesList />
         </Route>
         <Route path="/">
           <Landing />

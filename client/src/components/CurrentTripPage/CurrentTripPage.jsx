@@ -41,8 +41,10 @@ function CurrentTripPage() {
               </Grid>
               <Grid item xs={4}>
                 <CheckRing />
-                <BenzinForm />
               </Grid>
+              <Grid item sm={7}  style={{ marginTop: 70}}>
+                <BenzinForm />
+                  </Grid>
             </Grid>
             <div className="roadMap">
             </div>
