@@ -34,65 +34,67 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function TripInfo() {
+export default function TripInfo({ myTopic }) {
   const classes = useStyles();
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
 
+  console.log(myTopic);
+  
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Typography variant="h6" className={classes.title}>
-            About event
+            {myTopic.title}
           </Typography>
           <div className={classes.demo}>
             <List dense={dense}>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <TodayIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Start event"
-                    secondary={'event.startdate'}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <EventIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="End event"
-                    secondary={'event.enddate'}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <RoomIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Location"
-                    secondary={'event.location'}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <DescriptionIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Description"
-                    secondary={'event.description'}
-                  />
-                </ListItem>
-         
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <TodayIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Start event"
+                  secondary={'event.startdate'}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <EventIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="End event"
+                  secondary={'event.enddate'}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <RoomIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Location"
+                  secondary={'event.location'}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <DescriptionIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Description"
+                  secondary={'event.description'}
+                />
+              </ListItem>
+
             </List>
           </div>
         </Grid>
