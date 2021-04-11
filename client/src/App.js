@@ -51,7 +51,7 @@ function App() {
         <Route path="/profile">
           <ProfilePage />
         </Route>
-        <Route path='/create'>
+        <Route path='/create/:id'>
           <CurrentTripPage />
         </Route>
         <Route path='/currentTrips'>

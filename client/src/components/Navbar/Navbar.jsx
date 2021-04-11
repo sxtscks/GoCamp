@@ -13,11 +13,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-
 import {
-  Link,
+  Link, useHistory,
 } from "react-router-dom";
-
 import './Navbar.css'
 import { slideInLeft } from 'react-animations'
 import styled, { keyframes } from 'styled-components';
@@ -57,9 +55,13 @@ export default function Navbar() {
   const [form, setForm] = useState({
     name: '',
     place: '',
-    date: '',
+    startDate: '',
+    endDate: '',
+    id: Date.now().toLocaleString(),
   })
+
   const dispatch = useDispatch()
+  const history = useHistory()
 
 
   const inputHandler = async (event) => {
@@ -70,7 +72,7 @@ export default function Navbar() {
         `https://geocode-maps.yandex.ru/1.x/?apikey=51ad9d93-9100-4ffa-8ebf-138a17d2a225&format=json&geocode=${address}`
       );
       const resBody = await response.json()
-      const coordinates = resBody?.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point?.pos;
+      const coordinates = resBody?.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point?.pos.split(' ').map(el => +el).reverse()
       setForm(prev => {
         return {
           ...prev,
@@ -87,10 +89,11 @@ export default function Navbar() {
 
   console.log(form);
 
-  const handlerSubmit = (e) => {
+  const handlerSubmit = (e, id) => {
     e.preventDefault()
 
     dispatch(createTrip(form))
+    // history.push(`/event-page/${id}`);
     setOpen(false);
   }
 
@@ -136,16 +139,25 @@ export default function Navbar() {
                       type="text"
                       fullWidth
                       onChange={inputHandler}
-
                     />
+                    <span style={{marginTop:4}}>Когда едем</span>
                     <TextField
-                      name='date'
+                      name='startDate'
                       margin="dense"
-                      id="name"
+                      id="startDate"
+                      type="date"
+                      label="Название"
+                      fullWidth
+                      onChange={inputHandler}
+                    />
+                    <span style={{marginTop:4}}>Когда обратно</span>
+                    <TextField
+                      name='endDate'
+                      margin="dense"
+                      id="endDate"
                       type="date"
                       fullWidth
                       onChange={inputHandler}
-
                     />
                   </DialogContent>
                   <DialogActions>
