@@ -4,17 +4,19 @@ import { addToAll, addTrip, addTripToFB } from "../../redux/reducers/tripReducer
 import { addUserTrip } from "../../redux/reducers/userReducer";
 import firebase from '../../firebase/firebase'
 import { db } from '../../firebase/firebase'
+import { useHistory } from "react-router-dom";
 
 const AddTripForm = () => {
-  const tripFromState = useSelector(state => state.trip)
-  const userFromState = useSelector(state => state.user)
-
-
-
   const [trip, setTrip] = useState({ name: '', start: '', finish: '', description: '' })
 
-  //   const { initialising, user } = useAuthState(firebase.auth());
+const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
+  const tripFromState = useSelector(state => state.trip)
 
+
+
+
+  //   const { initialising, user } = useAuthState(firebase.auth());
+const history = useHistory()
 
   const dispatch = useDispatch()
 
@@ -31,9 +33,9 @@ const AddTripForm = () => {
     // dispatch(addTrip(trip))
     // dispatch(addToAll(tripFromState.trip))
     // dispatch(addUserTrip(tripFromState))
-    console.log(userFromState, "USER");
-    dispatch(addTripToFB(trip, userFromState.key))
-
+    console.log(userFromLS, "USER");
+    dispatch(addTripToFB(trip, userFromLS.key))
+    history.push('/create')
   }
 
 

@@ -4,7 +4,7 @@ import dotProp from 'dot-prop'
 const ADD_TRIP = 'ADD_TRIP'
 const ADD_TO_ALL = 'ADD_TO_ALL'
 const initState = {
-  trips: [],
+  // trips: [],
   trip: {
     name: '',
     start: '',

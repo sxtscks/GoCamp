@@ -11,7 +11,7 @@ function CheckRing () {
     const dispatch = useDispatch()
 
      useEffect(() => {
-         dispatch(setCheckedRing(todos))
+        //  dispatch(setCheckedRing(todos))
       }, [todos])
     
     return (

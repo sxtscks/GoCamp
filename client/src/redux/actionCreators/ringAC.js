@@ -10,6 +10,6 @@ export const setRing = (numb) => {
   export const setCheckedRing = (todos) => {
     return {
       type:CHECKED_RING,
-      payload:( Math.floor( 100/ todos.length)* todos.filter(todo=> todo.confirmed).length),
+      payload:( Math.floor( 100/ todos?.length)* todos.filter(todo=> todo.confirmed)?.length),
     }
   }

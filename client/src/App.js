@@ -50,12 +50,14 @@ function App() {
 
   return (
     <Router>
-      {/* <AddTripForm /> */}
       <Navbar />
       {/* <ProfilePage /> */}
       <Switch>
         <Route path='/login'>
           <Login />
+        </Route>
+        <Route path='/add'>
+        <AddTripForm />
         </Route>
         <Route path='/signup'>
           <Signup />
