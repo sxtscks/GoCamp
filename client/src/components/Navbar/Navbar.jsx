@@ -52,6 +52,14 @@ export default function Navbar() {
     setOpen(false);
   };
 
+
+const handlerSubmit = (e) => {
+  e.preventDefault()
+  console.log('NAMEHERE>>>>>',e.target.label.value)
+  console.log('Date Here>>>>>',e.target.date.value)
+  setOpen(false);
+}
+
   return (
     <div className={classes.root}>
 
@@ -70,29 +78,39 @@ export default function Navbar() {
                 Создать поездку
 </Button>
               <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                <form onSubmit={handlerSubmit}>
+                <DialogTitle id="form-dialog-title">Создать поездку</DialogTitle>
                 <DialogContent>
                   <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We will send updates
-                    occasionally.
+                    Введи название поездки и выбери дату(после можно будет изменить)
           </DialogContentText>
                   <TextField
                     autoFocus
+                    name='label'
                     margin="dense"
                     id="name"
-                    label="Email Address"
-                    type="email"
+                    label="Название"
+                    type="text"
+                    fullWidth
+                  />
+                  <TextField
+                    autoFocus
+                    name='date'
+                    margin="dense"
+                    id="name"
+                    type="date"
                     fullWidth
                   />
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose} color="primary">
-                    Cancel
+                    Отмена
           </Button>
-                  <Button onClick={handleClose} color="primary">
-                    Subscribe
+                  <Button type='submit' color="primary">
+                    Поехали!
           </Button>
                 </DialogActions>
+                </form>
               </Dialog>
               <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
               <DropDownButton />
