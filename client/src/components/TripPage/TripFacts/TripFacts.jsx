@@ -31,49 +31,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TripFacts() {
+export default function TripFacts({ myTopic }) {
   const classes = useStyles();
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
 
   return (
     <div className={classes.root}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            Information and recommendations
+      <Grid item xs={12} md={6}>
+        <Typography variant="h6" className={classes.title}>
+          Наши советы:
           </Typography>
-          <div className={classes.demo}>
-            <List dense={dense}>
-                <ListItem>
-                  <ListItemIcon>
-                    <FiberManualRecordIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Advice 1"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <FiberManualRecordIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Advice 2"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <FiberManualRecordIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Advice 3"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>
-            </List>
-          </div>
-        </Grid>
+        <div className={classes.demo}>
+          <List dense={dense}>
+            <ListItem>
+              <ListItemIcon>
+                <FiberManualRecordIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={myTopic.averageTemp}
+                secondary={secondary ? 'Secondary text' : null}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <FiberManualRecordIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={myTopic.places}
+                secondary={secondary ? 'Secondary text' : null}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <FiberManualRecordIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={myTopic.advices}
+                secondary={secondary ? 'Secondary text' : null}
+              />
+            </ListItem>
+          </List>
+        </div>
+      </Grid>
     </div>
   );
 }
