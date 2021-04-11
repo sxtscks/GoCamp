@@ -140,14 +140,17 @@ export default function Navbar() {
                       fullWidth
                       onChange={inputHandler}
                     />
+                    <span style={{marginTop:4}}>Когда едем</span>
                     <TextField
                       name='startDate'
                       margin="dense"
                       id="startDate"
                       type="date"
+                      label="Название"
                       fullWidth
                       onChange={inputHandler}
                     />
+                    <span style={{marginTop:4}}>Когда обратно</span>
                     <TextField
                       name='endDate'
                       margin="dense"
