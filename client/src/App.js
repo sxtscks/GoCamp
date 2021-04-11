@@ -19,13 +19,14 @@ import { useEffect } from 'react';
 import firebase from './firebase/firebase'
 import { useDispatch } from 'react-redux';
 import { setUserData } from './redux/actionCreators/userAC';
+import CategoriesList from "./components/CategoriesList/CategoriesList.jsx";
+import RecommendsList from "./components/RecommendsList/RecommendsList.jsx";
 
 function App() {
 
   const dispatch = useDispatch()
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
-      console.log(user);
       if (user) {
         dispatch(setUserData(user.displayName, user.refreshToken, user.uid))
       }
@@ -34,7 +35,6 @@ function App() {
   return (
     <Router>
       <Navbar />
-      {/* <ProfilePage /> */}
       <Switch>
         <Route path='/login'>
           <Login />
@@ -51,8 +51,14 @@ function App() {
         <Route path='/currentTrips'>
           <CurrentTrips />
         </Route>
+        <Route path='/recommendations/topic/:id'>
+          <TripPage />
+        </Route>
+        <Route path='/recommendations/:id'>
+          <RecommendsList />
+        </Route>
         <Route path='/recommendations'>
-        <TripPage />
+          <CategoriesList />
         </Route>
         <Route path="/">
           <Landing />
