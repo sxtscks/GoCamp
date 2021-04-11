@@ -10,9 +10,9 @@ function CheckRing () {
     const todos = useSelector((state) => state.todos)
     const dispatch = useDispatch()
 
-     useEffect(() => {
-        //  dispatch(setCheckedRing(todos))
-      }, [todos])
+    //  useEffect(() => {
+    //     //  dispatch(setCheckedRing(todos))
+    //   }, [todos])
     
     return (
     <div className="item" style={{

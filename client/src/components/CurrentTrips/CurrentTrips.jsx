@@ -10,9 +10,9 @@ function CurrentTrips() {
 
   const trips = useSelector(state => state.trips)
 
-  useEffect(() => {
-    dispatch(getTrips(trips))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getTrips(trips))
+  // }, [])
 
   return (
     <div style={{ marginTop: '5%' }} className="container">

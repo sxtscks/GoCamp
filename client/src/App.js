@@ -73,12 +73,12 @@ function App() {
         <Route path='/recommendations/topic/:id'>
           <TripPage />
         </Route>
-        <Route path='/recommendations/:id'>
+        {/* <Route path='/recommendations/:id'>
           <RecommendsList />
         </Route>
         <Route path='/recommendations'>
           <CategoriesList />
-        </Route>
+        </Route> */}
         <Route path="/">
           <Landing />
         </Route>

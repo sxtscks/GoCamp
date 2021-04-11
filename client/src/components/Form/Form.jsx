@@ -7,9 +7,9 @@ function Form() {
   const [value, setValue] = useState('')
 
   function handlerChange(event) {
-
     setValue(event.target.value)
   }
+  
   const addTodoHandler = (e) => {
     e.preventDefault()
     dispatch(addTodo(value))

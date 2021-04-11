@@ -24,10 +24,15 @@ function CurrentTripPage() {
 
             <Grid item sm={6} style={{ marginTop: 30 }} >
               <Grid item xs={12}>
+
                 <Form />
+
               </Grid>
+
               <CheckList />
+
               <TripMap />
+              
             </Grid>
             <Grid item
               spacing={2}

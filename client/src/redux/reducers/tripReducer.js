@@ -60,57 +60,22 @@ export const addTrip = (trip) => {
   }
 }
 
-export const addTripToFB = (trip, key) => (dispatch, getState) => {
+// export const addTripsTodo = (userKey, todo) => async (dispatch, getState)=>  {
+//   db.collection('Users').doc(userKey).collection('futureTrips')
+// }
+
+export const addTripToFB = (trip, key) => async (dispatch, getState) => {
   console.log(key, 'YA TUT');
-  let tripId = '';
-  db.collection('AllTrips').add({
+
+  return db.collection('Users').doc(key).collection('futureTrips').add({
     ...trip,
     persons: [],
     benzin: 0,
     markBenzin: [],
     wayLength: 0,
-    author: key,
     checkList: []
-  }).then((docRef) => tripId = docRef.id)
-
-
-  db.collection('Users').doc(key).update({
-    futureTrips: firebase.firestore.FieldValue.arrayUnion({
-      ...trip,
-      persons: [],
-      benzin: 0,
-      markBenzin: [],
-      wayLength: 0,
-      checkList: []
-    })
   })
-  
-
-
-  // collection('futureTrips').add({
-  //   ...trip,
-  //   persons: [],
-  //   benzin: 0,
-  //   markBenzin: [],
-  //   wayLength: 0,
-  //   checkList: []
-  // })
 }
 
-// const setTripToUSer = (id) => {
-
-
-// }
-// import { GET_TRIPS } from "../types/trips";
-
-// const tripReducer = (state = [], action) => {
-//   switch (action.type) {
-//     case GET_TRIPS:
-//       return action.payload
-  
-//     default:
-//       return state;
-//   }
-// }
 
 export default tripReducer

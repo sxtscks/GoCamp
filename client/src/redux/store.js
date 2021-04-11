@@ -15,8 +15,8 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 window.store = store;
 
-console.log('YA tuut', (store.getState()).user);
 store.subscribe((() => {
-  window.localStorage.setItem('myApp', JSON.stringify((store.getState()).user))
+  const res = store.getState().user
+  window.localStorage.setItem('myApp', JSON.stringify(res))
 }))
 export default store

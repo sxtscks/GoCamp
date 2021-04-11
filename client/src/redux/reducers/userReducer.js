@@ -5,31 +5,21 @@ import { db } from '../../firebase/firebase'
 const SET_USER_DATA = "SET_USER_DATA"
 const AUTH_USER = "AUTH_USER"
 const ADD_USER_TRIP = 'ADD_USER_TRIP'
+const ADD_TPIPKEY_TO_USER = 'ADD_TPIPKEY_TO_USER'
 
-// const fromLS = JSON.parse(window.localStorage.getItem('myApp'))
-// const user = {
-//   displayName: '',
-//   token: '',
-//   uid: '',
-//   key: '',
-//   image: '',
-//   email: '',
-//   achievements: [],
-//   finishedTrips: [],
-//   futureTrips: [],
-//   friends: [],
-// }
-export const initState ={
-    displayName: '',
-    token: '',
-    uid: '',
-    key: '',
-    image: '',
-    email: '',
-    achievements: [],
-    finishedTrips: [],
-    futureTrips: [],
-    friends: [],
+const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
+
+export const initState = {
+  displayName: '',
+  token: '',
+  uid: '',
+  key: '',
+  image: '',
+  email: '',
+  achievements: [],
+  finishedTrips: [],
+  futureTrips:[],
+  friends: [],
 }
 const userReducer = (state = initState, action) => {
   switch (action.type) {
@@ -50,9 +40,15 @@ const userReducer = (state = initState, action) => {
     case AUTH_USER:
       return action.payload
 
+    case ADD_TPIPKEY_TO_USER:
+      return {
+        ...state,
+        // ...state.user,stat
+        futureTrips: [...state.user.futureTrips, action.payload]
+      }
 
+      
     case 'ADD_KEY':
-      console.log('YA TUUUUUT');
       return {
         ...state,
         ...state.user,
@@ -68,21 +64,27 @@ export const addUserTrip = (trip) => ({ type: ADD_USER_TRIP, payload: trip.trip 
 export const userSignUp = (userName, userEmail, userPassword) => async (dispatch, getState) => {
   await firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword)
     .then(data => {
-     firebase.auth().currentUser.updateProfile({
+      firebase.auth().currentUser.updateProfile({
         displayName: userName
       })
 
 
       firebase.auth().onAuthStateChanged(user => {
-        console.log(user);
         if (user) {
+          if (userFromLS.key !== '') {
+            const userDB = db.collection('Users').doc(userFromLS.key)
+            const key = userDB.id
+            console.log('USERFROMDB', userDB);
+            if (user.uid === userDB.uid) {
+              dispatch(setUserData(user.displayName, user.refreshToken, user.uid, key))
+            }
+          }
           db.collection('Users').add({
             name: user.displayName,
             email: user.email,
             image: '',
             uid: user.uid,
             lastTrips: [],
-            futureTrips: [],
             friends: [],
           }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
 
@@ -108,15 +110,20 @@ export const googleProvider = () => async (dispatch, getState) => {
 
 
       firebase.auth().onAuthStateChanged(user => {
-
         if (user) {
+          if (userFromLS.key !== '') {
+            const userDB = db.collection('Users').doc(userFromLS.key)
+            console.log('USERFROMDB', userDB);
+            if (user.uid === userDB.uid) {
+              dispatch(setUserData(user.displayName, user.refreshToken, user.uid, userFromLS.key))
+            }
+          }
           db.collection('Users').add({
             name: user.displayName,
             email: user.email,
             image: '',
             uid: user.uid,
             lastTrips: [],
-            futureTrips: [],
             friends: [],
           }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
 
@@ -145,13 +152,20 @@ export const sigInFacebook = () => async (dispatch, getState) => {
       firebase.auth().onAuthStateChanged(user => {
 
         if (user) {
+          if (userFromLS.key !== '') {
+            const userDB = db.collection('Users').doc(userFromLS.key)
+            console.log('USERFROMDB', userDB);
+
+            if (user.uid === userDB.uid) {
+              dispatch(setUserData(user.displayName, user.refreshToken, user.uid, userFromLS.key))
+            }
+          }
           db.collection('Users').add({
             name: user.displayName,
             email: user.email,
             image: '',
             uid: user.uid,
             lastTrips: [],
-            futureTrips: [],
             friends: [],
           }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
 
@@ -176,6 +190,13 @@ export const setUserData = (displayName, token, uid, key) => {
     payload: {
       displayName, token, uid, key
     }
+  }
+}
+
+export const addTripKeytoUser = (key) => {
+  return {
+    type: ADD_TPIPKEY_TO_USER,
+    payload: key
   }
 }
 // export const addKeyUser = (id) => {

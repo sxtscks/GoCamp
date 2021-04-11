@@ -5,18 +5,19 @@ import { addUserTrip } from "../../redux/reducers/userReducer";
 import firebase from '../../firebase/firebase'
 import { db } from '../../firebase/firebase'
 import { useHistory } from "react-router-dom";
+import Form from "../Form/Form";
 
 const AddTripForm = () => {
   const [trip, setTrip] = useState({ name: '', start: '', finish: '', description: '' })
 
-const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
+  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
   const tripFromState = useSelector(state => state.trip)
 
 
 
 
   //   const { initialising, user } = useAuthState(firebase.auth());
-const history = useHistory()
+  const history = useHistory()
 
   const dispatch = useDispatch()
 
@@ -29,17 +30,15 @@ const history = useHistory()
 
   const addtripSubmit = (e) => {
     e.preventDefault()
-    // console.log(trip);
-    // dispatch(addTrip(trip))
-    // dispatch(addToAll(tripFromState.trip))
-    // dispatch(addUserTrip(tripFromState))
-    console.log(userFromLS, "USER");
-    dispatch(addTripToFB(trip, userFromLS.key))
-    history.push('/create')
+    let tripId = ''
+    dispatch(addTripToFB(trip, userFromLS.key)).then((docref) => tripId = docref.id)
+    console.log(tripId);
+    history.push(`/create/${tripId}`)
   }
 
 
   return (
+    <>
     <form onSubmit={addtripSubmit}>
       <div className="mb-3">
         <input onChange={inputHandler} value={trip.name} name="name" type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
@@ -56,6 +55,7 @@ const history = useHistory()
 
       <button type="submit" className="btn btn-primary">Submit</button>
     </form>
+    </>
   );
 }
 
