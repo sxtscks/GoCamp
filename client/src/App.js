@@ -4,7 +4,6 @@ import {
   Route,
 
 } from "react-router-dom";
-
 import Navbar from './components/Navbar/Navbar.jsx';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
@@ -21,6 +20,8 @@ import { useDispatch } from 'react-redux';
 import { setUserData } from './redux/actionCreators/userAC';
 import CategoriesList from "./components/CategoriesList/CategoriesList.jsx";
 import RecommendsList from "./components/RecommendsList/RecommendsList.jsx";
+import './App.css'
+
 
 function App() {
 
@@ -37,10 +38,15 @@ function App() {
       <Navbar />
       <Switch>
         <Route path='/login'>
+          <div className="loginContainer">
+          {/* <img src={bg} style={{postition:'absolute'}}/> */}
           <Login />
+          </div>
         </Route>
         <Route path='/signup'>
-          <Signup />
+        <div>
+          <Signup  />
+          </div>
         </Route>
         <Route path="/profile">
           <ProfilePage />
