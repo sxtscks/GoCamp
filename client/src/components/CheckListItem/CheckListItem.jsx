@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { deleteTodo, importantTodo, confirmTodo } from '../../redux/actionCreators/todoAC'
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import PriorityHighSharpIcon from '@material-ui/icons/PriorityHighSharp';
@@ -11,17 +11,15 @@ import { db } from '../../firebase/firebase';
 function CheckListItem({ tripId, todo, id }) {
   console.log(todo, "TODO");
   const dispatch = useDispatch()
-  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
-
+const user = useSelector(state => state.user)
   //   const handlerConfirm = (e) => {
   //       e.preventDefault(e)
   //       return dispatch(confirmTodo(id))
   //   }
   const takerHandler = (e) => {
     e.preventDefault()
-    console.log(userFromLS.key,tripId, id);
-    db.collection('Users').doc(userFromLS.key).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
-      taker: userFromLS.key,
+    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
+      taker: user.uid,
       confirmed: true
     }).then(()=>{
       console.log('I am fine')

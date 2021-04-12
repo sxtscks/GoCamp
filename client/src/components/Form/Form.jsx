@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addTodo } from '../../redux/actionCreators/todoAC'
 import { useState } from 'react'
 import { addTripsTodo } from '../../redux/reducers/tripReducer'
@@ -8,7 +8,7 @@ function Form({ tripId }) {
   const [value, setValue] = useState({ text: '', important: false, confirmed: false, taker: '' })
   const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
 
-
+const user = useSelector(state=> state.user)
 
   function handlerChange(event) {
     setValue({ ...value, [event.target.name]: event.target.value })
@@ -19,7 +19,7 @@ function Form({ tripId }) {
     e.preventDefault()
     let todoId = '';
     console.log(value);
-    dispatch(addTripsTodo(userFromLS.key, tripId, value))
+    dispatch(addTripsTodo(user.uid, tripId, value))
       .then((docref) => todoId = docref.id)
       .then(() => console.log(todoId, 'fyufyh'))
     setValue({text: ''})

@@ -18,7 +18,7 @@ export const initState = {
   email: '',
   achievements: [],
   finishedTrips: [],
-  futureTrips:[],
+  futureTrips: [],
   friends: [],
 }
 const userReducer = (state = initState, action) => {
@@ -47,7 +47,7 @@ const userReducer = (state = initState, action) => {
         futureTrips: [...state.user.futureTrips, action.payload]
       }
 
-      
+
     case 'ADD_KEY':
       return {
         ...state,
@@ -69,28 +69,27 @@ export const userSignUp = (userName, userEmail, userPassword) => async (dispatch
       })
 
 
-      firebase.auth().onAuthStateChanged(user => {
-        // if (user) {
-        //   if (userFromLS !== null ) {
-        //     console.log(userFromLS);
-        //     const userDB = db.collection('Users').doc(userFromLS.key)
-        //     const key = userDB.id
-        //     console.log('USERFROMDB', userDB);
-        //     if (user.uid === userDB.uid) {
-        //       dispatch(setUserData(user.displayName, user.refreshToken, user.uid, key))
-        //     }
-        //   }
-        //   db.collection('Users').add({
-        //     name: user.displayName,
-        //     email: user.email,
-        //     image: '',
-        //     uid: user.uid,
-        //     lastTrips: [],
-        //     friends: [],
-        //   }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
+      // firebase.auth().onAuthStateChanged(user => {
+      //   if (user) {
+      //     if (userFromLS !== null) {
+      //       const userDB = db.collection('Users').doc(userFromLS.key)
+      //       const key = userDB.id
+      //       console.log('USERFROMDB', userDB);
+      //       if (user.uid === userDB.uid) {
+      //         dispatch(setUserData(user.displayName, user.refreshToken, user.uid, key))
+      //       }
+      //     }
+      //     db.collection('Users').add({
+      //       name: user.displayName,
+      //       email: user.email,
+      //       image: '',
+      //       uid: user.uid,
+      //       lastTrips: [],
+      //       friends: [],
+      //     }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
 
-        // }
-      })
+      //   }
+      // })
 
 
     })
@@ -112,7 +111,7 @@ export const googleProvider = () => async (dispatch, getState) => {
 
       // firebase.auth().onAuthStateChanged(user => {
       //   if (user) {
-      //     if (userFromLS !== null ) {
+      //     if (userFromLS !== null) {
       //       const userDB = db.collection('Users').doc(userFromLS.key)
       //       console.log('USERFROMDB', userDB);
       //       if (user.uid === userDB.uid) {
@@ -150,28 +149,28 @@ export const sigInFacebook = () => async (dispatch, getState) => {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       const accessToken = credential.accessToken;
 
-      firebase.auth().onAuthStateChanged(user => {
+      // firebase.auth().onAuthStateChanged(user => {
 
-        // if (user) {
-        //   if (userFromLS !== null ) {
-        //     const userDB = db.collection('Users').doc(userFromLS.key)
-        //     console.log('USERFROMDB', userDB);
+      //   if (user) {
+      //     if (userFromLS !== null) {
+      //       const userDB = db.collection('Users').doc(userFromLS.key)
+      //       console.log('USERFROMDB', userDB);
 
-        //     if (user.uid === userDB.uid) {
-        //       dispatch(setUserData(user.displayName, user.refreshToken, user.uid, userFromLS.key))
-        //     }
-        //   }
-        //   db.collection('Users').add({
-        //     name: user.displayName,
-        //     email: user.email,
-        //     image: '',
-        //     uid: user.uid,
-        //     lastTrips: [],
-        //     friends: [],
-        //   }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
+      //       if (user.uid === userDB.uid) {
+      //         dispatch(setUserData(user.displayName, user.refreshToken, user.uid, userFromLS.key))
+      //       }
+      //     }
+      //     db.collection('Users').add({
+      //       name: user.displayName,
+      //       email: user.email,
+      //       image: '',
+      //       uid: user.uid,
+      //       lastTrips: [],
+      //       friends: [],
+      //     }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
 
-        // }
-      })
+      //   }
+      // })
 
 
     })
@@ -181,6 +180,18 @@ export const userSignIn = (userEmail, userPassword) => async (dispatch, getState
 
   await firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
     .then(data => console.log(data))
+
+  firebase.auth().onAuthStateChanged(user => {
+
+    if (user) {
+      const userId = db.collection('Users').where('uid', '==', user.uid).id
+      console.log(userId);
+      dispatch(setUserData(user.displayName, user.refreshToken, user.uid, userId))
+
+      // const myApp = {displayName: user.displayName, key: userId, token: user.refreshToken}
+      // window.localStorage.setItem('myApp', JSON.stringify(myApp))
+    }
+  })
 }
 
 
