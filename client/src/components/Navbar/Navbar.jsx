@@ -13,15 +13,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-
 import {
-  Link,
+  Link, useHistory,
 } from "react-router-dom";
-
 import './Navbar.css'
 import { slideInLeft } from 'react-animations'
 import styled, { keyframes } from 'styled-components';
 import { createTrip } from '../../redux/actionCreators/tripsAC';
+import { addTripToFB } from '../../redux/reducers/tripReducer';
 
 const SlideInLeft = styled.div`animation: 1s ${keyframes`${slideInLeft} infinite`}`;
 
@@ -54,13 +53,17 @@ export default function Navbar() {
     setOpen(false);
   };
 
-  const [form, setForm] = useState({
+  const [trip, setTrip] = useState({
     name: '',
     place: '',
-    date: '',
+    start: '',
+    finish: '',
   })
-  const dispatch = useDispatch()
 
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
 
   const inputHandler = async (event) => {
     let address
@@ -70,8 +73,8 @@ export default function Navbar() {
         `https://geocode-maps.yandex.ru/1.x/?apikey=51ad9d93-9100-4ffa-8ebf-138a17d2a225&format=json&geocode=${address}`
       );
       const resBody = await response.json()
-      const coordinates = resBody?.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point?.pos;
-      setForm(prev => {
+      const coordinates = resBody?.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point?.pos.split(' ').map(el => +el).reverse()
+      setTrip(prev => {
         return {
           ...prev,
           coordinates,
@@ -79,19 +82,23 @@ export default function Navbar() {
         }
       })
     } else {
-      setForm((prev) => {
+      setTrip((prev) => {
         return { ...prev, [event.target.name]: event.target.value };
       });
     }
   }
 
-  console.log(form);
 
-  const handlerSubmit = (e) => {
+
+  const handlerSubmit = (e, id) => {
     e.preventDefault()
+    let tripId = ''
+    dispatch(addTripToFB(trip, userFromLS.key))
+      .then((docref) => tripId = docref.id)
+      .then(() => console.log(tripId, 'fyufyh'))
+      .then(() => history.push(`/create/${tripId}`))
+      .then(() => setOpen(false))
 
-    dispatch(createTrip(form))
-    setOpen(false);
   }
 
   return (
@@ -136,16 +143,22 @@ export default function Navbar() {
                       type="text"
                       fullWidth
                       onChange={inputHandler}
-
                     />
                     <TextField
-                      name='date'
+                      name='startDate'
                       margin="dense"
-                      id="name"
+                      id="startDate"
                       type="date"
                       fullWidth
                       onChange={inputHandler}
-
+                    />
+                    <TextField
+                      name='endDate'
+                      margin="dense"
+                      id="endDate"
+                      type="date"
+                      fullWidth
+                      onChange={inputHandler}
                     />
                   </DialogContent>
                   <DialogActions>

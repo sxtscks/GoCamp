@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { deleteTodo, importantTodo, confirmTodo } from '../../redux/actionCreators/todoAC'
 
 function CheckListItem({ todo, id }) {
-
+console.log(todo, "TODO");
   const dispatch = useDispatch()
 
 //   const handlerConfirm = (e) => {

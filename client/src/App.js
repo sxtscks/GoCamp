@@ -21,6 +21,7 @@ import {db} from './firebase/firebase'
 import { useDispatch } from 'react-redux';
 import { setUserData } from './redux/reducers/userReducer';
 import AddTripForm from "./components/AddTrip/AddTripForm.js";
+// import CurTip from "./components/CurrentTripPage/CurrentTripPage.js";
 
 function App() {
 
@@ -64,8 +65,9 @@ function App() {
         <Route path="/profile">
           <ProfilePage />
         </Route>
-        <Route path='/create'>
+        <Route path='/create/:id'>
           <CurrentTripPage />
+          {/* <CurTip/> */}
         </Route>
         <Route path='/currentTrips'>
           <CurrentTrips />

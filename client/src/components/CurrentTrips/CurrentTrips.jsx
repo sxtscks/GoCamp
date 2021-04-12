@@ -14,6 +14,8 @@ function CurrentTrips() {
   //   dispatch(getTrips(trips))
   // }, [])
 
+  console.log(trips);
+
   return (
     <div style={{ marginTop: '5%' }} className="container">
       <div>
@@ -21,7 +23,7 @@ function CurrentTrips() {
       </div>
         {
           trips.length ?
-            trips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} author={trip.author} date={trip.date} persons={trip.persons} id={trip.id} /></ul>)
+            trips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} place={trip.place} coordinates={trip.coordinates} author={trip.author} startDate={trip.startDate} endDate={trip.endDate} persons={trip.persons} id={trip.id}  /></ul>)
             : <h3>Список пуст. Создайте новую поездку!</h3>
         }
     </div>
