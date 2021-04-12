@@ -11,9 +11,6 @@ const initState = {
     start: '',
     finish: '',
     description: '',
-    people: [],
-    author: {},
-    checklist: []
   }
 }
 
@@ -44,6 +41,17 @@ const tripReducer = (state = initState, action) => {
       return [
         ...state, action.payload
       ]
+
+    case ADD_DISTANCE:
+      return state.map((trip) => {
+        if (trip.id === action.payload.id) {
+          return {
+            ...trip,
+            distance: action.payload.value
+          }
+        }
+        return trip
+      })
 
     default:
       return state;

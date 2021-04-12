@@ -51,6 +51,13 @@ export default function Login() {
   const classes = useStyles();
   const history = useHistory()
 
+  // function changeBackground(e) {
+  //   e.target.style.background = '#F46E16';
+  // }
+  // function changeBackgroundTransp(e) {
+  //   e.target.style.background = 'transparent';
+  // }
+
   const inputHandler = (e) => {
     console.log({ [e.target.name]: e.target.value });
     setUser({ ...user, [e.target.name]: e.target.value })
@@ -115,15 +122,18 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
               name="userPassword"
-              value={user.userPassword}
-              onChange={inputHandler}
+              // value={user.userPassword}
+              // onChange={inputHandler}
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               className={classes.submit}
-              style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700, fontSize: '17px', height: '50px' }}
+              className='btsub'
+              style={{ background: '#F46E16', color: 'white', fontWeight: 700, fontSize: '17px', height: '50px',transition:'0.3s' }}
+              // onMouseEnter={changeBackground}
+              // onMouseLeave={changeBackgroundTransp}
             >
               Войти
           </Button>

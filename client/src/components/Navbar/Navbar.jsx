@@ -21,6 +21,8 @@ import { slideInLeft } from 'react-animations'
 import styled, { keyframes } from 'styled-components';
 import { createTrip } from '../../redux/actionCreators/tripsAC';
 import { addTripToFB } from '../../redux/reducers/tripReducer';
+import { Grid, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 const SlideInLeft = styled.div`animation: 1s ${keyframes`${slideInLeft} infinite`}`;
 
@@ -37,6 +39,12 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     backgroundColor: '#32384d'
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
   },
 }));
 
@@ -109,7 +117,7 @@ export default function Navbar() {
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <div className="logoContainer ">
-                <Link to='/'><img src="/GoCampLogoGraph.png" alt="" style={{ width: 225, margin: 6, position: 'absolute', top: 2, left: -130, paddingTop: 2, zIndex: 3 }} /></Link>
+                <Link to='/'><img src="/finalLogoHope.png" alt="" style={{ width: 378, margin: 6, position: 'absolute', top: 1, left: -280, paddingTop: 2, zIndex: 3 }} /></Link>
                 {/* <div style={{width:108,height:67,position:'absolute',left:-5,zIndex:2, backgroundColor:'red'}}></div> */}
                 <SlideInLeft style={{ display: 'inline-block' }}><img src="/WhiteText.svg" className="logoMove object van move-right" alt="" style={{ width: 240, marginLeft: 78, paddingTop: 5 }} /></SlideInLeft>
               </div>
@@ -121,53 +129,69 @@ export default function Navbar() {
               <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <form onSubmit={handlerSubmit}>
                   <DialogTitle id="form-dialog-title">Создать поездку</DialogTitle>
-                  <DialogContent>
+                  <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                    <CloseIcon />
+                  </IconButton>
+                  <DialogContent style={{ fontFamily: 'Montserrat' }}>
                     <DialogContentText>
                       Введи название поездки и выбери дату(после можно будет изменить)
           </DialogContentText>
-                    <TextField
-                      autoFocus
-                      name='name'
-                      margin="dense"
-                      id="name"
-                      label="Название"
-                      type="text"
-                      fullWidth
-                      onChange={inputHandler}
-                    />
-                    <TextField
-                      name='place'
-                      margin="dense"
-                      label="Куда"
-                      id="place"
-                      type="text"
-                      fullWidth
-                      onChange={inputHandler}
-                    />
-                    <TextField
-                      name='startDate'
-                      margin="dense"
-                      id="startDate"
-                      type="date"
-                      fullWidth
-                      onChange={inputHandler}
-                    />
-                    <TextField
-                      name='endDate'
-                      margin="dense"
-                      id="endDate"
-                      type="date"
-                      fullWidth
-                      onChange={inputHandler}
-                    />
+                    <Grid container>
+                      <TextField
+                        autoFocus
+                        variant="outlined"
+                        name='name'
+                        margin="dense"
+                        id="name"
+                        placeholder='Название'
+                        type="text"
+                        fullWidth
+                        onChange={inputHandler}
+                      />
+                      <TextField
+                        variant="outlined"
+                        name='place'
+                        margin="dense"
+                        placeholder='Куда'
+                        id="place"
+                        type="text"
+                        fullWidth
+                        onChange={inputHandler}
+                      />
+                      <Grid container justify='space-between'>
+                        <Grid item>
+                          <TextField
+                            variant="outlined"
+                            name='startDate'
+                            margin="dense"
+                            id="startDate"
+                            type="date"
+                            fullWidth
+                            onChange={inputHandler}
+                            style={{ width: "270px" }}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            variant="outlined"
+                            name='endDate'
+                            margin="dense"
+                            id="endDate"
+                            type="date"
+                            fullWidth
+                            onChange={inputHandler}
+                            style={{ width: "270px" }}
+                          />
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                      Отмена
+                    <Grid container justify="center">
+                      <Button type='submit' color="primary" style={{ background: '#F46E16', color: 'white', fontWeight: 600, fontSize: '16px', height: '40px', transition: '0.3s' }}>
+                        Поехали
           </Button>
-                    <Button type='submit' color="primary">
-                      Поехали!
-          </Button>
+                    </Grid>
                   </DialogActions>
                 </form>
               </Dialog>
@@ -178,6 +202,6 @@ export default function Navbar() {
           </Toolbar>
         </div>
       </AppBar>
-    </div>
+    </div >
   );
 }

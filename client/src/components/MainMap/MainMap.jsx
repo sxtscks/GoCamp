@@ -1,27 +1,25 @@
 import { YMaps, Map, Placemark, RouteButton, GeolocationControl, Clusterer, RoutePanel } from 'react-yandex-maps'
-import './TripMap.css'
-import icon from './GoCampLogoGraph (1).png'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { addDistance } from '../../redux/actionCreators/tripsAC'
+import './MainMap.css'
+// import icon from './GoCampLogoGraph (1).png'
 
-function TripMap({ trip }) {
+
+
+function MainMap() {
 
   const key = '51ad9d93-9100-4ffa-8ebf-138a17d2a225'
 
-  const dispatch = useDispatch()  
 
   return (
     <YMaps query={{ lang: 'ru_RU', ns: "use-load-option", apikey: key }}>
       <div>
         <Map defaultState={{
-          center: myTrip.coordinates,
+          center: [55.37, 35.75],
           zoom: 6,
           controls: ['zoomControl', 'fullscreenControl'],
         }}
           modules={['control.ZoomControl', 'control.FullscreenControl', 'geocode']}
-          className='map'>
-          <RouteButton instanceRef={ref => {
+          className='mainMap'>
+          {/* <RouteButton instanceRef={ref => {
             if (ref) {
               ref.routePanel.state.set({
                 from: "Москва",
@@ -33,18 +31,17 @@ function TripMap({ trip }) {
                 multiRoute.model.events.add('requestsuccess', function () {
                   const activeRoute = multiRoute.getActiveRoute()
                   if (activeRoute) {
-                    let distance = activeRoute.properties.get('distance')
-                    dispatch(addDistance(myTrip.id, distance))
+                    console.log('distance', activeRoute.properties.get('distance').text);
                   }
                 })
               })
             }
-          }} options={{ float: 'right' }} />
+          }} options={{ float: 'right' }} /> */}
           <GeolocationControl options={{ float: 'left' }} />
           <Clusterer options={{ groupByCoordinates: false }}>
-            <Placemark
-              geometry={trip.coordinates}
-            />
+            {/* <Placemark
+              geometry={myTrip.coordinates}
+            /> */}
           </Clusterer>
         </Map>
       </div>
@@ -53,4 +50,4 @@ function TripMap({ trip }) {
   )
 }
 
-export default TripMap
+export default MainMap

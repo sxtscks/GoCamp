@@ -4,12 +4,12 @@ import {
   Route,
 
 } from "react-router-dom";
-
 import Navbar from './components/Navbar/Navbar.jsx';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import CurrentTrips from './components/CurrentTrips/CurrentTrips';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import Main from './components/Main/Main'
 
 import Landing from './components/Landing/Landing'
 import CurrentTripPage from "./components/CurrentTripPage/CurrentTripPage.jsx";
@@ -19,9 +19,11 @@ import { useEffect } from 'react';
 import firebase from './firebase/firebase'
 import {db} from './firebase/firebase'
 import { useDispatch } from 'react-redux';
-import { setUserData } from './redux/reducers/userReducer';
-import AddTripForm from "./components/AddTrip/AddTripForm.js";
-// import CurTip from "./components/CurrentTripPage/CurrentTripPage.js";
+// import { setUserData } from './redux/actionCreators/userAC';
+import CategoriesList from "./components/CategoriesList/CategoriesList.jsx";
+import RecommendsList from "./components/RecommendsList/RecommendsList.jsx";
+import './App.css'
+
 
 function App() {
 
@@ -54,13 +56,18 @@ function App() {
       <Navbar />
       <Switch>
         <Route path='/login'>
+          <div className="loginContainer">
+          {/* <img src={bg} style={{postition:'absolute'}}/> */}
           <Login />
+          </div>
         </Route>
         <Route path='/add'>
         <AddTripForm />
         </Route>
         <Route path='/signup'>
-          <Signup />
+        <div>
+          <Signup  />
+          </div>
         </Route>
         <Route path="/profile">
           <ProfilePage />
@@ -78,9 +85,10 @@ function App() {
         {/* <Route path='/recommendations/:id'>
           <RecommendsList />
         </Route>
-        <Route path='/recommendations'>
-          <CategoriesList />
-        </Route> */}
+        {/* <CategoriesList /> */}
+        {/* <Route/> */}
+          <Main/>
+        {/* </Route> */}
         <Route path="/">
           <Landing />
         </Route>

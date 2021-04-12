@@ -34,8 +34,9 @@ function CheckRing () {
                 color:'#f46e16',
                 fontSize:'50px',
                 fontWeight:800,
+                
         }}>
-                <div>{ring >= 98 ? 100 : ring}%</div>
+                <div style={{textAlign:"'center"}}>{ring >= 98 ? 100 : ring}%</div>
             </div>
         </ProgressBar>
     </div>

@@ -1,4 +1,7 @@
 import { useSelector } from "react-redux"
+import MainMap  from '../MainMap/MainMap'
+import CurrentTrips from '../CurrentTrips/CurrentTrips'
+import './Main.css'
 
 function Main() {
 
@@ -6,8 +9,13 @@ function Main() {
 
   console.log(user, "USER STATE");
   return (
-    <div>
-      <h1>Главная</h1>
+    <div className="d-flex">
+      <div className="feedContainer">
+        <CurrentTrips/>
+      </div>
+      <div style={{ marginTop: '2.5%' }}  className="mapContainer">
+          <MainMap/>
+      </div>
     </div>
   )
 }
