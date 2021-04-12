@@ -55,7 +55,7 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    if (userFromLS) {
+    if (JSON.stringify(user) !== '{}') {
       setOpen(true);
     } else {
       history.push('/login')
@@ -76,9 +76,7 @@ export default function Navbar() {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  // const authUser = useSelector(state => state.user.uid)
-
-  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
+  const user = useSelector(state => state.user)
 
 
 
@@ -105,33 +103,21 @@ export default function Navbar() {
     }
   }
 
+
+
   const handlerSubmit = (e, id) => {
     e.preventDefault()
     let tripId = ''
-    dispatch(addTripToFB(trip, userFromLS.key))
+    dispatch(addTripToFB(trip, user.uid))
       .then((docref) => tripId = docref.id)
       .then(() => history.push(`/create/${tripId}`))
       .then(() => setOpen(false))
   }
 
-  const signOut = (e) => {
-    e.preventDefault()
-    firebase.auth().signOut()
-      .then(() => window.localStorage.removeItem('myApp'))
-      .then(() => history.push('/'))
+  const signOut = async () => {
+    await firebase.auth().signOut()
+    history.push('/')
   }
-
-
-
-  // useEffect(() => {
-  //   console.log(userFromLS);
-  //   if (userFromLS) {
-  //     return setLocal(true)
-  //   } else {
-  //     return setLocal(false)
-  //   }
-  // }, [userFromLS])
-  // console.log(local);
 
   return (
     <div className={classes.root}>
@@ -146,7 +132,7 @@ export default function Navbar() {
                 <SlideInLeft style={{ display: 'inline-block' }}><img src="/WhiteText.svg" className="logoMove object van move-right" alt="" style={{ width: 240, marginLeft: 78, paddingTop: 5 }} /></SlideInLeft>
               </div>
             </Typography>
-            <div style={{ display: 'flex', justifyContent: "space-between", width: 550 }}>
+            <div className={JSON.stringify(user) !== '{}' ? 'logined' : 'unlogged'} style={{ display: 'flex', justifyContent: "space-between" }}>
               <Button onClick={handleClickOpen} className='buttonCreateTrip' variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                 Создать поездку
 </Button>
@@ -220,17 +206,20 @@ export default function Navbar() {
                 </form>
               </Dialog>
               {
-                local ?
+                JSON.stringify(user) !== '{}' ?
                   <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
                   : ''
               }
               <Button component={Link} to="/recommendations" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Советы</Button>
-              <Button component={Link} to="/main" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Поездки</Button>
-
-              {/* <DropDownButton /> */}
               {
-                local ?
-                  <Button onClick={signOut} style={{ color: 'white', fontWeight: 700 }} color='inherit'>Выйти</Button>
+                JSON.stringify(user) !== '{}' ?
+                  <DropDownButton />
+                  :
+                  <Button component={Link} to="/main" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Поездки</Button>
+              }
+              {
+                JSON.stringify(user) !== '{}' ?
+                  <Button onClick={() => signOut()} style={{ color: 'white', fontWeight: 700 }} color='inherit'>Выйти</Button>
                   :
                   <Button component={Link} to="/login" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Войти</Button>
               }

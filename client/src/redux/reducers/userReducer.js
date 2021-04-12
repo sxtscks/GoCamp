@@ -16,10 +16,6 @@ export const initState = {
   key: '',
   image: '',
   email: '',
-  achievements: [],
-  finishedTrips: [],
-  futureTrips: [],
-  friends: [],
 }
 const userReducer = (state = initState, action) => {
   switch (action.type) {
@@ -28,7 +24,7 @@ const userReducer = (state = initState, action) => {
         uid: action.payload.uid,
         token: action.payload.token,
         displayName: action.payload.displayName,
-        key: action.payload.key
+        key: action.payload.key,
       }
     case ADD_USER_TRIP:
       return {

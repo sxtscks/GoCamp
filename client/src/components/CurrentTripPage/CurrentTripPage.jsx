@@ -9,19 +9,20 @@ import Form from '../Form/Form'
 import './CurrentTripPage.css'
 import BenzinForm from '../BenzinForm/BenzinForm';
 import TripMap from '../TripMap/TripMap';
+import { useSelector } from "react-redux";
 
 
 function CurrentTripPage() {
   const [trip, setTrip] = useState({})
-  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
+const user = useSelector(state => state.user)
+const { id } = useParams()
 
-  const { id } = useParams()
-  console.log(id);
+console.log(id);
   useEffect(() => {
-    db.collection('Users').doc(userFromLS.key).collection('futureTrips').doc(id).get().then((doc)=> setTrip(doc.data()))
-
+    db.collection('Users').doc(user.uid).collection('futureTrips').doc(id).get().then((doc)=> setTrip(doc.data()))
   }, [])
-
+  
+  console.log(trip);
   return (
     <div className="mainCont">
 
@@ -39,13 +40,13 @@ function CurrentTripPage() {
             <Grid item sm={6} style={{ marginTop: 30 }} >
               <Grid item xs={12}>
 
-                <Form id={id} />
+                <Form tripId={id} />
 
               </Grid>
 
-              <CheckList  id={id}/>
+              <CheckList  tripId={id}/>
 
-              <TripMap myTrip={trip} />
+              <TripMap trip={trip} />
             </Grid>
             <Grid item
               spacing={2}
@@ -61,7 +62,7 @@ function CurrentTripPage() {
                 <CheckRing />
               </Grid>
               <Grid item sm={7} style={{ marginTop: 70 }}>
-                {/* <BenzinForm myTrip={myTrip}/> */}
+                {/* <BenzinForm trip={trip}/> */}
               </Grid>
               <h5 style={{ color: 'white' }}>Едут: </h5>
             </Grid>

@@ -1,8 +1,6 @@
 import React from 'react'
 import ProgressBar from 'react-customizable-progressbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import {setCheckedRing} from '../../redux/actionCreators/ringAC'
 
 
 function CheckRing () {

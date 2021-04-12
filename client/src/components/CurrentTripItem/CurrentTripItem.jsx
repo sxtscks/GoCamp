@@ -30,14 +30,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({ name, id, persons, startDate, endDate }) {
+export default function CurrentTripItem({ name, id, persons, startDate, endDate, place }) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardContent>
         {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Создатель: {author}
+          {author}
         </Typography> */}
         <Typography variant="h5" component="h2" className={classes.title}>
           {name}
@@ -47,7 +47,7 @@ export default function CurrentTripItem({ name, id, persons, startDate, endDate 
         </Typography>
         <Typography variant="body2" component="p">
           {
-            persons ?
+            persons.length ?
               <div>
                 Количество людей: {persons.length}
                 <br />

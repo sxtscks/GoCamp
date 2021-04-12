@@ -31,23 +31,6 @@ function App() {
 
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged(user => {
-
-  //     if (user) {
-  //       db.collection('Users').add({
-  //         name: user.displayName,
-  //         email: user.email,
-  //         image: '',
-  //         uid: user.uid,
-  //         lastTrips: [],
-  //         futureTrips: [],
-  //         friends: [],
-  //       }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
-
-  //     }
-  //   })
-  // }, [])
 
 
   useEffect(() => {
@@ -78,7 +61,6 @@ function App() {
       <Switch>
         <Route path='/login'>
           <div className="loginContainer">
-            {/* <img src={bg} style={{postition:'absolute'}}/> */}
             <Login />
           </div>
         </Route>
@@ -107,8 +89,10 @@ function App() {
           <RecommendsList />
         </Route>
         <Route path='/recommendations'>
-          {/* <CategoriesList /> */}
-          {/* <Main /> */}
+          <CategoriesList />
+        </Route>
+        <Route path='/main'>
+          <Main />
         </Route>
         <Route path="/">
           <Landing />

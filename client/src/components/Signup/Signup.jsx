@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch } from 'react-redux';
-import { googleProvider, userSignUp, sigInFacebook } from '../../redux/reducers/userReducer';
-import firebase from '../../firebase/firebase'
-import GoogleBut from './GoogleBut/GoogleBut';
-import Facebook from '../Facebook/Facebook';
+import { userSignUp} from '../../redux/reducers/userReducer';
 import { useHistory } from 'react-router-dom'
 
 
