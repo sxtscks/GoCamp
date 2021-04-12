@@ -53,7 +53,7 @@ function CurrentTripPage() {
                 <CheckRing />
               </Grid>
               <Grid item sm={7} style={{ marginTop: 70 }}>
-                <BenzinForm />
+                <BenzinForm myTrip={myTrip}/>
               </Grid>
               <h5 style={{ color: 'white' }}>Едут: </h5>
             </Grid>
