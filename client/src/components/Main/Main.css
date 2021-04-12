@@ -1,0 +1,10 @@
+.feedContainer {
+    width: 50%;
+    height: 95vh;
+    overflow-y: scroll
+}
+
+.mapContainer {
+    height: 100%;
+    width: 50%;
+}

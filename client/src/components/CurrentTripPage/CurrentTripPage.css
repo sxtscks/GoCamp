@@ -4,6 +4,6 @@
     background: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5) ), url('campfire.jpg') rgba(0, 0, 0, 0.8);
     background-size:cover;
     background-attachment: fixed;
-    min-height: 900px;
+    height: 100vh;
     
 }
