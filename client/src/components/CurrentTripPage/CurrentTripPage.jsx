@@ -46,7 +46,7 @@ console.log(id);
 
               <CheckList  tripId={id}/>
 
-              <TripMap trip={trip} />
+              {/* <TripMap trip={trip} /> */}
             </Grid>
             <Grid item
               spacing={2}
@@ -59,7 +59,7 @@ console.log(id);
                 <DateOfTrip />
               </Grid>
               <Grid item xs={4}>
-                <CheckRing />
+                <CheckRing tripId={id}/>
               </Grid>
               <Grid item sm={7} style={{ marginTop: 70 }}>
                 {/* <BenzinForm trip={trip}/> */}
