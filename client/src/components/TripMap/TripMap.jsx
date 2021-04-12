@@ -1,11 +1,15 @@
 import { YMaps, Map, Placemark, RouteButton, GeolocationControl, Clusterer, RoutePanel } from 'react-yandex-maps'
 import './TripMap.css'
 import icon from './GoCampLogoGraph (1).png'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addDistance } from '../../redux/actionCreators/tripsAC'
 
 function TripMap({ myTrip }) {
 
   const key = '51ad9d93-9100-4ffa-8ebf-138a17d2a225'
 
+  const dispatch = useDispatch()  
 
   return (
     <YMaps query={{ lang: 'ru_RU', ns: "use-load-option", apikey: key }}>
@@ -29,7 +33,8 @@ function TripMap({ myTrip }) {
                 multiRoute.model.events.add('requestsuccess', function () {
                   const activeRoute = multiRoute.getActiveRoute()
                   if (activeRoute) {
-                    console.log('distance', activeRoute.properties.get('distance').text);
+                    let distance = activeRoute.properties.get('distance')
+                    dispatch(addDistance(myTrip.id, distance))
                   }
                 })
               })

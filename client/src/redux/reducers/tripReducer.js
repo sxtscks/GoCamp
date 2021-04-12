@@ -1,4 +1,4 @@
-import { CREATE_TRIP, GET_TRIPS } from "../types/trips";
+import { ADD_DISTANCE, CREATE_TRIP, GET_TRIPS } from "../types/trips";
 
 const tripReducer = (state = [], action) => {
   switch (action.type) {
@@ -9,6 +9,17 @@ const tripReducer = (state = [], action) => {
       return [
         ...state, action.payload
       ]
+
+    case ADD_DISTANCE:
+      return state.map((trip) => {
+        if (trip.id === action.payload.id) {
+          return {
+            ...trip,
+            distance: action.payload.value
+          }
+        }
+        return trip
+      })
 
     default:
       return state;
