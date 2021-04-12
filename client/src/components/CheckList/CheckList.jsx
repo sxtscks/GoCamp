@@ -27,6 +27,21 @@ const user = useSelector(state => state.user)
       unsubscibeTodos()
     }
   }, [])
+
+  // useEffect(() => {
+
+  //   const unsubscibeTodos = db.collection('Users').doc(String(user.uid))
+  //     .collection('futureTrips').doc(String(tripId))
+  //     .collection('checkList').get()
+  //     .then((querySnapshot) => {
+  //       setTodos(querySnapshot.docs.map(el => ({...el.data(), id: el.id})))
+       
+  //     })
+
+  //   return () => {
+  //     unsubscibeTodos()
+  //   }
+  // }, [])
 return (
   <div>
     <ul className="list-group">

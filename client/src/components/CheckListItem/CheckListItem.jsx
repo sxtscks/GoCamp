@@ -18,7 +18,7 @@ const user = useSelector(state => state.user)
   //   }
   const takerHandler = (e) => {
     e.preventDefault()
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).get()
+    db.collection('Users').doc(String(user.uid)).collection('futureTrips').doc(String(tripId)).collection('checkList').doc(String(id)).get()
     .then((doc)=>doc.data())
     .then((resp) => {
       let arr = [];
@@ -34,7 +34,7 @@ const user = useSelector(state => state.user)
       return arr
       // console.log('user here=>>>>>', user.uid)
       // resp.taker != user.uid ? resp.taker = user.uid : ''
-    }).then(dat=>  db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
+    }).then(dat=>  db.collection('Users').doc(String(user.uid)).collection('futureTrips').doc(String(tripId)).collection('checkList').doc(String(id)).update({
       "confirmed": dat[0],
       "taker": dat[1]
     }) )
@@ -43,12 +43,12 @@ const user = useSelector(state => state.user)
 
 const importantHandler = (e)=> {
   e.preventDefault()
-  db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).get()
+  db.collection('Users').doc(user.uid).collection('futureTrips').doc(String(String(tripId))).collection('checkList').doc(String(id)).get()
   .then((doc)=>doc.data())
     .then((resp) =>{
       let conf = !resp.important
       return conf
-    }).then(dat=>  db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
+    }).then(dat=>  db.collection('Users').doc(String(user.uid)).collection('futureTrips').doc(String(tripId)).collection('checkList').doc(String(id)).update({
       "important": dat
   }).then(()=>{
     console.log('I am fine')
