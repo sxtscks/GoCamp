@@ -9,6 +9,7 @@ import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import CurrentTrips from './components/CurrentTrips/CurrentTrips';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import Main from './components/Main/Main'
 
 import Landing from './components/Landing/Landing'
 import CurrentTripPage from "./components/CurrentTripPage/CurrentTripPage.jsx";
@@ -64,7 +65,8 @@ function App() {
           <RecommendsList />
         </Route>
         <Route path='/recommendations'>
-          <CategoriesList />
+          {/* <CategoriesList /> */}
+          <Main/>
         </Route>
         <Route path="/">
           <Landing />

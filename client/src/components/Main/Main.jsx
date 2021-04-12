@@ -1,12 +1,20 @@
 import { useSelector } from "react-redux"
+import MainMap  from '../MainMap/MainMap'
+import CurrentTrips from '../CurrentTrips/CurrentTrips'
+import './Main.css'
 
 function Main() {
 
   const user = useSelector(state => state.user)
   console.log(user);
   return (
-    <div>
-      <h1>Главная</h1>
+    <div className="d-flex">
+      <div className="feedContainer">
+        <CurrentTrips/>
+      </div>
+      <div style={{ marginTop: '2.5%' }}  className="mapContainer">
+          <MainMap/>
+      </div>
     </div>
   )
 }
