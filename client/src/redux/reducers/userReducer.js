@@ -71,7 +71,8 @@ export const userSignUp = (userName, userEmail, userPassword) => async (dispatch
 
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          if (userFromLS.key !== '') {
+          if (userFromLS !== null ) {
+            console.log(userFromLS);
             const userDB = db.collection('Users').doc(userFromLS.key)
             const key = userDB.id
             console.log('USERFROMDB', userDB);
@@ -111,7 +112,7 @@ export const googleProvider = () => async (dispatch, getState) => {
 
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          if (userFromLS.key !== '') {
+          if (userFromLS !== null ) {
             const userDB = db.collection('Users').doc(userFromLS.key)
             console.log('USERFROMDB', userDB);
             if (user.uid === userDB.uid) {
@@ -152,7 +153,7 @@ export const sigInFacebook = () => async (dispatch, getState) => {
       firebase.auth().onAuthStateChanged(user => {
 
         if (user) {
-          if (userFromLS.key !== '') {
+          if (userFromLS !== null ) {
             const userDB = db.collection('Users').doc(userFromLS.key)
             console.log('USERFROMDB', userDB);
 

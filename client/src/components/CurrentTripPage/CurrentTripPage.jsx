@@ -16,7 +16,6 @@ function CurrentTripPage() {
   const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
 
   const { id } = useParams()
-  console.log(id);
   useEffect(() => {
     db.collection('Users').doc(userFromLS.key).collection('futureTrips').doc(id).get().then((doc)=> setTrip(doc.data()))
 
@@ -39,11 +38,11 @@ function CurrentTripPage() {
             <Grid item sm={6} style={{ marginTop: 30 }} >
               <Grid item xs={12}>
 
-                <Form id={id} />
+                <Form tripId={id} />
 
               </Grid>
 
-              <CheckList  id={id}/>
+              <CheckList  tripId={id}/>
 
               {/* <TripMap trip={trip} /> */}
             </Grid>

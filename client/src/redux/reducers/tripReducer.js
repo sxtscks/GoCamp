@@ -70,9 +70,9 @@ export const addTrip = (trip) => {
 
 export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getState)=>  {
 
- return  db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey).collection('checkList').add({
+ return  db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey).collection('checkList').add(
     todo
-  })
+  )
 }
 
 export const findAllTodos = (userKey, tripKey) => async (dispatch, getState)=>  {
@@ -91,5 +91,11 @@ export const addTripToFB = (trip, key) => async (dispatch, getState) => {
   })
 }
 
+export const takeTodo = (userKey, tripId, todoId) => async (dispatch, getState)=> {
+  console.log('DISPATCH');
+    db.collection('Users').doc(userKey).collection('futureTrips').doc(tripId).collection('checkList').doc(todoId).update({
+    taker: 'userKey'
+  })
+}
 
 export default tripReducer
