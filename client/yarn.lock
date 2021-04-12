@@ -4825,6 +4825,13 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
+dot-prop@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-6.0.1.tgz#fc26b3cf142b9e59b74dbd39ed66ce620c681083"
+  integrity sha512-tE7ztYzXHIeyvc7N+hR3oi7FIbf/NIjVP9hmAt3yMXzrQ072/fpjGLx2GxNxGxUl5V73MEqYzioOMoVhGMJ5cA==
+  dependencies:
+    is-obj "^2.0.0"
+
 dotenv-expand@5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz"
@@ -9660,6 +9667,11 @@ prepend-http@^1.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz"
   integrity sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=
 
+prettier@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.2.1.tgz#795a1a78dd52f073da0cd42b21f9c91381923ff5"
+  integrity sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==
+
 pretty-bytes@^5.3.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-5.6.0.tgz"
@@ -9723,7 +9735,7 @@ prompts@2.4.0, prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9993,6 +10005,19 @@ react-event-listener@^0.6.0:
     "@babel/runtime" "^7.2.0"
     prop-types "^15.6.0"
     warning "^4.0.1"
+
+react-firebase-hooks@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-firebase-hooks/-/react-firebase-hooks-3.0.3.tgz#61310fce721a23ad6f50cd1159a6ced87088adff"
+  integrity sha512-g66N21BTzuYWmQhWiTkBPwkrHcK5wNVpq/xkaAyWWDOl3zo9Yx/Q3nG+yVlj966Xi3E5ABC7a/Efk2LNAzzGPA==
+
+react-firebase@^2.2.8:
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/react-firebase/-/react-firebase-2.2.8.tgz#415a45c3d59c9b75dc25c09ebb98bea09e47c5f7"
+  integrity sha512-OHvGL8Jvy1/k8o95XqGostBnz142t0nQhNMnRY6YThkeCXnquVIqlHJr1t6EIEu1fpaV++InV/j2s6E7oVkNPw==
+  dependencies:
+    prop-types "^15.5.8"
+    shallowequal "^1.0.2"
 
 react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
@@ -10915,7 +10940,7 @@ shallow-equal@^1.2.1:
   resolved "https://registry.yarnpkg.com/shallow-equal/-/shallow-equal-1.2.1.tgz#4c16abfa56043aa20d050324efa68940b0da79da"
   integrity sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA==
 
-shallowequal@^1.1.0:
+shallowequal@^1.0.2, shallowequal@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
   integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==

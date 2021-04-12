@@ -7,7 +7,7 @@ import PriorityHighSharpIcon from '@material-ui/icons/PriorityHighSharp';
 import DoneOutlineOutlinedIcon from '@material-ui/icons/DoneOutlineOutlined';
 
 function CheckListItem({ todo, id }) {
-
+console.log(todo, "TODO");
   const dispatch = useDispatch()
 
 //   const handlerConfirm = (e) => {

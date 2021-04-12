@@ -22,6 +22,8 @@ import styled, { keyframes } from 'styled-components';
 import { createTrip } from '../../redux/actionCreators/tripsAC';
 import { Grid, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { addTripToFB } from '../../redux/reducers/tripReducer';
+import firebase from '../../firebase/firebase'
 
 const SlideInLeft = styled.div`animation: 1s ${keyframes`${slideInLeft} infinite`}`;
 
@@ -53,24 +55,28 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    if (userFromLS) {
+      setOpen(true);
+    } else {
+      history.push('/login')
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const [form, setForm] = useState({
+  const [trip, setTrip] = useState({
     name: '',
     place: '',
-    startDate: '',
-    endDate: '',
-    id: Date.now().toLocaleString(),
+    start: '',
+    finish: '',
   })
 
   const dispatch = useDispatch()
   const history = useHistory()
 
+  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
 
   const inputHandler = async (event) => {
     let address
@@ -81,7 +87,7 @@ export default function Navbar() {
       );
       const resBody = await response.json()
       const coordinates = resBody?.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point?.pos.split(' ').map(el => +el).reverse()
-      setForm(prev => {
+      setTrip(prev => {
         return {
           ...prev,
           coordinates,
@@ -89,20 +95,29 @@ export default function Navbar() {
         }
       })
     } else {
-      setForm((prev) => {
+      setTrip((prev) => {
         return { ...prev, [event.target.name]: event.target.value };
       });
     }
   }
 
-  console.log(form);
+
 
   const handlerSubmit = (e, id) => {
     e.preventDefault()
+    let tripId = ''
+    dispatch(addTripToFB(trip, userFromLS.key))
+      .then((docref) => tripId = docref.id)
+      .then(() => console.log(tripId, 'fyufyh'))
+      .then(() => history.push(`/create/${tripId}`))
+      .then(() => setOpen(false))
+  }
 
-    dispatch(createTrip(form))
-    // history.push(`/event-page/${id}`);
-    setOpen(false);
+  const signOut = (e) => {
+    e.preventDefault()
+    firebase.auth().signOut()
+      .then(() => window.localStorage.removeItem('myApp'))
+      .then(() => history.push('/'))
   }
 
   return (
@@ -191,9 +206,21 @@ export default function Navbar() {
                   </DialogActions>
                 </form>
               </Dialog>
-              <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
-              <DropDownButton />
-              <Button component={Link} to="/login" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Войти</Button>
+              {
+                userFromLS ?
+                  <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
+                  : ''
+              }
+                  <Button component={Link} to="/recommendations" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Советы</Button>
+                  <Button component={Link} to="/main" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Поездки</Button>
+
+              {/* <DropDownButton /> */}
+              {
+                userFromLS ?
+                  <Button onClick={signOut} style={{ color: 'white', fontWeight: 700 }} color='inherit'>Выйти</Button>
+                  :
+                  <Button component={Link} to="/login" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Войти</Button>
+              }
             </div>
           </Toolbar>
         </div>

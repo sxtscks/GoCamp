@@ -17,36 +17,59 @@ import TripPage from "./components/TripPage/TripPage.jsx";
 import { useEffect } from 'react';
 
 import firebase from './firebase/firebase'
+import { db } from './firebase/firebase'
 import { useDispatch } from 'react-redux';
-import { setUserData } from './redux/actionCreators/userAC';
+// import { setUserData } from './redux/actionCreators/userAC';
 import CategoriesList from "./components/CategoriesList/CategoriesList.jsx";
 import RecommendsList from "./components/RecommendsList/RecommendsList.jsx";
 import './App.css'
 
+// import { setUserData } from './redux/reducers/userReducer';
+import AddTripForm from "./components/AddTrip/AddTripForm.js";
+// import CurTip from "./components/CurrentTripPage/CurrentTripPage.js";
 
 function App() {
 
-  const dispatch = useDispatch()
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        dispatch(setUserData(user.displayName, user.refreshToken, user.uid))
-      }
-    })
-  })
+  // const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged(user => {
+
+  //     if (user) {
+  //       db.collection('Users').add({
+  //         name: user.displayName,
+  //         email: user.email,
+  //         image: '',
+  //         uid: user.uid,
+  //         lastTrips: [],
+  //         futureTrips: [],
+  //         friends: [],
+  //       }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
+
+  //     }
+  //   })
+  // }, [])
+
+
+
+
+
   return (
     <Router>
       <Navbar />
       <Switch>
         <Route path='/login'>
           <div className="loginContainer">
-          {/* <img src={bg} style={{postition:'absolute'}}/> */}
-          <Login />
+            {/* <img src={bg} style={{postition:'absolute'}}/> */}
+            <Login />
           </div>
         </Route>
+        <Route path='/add'>
+          <AddTripForm />
+        </Route>
         <Route path='/signup'>
-        <div>
-          <Signup  />
+          <div>
+            <Signup />
           </div>
         </Route>
         <Route path="/profile">
@@ -54,6 +77,7 @@ function App() {
         </Route>
         <Route path='/create/:id'>
           <CurrentTripPage />
+          {/* <CurTip/> */}
         </Route>
         <Route path='/currentTrips'>
           <CurrentTrips />
@@ -66,13 +90,13 @@ function App() {
         </Route>
         <Route path='/recommendations'>
           {/* <CategoriesList /> */}
-          <Main/>
+          {/* <Main /> */}
         </Route>
         <Route path="/">
           <Landing />
         </Route>
       </Switch>
-    </Router>
+    </Router >
   );
 }
 

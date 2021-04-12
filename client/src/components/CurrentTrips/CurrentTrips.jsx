@@ -10,9 +10,9 @@ function CurrentTrips() {
 
   const trips = useSelector(state => state.trips)
 
-  useEffect(() => {
-    dispatch(getTrips(trips))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getTrips(trips))
+  // }, [])
 
   console.log(trips);
 
@@ -21,11 +21,11 @@ function CurrentTrips() {
       <div>
         <h2>Текущие Поездки:</h2>
       </div>
-        {
+        {/* {
           trips.length ?
             trips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} place={trip.place} coordinates={trip.coordinates} author={trip.author} startDate={trip.startDate} endDate={trip.endDate} persons={trip.persons} id={trip.id}  /></ul>)
             : <h3>Список пуст. Создайте новую поездку!</h3>
-        }
+        } */}
     </div>
   )
 }

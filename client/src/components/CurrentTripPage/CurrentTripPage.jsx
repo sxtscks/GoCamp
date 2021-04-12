@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { db } from "../../firebase/firebase";
 import { Grid } from '@material-ui/core';
 import CheckList from '../CheckList/CheckList'
 import DateOfTrip from '../DateOfTrip/DateOfTrip'
@@ -6,17 +9,18 @@ import Form from '../Form/Form'
 import './CurrentTripPage.css'
 import BenzinForm from '../BenzinForm/BenzinForm';
 import TripMap from '../TripMap/TripMap';
-import { useParams } from 'react-router';
-import { useSelector } from 'react-redux';
+
 
 function CurrentTripPage() {
-
+  const [trip, setTrip] = useState({})
+  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
 
   const { id } = useParams()
+  console.log(id);
+  useEffect(() => {
+    db.collection('Users').doc(userFromLS.key).collection('futureTrips').doc(id).get().then((doc)=> setTrip(doc.data()))
 
-  const trips = useSelector(state => state.trips)
-  const myTrip = trips.find((trip) => trip.id === id)
-
+  }, [])
 
   return (
     <div className="mainCont">
@@ -34,10 +38,14 @@ function CurrentTripPage() {
 
             <Grid item sm={6} style={{ marginTop: 30 }} >
               <Grid item xs={12}>
-                <Form />
+
+                <Form id={id} />
+
               </Grid>
-              <CheckList />
-              <TripMap myTrip={myTrip} />
+
+              <CheckList  id={id}/>
+
+              <TripMap myTrip={trip} />
             </Grid>
             <Grid item
               spacing={2}
@@ -53,7 +61,7 @@ function CurrentTripPage() {
                 <CheckRing />
               </Grid>
               <Grid item sm={7} style={{ marginTop: 70 }}>
-                <BenzinForm myTrip={myTrip}/>
+                {/* <BenzinForm myTrip={myTrip}/> */}
               </Grid>
               <h5 style={{ color: 'white' }}>Едут: </h5>
             </Grid>
@@ -64,7 +72,7 @@ function CurrentTripPage() {
       </div>
     </div>
 
-  )
+  );
 }
 
-export default CurrentTripPage
+export default CurrentTripPage;

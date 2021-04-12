@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch } from 'react-redux';
-import { googleProvider, userSignUp, sigInFacebook } from '../../redux/actionCreators/userAC';
+import { googleProvider, userSignUp, sigInFacebook } from '../../redux/reducers/userReducer';
 import firebase from '../../firebase/firebase'
 import GoogleBut from './GoogleBut/GoogleBut';
 import Facebook from '../Facebook/Facebook';
@@ -60,21 +60,6 @@ export default function Signup() {
 
   }
 
-  const googleHandler = (e) => {
-    e.preventDefault()
-    dispatch(googleProvider())
-    setUser({ userName: '', userPassword: '', userEmail: '' })
-    history.push("/");
-  }
-
-
-  const facebookHandler = (e) => {
-    e.preventDefault()
-    dispatch(sigInFacebook())
-    setUser({ userName: '', userPassword: '', userEmail: '' })
-    history.push("/");
-
-  }
   return (
 
 

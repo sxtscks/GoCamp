@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import firebase from '../../firebase/firebase'
-import { googleProvider, sigInFacebook } from '../../redux/actionCreators/userAC'
+import { googleProvider, sigInFacebook } from '../../redux/reducers/userReducer'
 import { useHistory } from 'react-router-dom'
 import logo from './GoCampLogoGraph (1).png'
 
@@ -15,7 +15,7 @@ import {
   Link,
 } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { userSignIn } from '../../redux/actionCreators/userAC';
+import { userSignIn } from '../../redux/reducers/userReducer';
 import Facebook from '../Facebook/Facebook';
 import GoogleBut from '../Signup/GoogleBut/GoogleBut';
 
