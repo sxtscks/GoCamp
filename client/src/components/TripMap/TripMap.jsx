@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addDistance } from '../../redux/actionCreators/tripsAC'
 
-function TripMap({ myTrip }) {
+function TripMap({ trip }) {
 
   const key = '51ad9d93-9100-4ffa-8ebf-138a17d2a225'
 
@@ -15,7 +15,7 @@ function TripMap({ myTrip }) {
     <YMaps query={{ lang: 'ru_RU', ns: "use-load-option", apikey: key }}>
       <div>
         <Map defaultState={{
-          center: myTrip.coordinates,
+          center: trip.coordinates,
           zoom: 6,
           controls: ['zoomControl', 'fullscreenControl'],
         }}
@@ -25,7 +25,7 @@ function TripMap({ myTrip }) {
             if (ref) {
               ref.routePanel.state.set({
                 from: "Москва",
-                to: myTrip.coordinates,
+                to: trip.coordinates,
                 type: "auto"
               });
               const obj = ref.routePanel.getRouteAsync()
@@ -34,7 +34,7 @@ function TripMap({ myTrip }) {
                   const activeRoute = multiRoute.getActiveRoute()
                   if (activeRoute) {
                     let distance = activeRoute.properties.get('distance')
-                    dispatch(addDistance(myTrip.id, distance))
+                    dispatch(addDistance(trip.id, distance))
                   }
                 })
               })
@@ -43,7 +43,7 @@ function TripMap({ myTrip }) {
           <GeolocationControl options={{ float: 'left' }} />
           <Clusterer options={{ groupByCoordinates: false }}>
             <Placemark
-              geometry={myTrip.coordinates}
+              geometry={trip.coordinates}
             />
           </Clusterer>
         </Map>

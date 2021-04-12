@@ -12,7 +12,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Link, useHistory,
 } from "react-router-dom";
@@ -22,6 +22,7 @@ import styled, { keyframes } from 'styled-components';
 import { createTrip } from '../../redux/actionCreators/tripsAC';
 import { Grid, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { addTripToFB } from '../../redux/reducers/tripReducer';
 
 const SlideInLeft = styled.div`animation: 1s ${keyframes`${slideInLeft} infinite`}`;
 
@@ -60,17 +61,17 @@ export default function Navbar() {
     setOpen(false);
   };
 
-  const [form, setForm] = useState({
+  const [trip, setTrip] = useState({
     name: '',
     place: '',
-    startDate: '',
-    endDate: '',
-    id: Date.now().toLocaleString(),
+    start: '',
+    finish: '',
   })
 
   const dispatch = useDispatch()
   const history = useHistory()
 
+  const userFromLS = useSelector(state => state.user)
 
   const inputHandler = async (event) => {
     let address
@@ -81,7 +82,7 @@ export default function Navbar() {
       );
       const resBody = await response.json()
       const coordinates = resBody?.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point?.pos.split(' ').map(el => +el).reverse()
-      setForm(prev => {
+      setTrip(prev => {
         return {
           ...prev,
           coordinates,
@@ -89,20 +90,23 @@ export default function Navbar() {
         }
       })
     } else {
-      setForm((prev) => {
+      setTrip((prev) => {
         return { ...prev, [event.target.name]: event.target.value };
       });
     }
   }
 
-  console.log(form);
+
 
   const handlerSubmit = (e, id) => {
     e.preventDefault()
+    let tripId = ''
+    dispatch(addTripToFB(trip, userFromLS.key))
+      .then((docref) => tripId = docref.id)
+      .then(() => console.log(tripId, 'fyufyh'))
+      .then(() => history.push(`/create/${tripId}`))
+      .then(() => setOpen(false))
 
-    dispatch(createTrip(form))
-    // history.push(`/event-page/${id}`);
-    setOpen(false);
   }
 
   return (

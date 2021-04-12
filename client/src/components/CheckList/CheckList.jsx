@@ -1,26 +1,40 @@
 import CheckListItem from "../CheckListItem/CheckListItem";
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { setTodo } from '../../redux/actionCreators/todoAC'
 import { setRing } from "../../redux/actionCreators/ringAC";
+import { findAllTodos } from "../../redux/reducers/tripReducer";
+import { doc } from "prettier";
+import { db } from "../../firebase/firebase";
 
 
-function CheckList() {
+function CheckList({ tripId }) {
+  const [todos, setTodos] = useState([])
   const dispatch = useDispatch()
-  const todos = useSelector(state => state.todos)
+  //  сюда должна вернуть всех тодошек
+  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
+
 
   useEffect(() => {
-    // dispatch(setRing(todos.length*10))
-    dispatch(setTodo(todos))
-  }, [])
+    const unsubscibeTodos = db.collection('Users').doc(userFromLS.key)
+      .collection('futureTrips').doc(tripId)
+      .collection('checkList')
+      .onSnapshot((querySnapshot) => {
+        setTodos(querySnapshot.docs.map(el => ({...el.data(), id: el.id})))
+       
+      })
 
-  return (
-    <div>
-      <ul className="list-group">
-        {todos?.length ? todos.map((todo,indx) => <CheckListItem   todo = { todo } key = { todo.id } id = { todo.id } />) : ''}
-      </ul>
-    </div>
-  )
+    return () => {
+      unsubscibeTodos()
+    }
+  }, [])
+return (
+  <div>
+    <ul className="list-group">
+      {todos?.length ? todos.map((todo, indx) => <CheckListItem tripId={tripId} todo={todo} key={todo.id} id={todo.id} />) : ''}
+    </ul>
+  </div>
+)
 }
 
 export default CheckList

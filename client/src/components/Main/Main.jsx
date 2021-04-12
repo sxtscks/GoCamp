@@ -6,7 +6,8 @@ import './Main.css'
 function Main() {
 
   const user = useSelector(state => state.user)
-  console.log(user);
+
+  console.log(user, "USER STATE");
   return (
     <div className="d-flex">
       <div className="feedContainer">

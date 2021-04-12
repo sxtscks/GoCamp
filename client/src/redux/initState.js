@@ -1,16 +1,16 @@
 const initState = {
-  user: {
-    displayName: '',
-    token: '',
-    uid: '',
-  },
-  todos: [
-    { id: '32312sdsf', text: 'топор', important: false, confirmed: false },
-    { id: 'vvdsfbs', text: 'удочки', important: false, confirmed: false },
-    { id: 'bbdfbgwc', text: 'водка', important: false, confirmed: false },
-  ],
-  ring: 0,
-  trip: {},
+//   user: {
+//     displayName: '',
+//     token: '',
+//     uid: '',
+//   },
+//   todos: [
+//     { id: '32312sdsf', text: 'топор', important: false, confirmed: false },
+//     { id: 'vvdsfbs', text: 'удочки', important: false, confirmed: false },
+//     { id: 'bbdfbgwc', text: 'водка', important: false, confirmed: false },
+//   ],
+//   ring: 0,
+//   trip: {},
   recommends: [
     {
       title: 'Горы',
@@ -164,4 +164,4 @@ const initState = {
   ],
 }
 
-export default initState
+// export default initState
