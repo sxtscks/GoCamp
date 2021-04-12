@@ -16,21 +16,20 @@ import CurrentTripPage from "./components/CurrentTripPage/CurrentTripPage.jsx";
 import TripPage from "./components/TripPage/TripPage.jsx";
 import { useEffect } from 'react';
 
-import firebase from './firebase/firebase'
-import { db } from './firebase/firebase'
+import firebase, { db } from './firebase/firebase'
 import { useDispatch } from 'react-redux';
 // import { setUserData } from './redux/actionCreators/userAC';
 import CategoriesList from "./components/CategoriesList/CategoriesList.jsx";
 import RecommendsList from "./components/RecommendsList/RecommendsList.jsx";
 import './App.css'
 
-// import { setUserData } from './redux/reducers/userReducer';
+import { setUserData } from './redux/reducers/userReducer';
 import AddTripForm from "./components/AddTrip/AddTripForm.js";
 // import CurTip from "./components/CurrentTripPage/CurrentTripPage.js";
 
 function App() {
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   // useEffect(() => {
   //   firebase.auth().onAuthStateChanged(user => {
@@ -51,7 +50,26 @@ function App() {
   // }, [])
 
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((async (user) => {
+      dispatch(setUserData(user?.displayName, user?.refreshToken, user?.uid))
+      if (user) {
+        await updateDbUser(user)
+      }
+    }))
+  }, [])
 
+
+  const updateDbUser = async (sdkUser) => {
+    await db.collection('Users').doc(sdkUser.uid).set(
+      {
+        name: sdkUser.displayName,
+        email: sdkUser.email,
+        // photoURL: sdkUser.photoURL,
+      },
+      { merge: true }
+    );
+  };
 
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,7 +12,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Link, useHistory,
 } from "react-router-dom";
@@ -76,7 +76,11 @@ export default function Navbar() {
   const dispatch = useDispatch()
   const history = useHistory()
 
+  // const authUser = useSelector(state => state.user.uid)
+
   const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
+
+
 
   const inputHandler = async (event) => {
     let address
@@ -101,14 +105,11 @@ export default function Navbar() {
     }
   }
 
-
-
   const handlerSubmit = (e, id) => {
     e.preventDefault()
     let tripId = ''
     dispatch(addTripToFB(trip, userFromLS.key))
       .then((docref) => tripId = docref.id)
-      .then(() => console.log(tripId, 'fyufyh'))
       .then(() => history.push(`/create/${tripId}`))
       .then(() => setOpen(false))
   }
@@ -120,11 +121,24 @@ export default function Navbar() {
       .then(() => history.push('/'))
   }
 
+  const [local, setLocal] = useState(false)
+
+
+  useEffect(() => {
+    console.log(userFromLS);
+    if (userFromLS) {
+      return setLocal(true)
+    } else {
+      return setLocal(false)
+    }
+  }, [userFromLS])
+  console.log(local);
+
   return (
     <div className={classes.root}>
 
       <AppBar position="fixed" style={{ background: '#32384d' }} >
-        <div className="container topContainer" style={{ positin: 'relative' }}>
+        <div className="container topContainer" style={{ position: 'relative' }}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <div className="logoContainer ">
@@ -207,16 +221,16 @@ export default function Navbar() {
                 </form>
               </Dialog>
               {
-                userFromLS ?
+                local ?
                   <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
                   : ''
               }
-                  <Button component={Link} to="/recommendations" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Советы</Button>
-                  <Button component={Link} to="/main" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Поездки</Button>
+              <Button component={Link} to="/recommendations" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Советы</Button>
+              <Button component={Link} to="/main" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Поездки</Button>
 
               {/* <DropDownButton /> */}
               {
-                userFromLS ?
+                local ?
                   <Button onClick={signOut} style={{ color: 'white', fontWeight: 700 }} color='inherit'>Выйти</Button>
                   :
                   <Button component={Link} to="/login" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Войти</Button>
