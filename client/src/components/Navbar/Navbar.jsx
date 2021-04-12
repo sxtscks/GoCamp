@@ -121,18 +121,17 @@ export default function Navbar() {
       .then(() => history.push('/'))
   }
 
-  const [local, setLocal] = useState(false)
 
 
-  useEffect(() => {
-    console.log(userFromLS);
-    if (userFromLS) {
-      return setLocal(true)
-    } else {
-      return setLocal(false)
-    }
-  }, [userFromLS])
-  console.log(local);
+  // useEffect(() => {
+  //   console.log(userFromLS);
+  //   if (userFromLS) {
+  //     return setLocal(true)
+  //   } else {
+  //     return setLocal(false)
+  //   }
+  // }, [userFromLS])
+  // console.log(local);
 
   return (
     <div className={classes.root}>
