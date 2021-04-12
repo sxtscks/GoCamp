@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function BenzinForm({ myTrip }) {
+function BenzinForm({ trip }) {
   const [cost, setCost] = useState('')
   const [km, setKm] = useState('')
   const handlerKm = (e) => {
@@ -28,7 +28,7 @@ function BenzinForm({ myTrip }) {
           <div className="kmText" style={{ fontFamily: 'Montserrat', margin: 5, fontWeight: 700, color: 'white', fontSize: 15, textAlign: 'end' }}>
             <span>Расстояние:</span>
           </div>
-          <input value={myTrip.distance ? Math.floor(myTrip.distance.value / 1000) : ''} type="text" style={{ width: 100, margin: 5 }} name='km' className="form-control" id="exampleFormControlInput1" placeholder="km" onChange={handlerKm} />
+          <input value={trip.distance ? Math.floor(trip.distance.value / 1000) : ''} type="text" style={{ width: 100, margin: 5 }} name='km' className="form-control" id="exampleFormControlInput1" placeholder="km" onChange={handlerKm} />
         </div>
         <div className="gas">
           <div className="gasText" style={{ fontFamily: 'Montserrat', margin: 5, fontWeight: 700, color: 'white', fontSize: 15, textAlign: 'end' }}>

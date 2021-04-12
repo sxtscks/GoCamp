@@ -15,7 +15,7 @@ function TripMap({ trip }) {
     <YMaps query={{ lang: 'ru_RU', ns: "use-load-option", apikey: key }}>
       <div>
         <Map defaultState={{
-          center: myTrip.coordinates,
+          center: trip.coordinates,
           zoom: 6,
           controls: ['zoomControl', 'fullscreenControl'],
         }}
@@ -25,7 +25,7 @@ function TripMap({ trip }) {
             if (ref) {
               ref.routePanel.state.set({
                 from: "Москва",
-                to: myTrip.coordinates,
+                to: trip.coordinates,
                 type: "auto"
               });
               const obj = ref.routePanel.getRouteAsync()
@@ -34,7 +34,7 @@ function TripMap({ trip }) {
                   const activeRoute = multiRoute.getActiveRoute()
                   if (activeRoute) {
                     let distance = activeRoute.properties.get('distance')
-                    dispatch(addDistance(myTrip.id, distance))
+                    dispatch(addDistance(trip.id, distance))
                   }
                 })
               })

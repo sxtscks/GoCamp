@@ -1,15 +1,31 @@
 import React from 'react'
 import ProgressBar from 'react-customizable-progressbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState} from 'react'
 import {setCheckedRing} from '../../redux/actionCreators/ringAC'
+import { db } from "../../firebase/firebase";
 
-
-function CheckRing () {
-    const ring = useSelector((state) => state.ring)
-    const todos = useSelector((state) => state.todos)
+function CheckRing ({tripId}) {
+    const [ring,setRing] = useState(0)
+    // const todos = useSelector((state) => state.todos)
+    // const dispatch = useDispatch()
+    const [todos, setTodos] = useState([])
     const dispatch = useDispatch()
-
+    //  сюда должна вернуть всех тодошек
+  const user = useSelector(state => state.user)
+  
+    useEffect(() => {
+      const unsubscibeTodos = db.collection('Users').doc(user.uid)
+        .collection('futureTrips').doc(tripId)
+        .collection('checkList')
+        .onSnapshot((querySnapshot) => {
+          setTodos(querySnapshot.docs.map(el => ({...el.data(), id: el.id})))
+         
+        })
+        // setRing((todos.length >= 1 ? ( Math.floor( 
+        //   100  /  (todos.length + todos.filter(todo=> todo.important).length) *  ( (todos.filter(todo=> todo.confirmed).length) + (todos.filter(todo=> todo.confirmed && todo.important).length)) 
+        //   )) : '100'))
+      },[todos])
     //  useEffect(() => {
     //     //  dispatch(setCheckedRing(todos))
     //   }, [todos])

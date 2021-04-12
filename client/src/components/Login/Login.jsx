@@ -122,8 +122,8 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
               name="userPassword"
-              // value={user.userPassword}
-              // onChange={inputHandler}
+              value={user.userPassword}
+              onChange={inputHandler}
             />
             <Button
               type="submit"

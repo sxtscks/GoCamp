@@ -12,11 +12,10 @@ function CheckList({ tripId }) {
   const [todos, setTodos] = useState([])
   const dispatch = useDispatch()
   //  сюда должна вернуть всех тодошек
-  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
-
+const user = useSelector(state => state.user)
 
   useEffect(() => {
-    const unsubscibeTodos = db.collection('Users').doc(userFromLS.key)
+    const unsubscibeTodos = db.collection('Users').doc(user.uid)
       .collection('futureTrips').doc(tripId)
       .collection('checkList')
       .onSnapshot((querySnapshot) => {

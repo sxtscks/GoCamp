@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,7 +12,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Link, useHistory,
 } from "react-router-dom";
@@ -20,9 +20,10 @@ import './Navbar.css'
 import { slideInLeft } from 'react-animations'
 import styled, { keyframes } from 'styled-components';
 import { createTrip } from '../../redux/actionCreators/tripsAC';
-import { addTripToFB } from '../../redux/reducers/tripReducer';
 import { Grid, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { addTripToFB } from '../../redux/reducers/tripReducer';
+import firebase from '../../firebase/firebase'
 
 const SlideInLeft = styled.div`animation: 1s ${keyframes`${slideInLeft} infinite`}`;
 
@@ -54,7 +55,11 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    if (user) {
+      setOpen(true);
+    } else {
+      history.push('/login')
+    }
   };
 
   const handleClose = () => {
@@ -71,7 +76,9 @@ export default function Navbar() {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
+  const user = useSelector(state => state.user)
+
+
 
   const inputHandler = async (event) => {
     let address
@@ -96,24 +103,40 @@ export default function Navbar() {
     }
   }
 
-
-
   const handlerSubmit = (e, id) => {
     e.preventDefault()
     let tripId = ''
-    dispatch(addTripToFB(trip, userFromLS.key))
+    dispatch(addTripToFB(trip, user.uid))
       .then((docref) => tripId = docref.id)
-      .then(() => console.log(tripId, 'fyufyh'))
       .then(() => history.push(`/create/${tripId}`))
       .then(() => setOpen(false))
-
   }
+
+  const signOut = (e) => {
+    e.preventDefault()
+    firebase.auth().signOut()
+      .then(() => window.localStorage.removeItem('myApp'))
+      .then(() => history.push('/'))
+  }
+
+  // const [local, setLocal] = useState(false)
+
+
+  // useEffect(() => {
+  //   console.log(user);
+  //   if (user) {
+  //     return setLocal(true)
+  //   } else {
+  //     return setLocal(false)
+  //   }
+  // }, [user])
+  // console.log(local);
 
   return (
     <div className={classes.root}>
 
       <AppBar position="fixed" style={{ background: '#32384d' }} >
-        <div className="container topContainer" style={{ positin: 'relative' }}>
+        <div className="container topContainer" style={{ position: 'relative' }}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <div className="logoContainer ">
@@ -195,9 +218,21 @@ export default function Navbar() {
                   </DialogActions>
                 </form>
               </Dialog>
-              <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
-              <DropDownButton />
-              <Button component={Link} to="/login" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Войти</Button>
+              {/* {
+                local ? */}
+                  <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
+                  {/* : ''
+              } */}
+              <Button component={Link} to="/recommendations" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Советы</Button>
+              <Button component={Link} to="/main" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Поездки</Button>
+
+              {/* <DropDownButton /> */}
+              {/* {
+                local ? */}
+                  <Button onClick={signOut} style={{ color: 'white', fontWeight: 700 }} color='inherit'>Выйти</Button>
+                  {/* : */}
+                  <Button component={Link} to="/login" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Войти</Button>
+              {/* } */}
             </div>
           </Toolbar>
         </div>

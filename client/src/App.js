@@ -16,39 +16,43 @@ import CurrentTripPage from "./components/CurrentTripPage/CurrentTripPage.jsx";
 import TripPage from "./components/TripPage/TripPage.jsx";
 import { useEffect } from 'react';
 
-import firebase from './firebase/firebase'
-import {db} from './firebase/firebase'
+import firebase, { db } from './firebase/firebase'
 import { useDispatch } from 'react-redux';
 // import { setUserData } from './redux/actionCreators/userAC';
 import CategoriesList from "./components/CategoriesList/CategoriesList.jsx";
 import RecommendsList from "./components/RecommendsList/RecommendsList.jsx";
 import './App.css'
 
+import { setUserData } from './redux/reducers/userReducer';
+import AddTripForm from "./components/AddTrip/AddTripForm.js";
+// import CurTip from "./components/CurrentTripPage/CurrentTripPage.js";
 
 function App() {
 
-  // const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged(user => {
-
-  //     if (user) {
-  //       db.collection('Users').add({
-  //         name: user.displayName,
-  //         email: user.email,
-  //         image: '',
-  //         uid: user.uid,
-  //         lastTrips: [],
-  //         futureTrips: [],
-  //         friends: [],
-  //       }).then((docRef) => dispatch(setUserData(user.displayName, user.refreshToken, user.uid, docRef.id)))
-        
-  //     }
-  //   })
-  // }, [])
+  const dispatch = useDispatch()
 
 
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((async (user) => {
+      dispatch(setUserData(user?.displayName, user?.refreshToken, user?.uid))
+      if (user) {
+        await updateDbUser(user)
+      }
+    }))
+  }, [])
+
+
+  const updateDbUser = async (sdkUser) => {
+    await db.collection('Users').doc(sdkUser.uid).set(
+      {
+        name: sdkUser.displayName,
+        email: sdkUser.email,
+        // photoURL: sdkUser.photoURL,
+      },
+      { merge: true }
+    );
+  };
 
 
   return (
@@ -57,16 +61,16 @@ function App() {
       <Switch>
         <Route path='/login'>
           <div className="loginContainer">
-          {/* <img src={bg} style={{postition:'absolute'}}/> */}
-          <Login />
+            {/* <img src={bg} style={{postition:'absolute'}}/> */}
+            <Login />
           </div>
         </Route>
         <Route path='/add'>
-        <AddTripForm />
+          <AddTripForm />
         </Route>
         <Route path='/signup'>
-        <div>
-          <Signup  />
+          <div>
+            <Signup />
           </div>
         </Route>
         <Route path="/profile">
@@ -82,18 +86,18 @@ function App() {
         <Route path='/recommendations/topic/:id'>
           <TripPage />
         </Route>
-        {/* <Route path='/recommendations/:id'>
+        <Route path='/recommendations/:id'>
           <RecommendsList />
         </Route>
-        {/* <CategoriesList /> */}
-        {/* <Route/> */}
-          <Main/>
-        {/* </Route> */}
+        <Route path='/recommendations'>
+          {/* <CategoriesList /> */}
+          {/* <Main /> */}
+        </Route>
         <Route path="/">
           <Landing />
         </Route>
       </Switch>
-    </Router>
+    </Router >
   );
 }
 

@@ -60,29 +60,14 @@ export default function Signup() {
 
   }
 
-  const googleHandler = (e) => {
-    e.preventDefault()
-    dispatch(googleProvider())
-    setUser({ userName: '', userPassword: '', userEmail: '' })
-    history.push("/");
-  }
-
-
-  const facebookHandler = (e) => {
-    e.preventDefault()
-    dispatch(sigInFacebook())
-    setUser({ userName: '', userPassword: '', userEmail: '' })
-    history.push("/");
-
-  }
   return (
-  
 
-  
+
+
     <Container component="main" maxWidth="xs" style={{ marginTop: '12%' }}>
       <CssBaseline />
       <div className={classes.paper} >
-        <Typography component="h1" variant="h5" style={{ fontFamily: "Montserrat", fontWeight: '500'}}>
+        <Typography component="h1" variant="h5" style={{ fontFamily: "Montserrat", fontWeight: '500' }}>
           Добро Пожаловать!
         </Typography>
         <form className={classes.form} noValidate>
@@ -141,6 +126,6 @@ export default function Signup() {
         </form>
       </div>
     </Container>
-   
+
   );
 }
