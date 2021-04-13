@@ -83,6 +83,7 @@ function CurrentTripPage() {
                 <BenzinForm trip={trip} id={id} />
               </Grid>
               <h5 style={{ color: 'white' }}>Едут: </h5>
+              {user.uid === trip.author ? <p>{trip.waitingList}</p> : null}
             </Grid>
             <div className="roadMap">
             </div>
