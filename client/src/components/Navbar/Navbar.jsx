@@ -69,8 +69,8 @@ export default function Navbar() {
   const [trip, setTrip] = useState({
     name: '',
     place: '',
-    start: '',
-    finish: '',
+    startDate: '',
+    endDate: '',
   })
 
   const dispatch = useDispatch()
@@ -85,7 +85,7 @@ export default function Navbar() {
     if (event.target.name === 'place') {
       address = event.target.value
       const response = await fetch(
-        `https://geocode-maps.yandex.ru/1.x/?apikey=51ad9d93-9100-4ffa-8ebf-138a17d2a225&format=json&geocode=${address}`
+        `https://geocode-maps.yandex.ru/1.x/?apikey=de2b31d6-264f-4aab-b53f-b5c388f7bfde&format=json&geocode=${address}`
       );
       const resBody = await response.json()
       const coordinates = resBody?.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point?.pos.split(' ').map(el => +el).reverse()
@@ -94,6 +94,15 @@ export default function Navbar() {
           ...prev,
           coordinates,
           [event.target.name]: event.target.value,
+        }
+      })
+
+    } else if (event.target.type === 'date') {
+      const myDate = new Date(event.target.value)
+      setTrip(prev => {
+        return {
+          ...prev,
+          [event.target.name]: myDate,
         }
       })
     } else {
