@@ -10,6 +10,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import {
   Link, useLocation,
 } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
   root: {
@@ -31,10 +32,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({ name, id, persons, startDate, endDate, place }) {
+export default function CurrentTripItem({ name, id, author }) {
   const classes = useStyles();
 
   let location = useLocation()
+
+  const user = useSelector(state => state.user)
+  console.log('USER UID', user.uid);
+  console.log('AUTHOR', author);
 
   return (
     <Card className={classes.root}>
@@ -61,15 +66,20 @@ export default function CurrentTripItem({ name, id, persons, startDate, endDate,
         </Typography> */}
       </CardContent>
       <CardActions>
-        <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
-          Подробнее
-</Button>
         {
           location.pathname === '/main' ?
+            author === user.uid ?
+              <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                Подробнее
+              </Button>
+              :
+              <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                Оставить заявку
+              </Button>
+            :
             <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
-              {/* <AddBoxIcon/> */}
-            </Button>
-            : ''
+              Подробнее
+          </Button>
         }
       </CardActions>
     </Card>

@@ -7,7 +7,7 @@ import './MainMap.css'
 
 
 
-function MainMap() {
+function MainMap({ myTrips }) {
 
   const key = 'de2b31d6-264f-4aab-b53f-b5c388f7bfde'
 
@@ -26,7 +26,7 @@ function MainMap() {
 
   // }, [])
 
-  // console.log(myTrips);
+  console.log(myTrips);
 
 
   return (
@@ -34,7 +34,7 @@ function MainMap() {
       <div>
         <Map defaultState={{
           center: [55.37, 35.75],
-          zoom: 6,
+          zoom: 4,
           controls: ['zoomControl', 'fullscreenControl'],
         }}
           modules={['control.ZoomControl', 'control.FullscreenControl', 'geocode']}
@@ -58,24 +58,26 @@ function MainMap() {
             }
           }} options={{ float: 'right' }} /> */}
           <GeolocationControl options={{ float: 'left' }} />
-          {/* <Clusterer options={{ groupByCoordinates: false }}>
-            {eventState &&
-              eventState.map(event => {
+          <Clusterer options={{ groupByCoordinates: false }}>
+            {myTrips ?
+              myTrips.map(trip => {
                 return (
-                  <div key={event._id}>
+                  <div key={trip.id}>
                     <Placemark
                       onClick={() => console.log('Привет')}
-                      geometry={myTrip.coordinates}
-                      // options={{
-                      //   iconLayout: 'default#image',
-                      //   iconImageHref: `http://localhost:3001${event.thumbnail}`,
-                      //   iconImageSize: [40, 40],
-                      // }}
+                      geometry={trip.coordinates}
+                    // options={{
+                    //   iconLayout: 'default#image',
+                    //   iconImageHref: `http://localhost:3001${event.thumbnail}`,
+                    //   iconImageSize: [40, 40],
+                    // }}
                     />
                   </div>
                 );
-              })}
-          </Clusterer> */}
+              })
+              : ''
+            }
+          </Clusterer>
         </Map>
       </div>
 

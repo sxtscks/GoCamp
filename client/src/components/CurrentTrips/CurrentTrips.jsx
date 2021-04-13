@@ -34,6 +34,7 @@ function CurrentTrips() {
   const sortedTrips = myTrips.sort((a, b) => a.startDate - b.startDate)
 
 
+
   return (
     <div style={{ marginTop: '5%' }} className="container">
       <div>
@@ -41,7 +42,7 @@ function CurrentTrips() {
       </div>
       {
         sortedTrips.length ?
-          sortedTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} persons={trip.persons} place={trip.place} startDate={trip.startDate} endDate={trip.endDate} id={trip.id} /></ul>)
+          sortedTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id}/></ul>)
           : <h3>Список пуст. Создайте новую поездку!</h3>
       }
     </div>

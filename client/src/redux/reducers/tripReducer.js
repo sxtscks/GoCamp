@@ -99,7 +99,8 @@ export const addTripToFB = (trip, key) => async (dispatch, getState) => {
     benzin: 0,
     markBenzin: [],
     wayLength: 0,
-    checkList: []
+    checkList: [],
+    author: key
   })
 }
 
