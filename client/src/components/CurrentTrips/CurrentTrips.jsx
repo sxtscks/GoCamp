@@ -11,7 +11,6 @@ function CurrentTrips() {
 
   const user = useSelector(state => state.user)
 
-  // const { currentUser } = useUserContext()
 
   const [myTrips, setMyTrips] = useState([])
 
