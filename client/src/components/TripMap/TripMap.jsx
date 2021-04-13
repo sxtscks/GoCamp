@@ -7,7 +7,7 @@ import { addDistance } from '../../redux/actionCreators/tripsAC'
 
 function TripMap({ trip }) {
 
-  const key = '51ad9d93-9100-4ffa-8ebf-138a17d2a225'
+  const key = 'de2b31d6-264f-4aab-b53f-b5c388f7bfde'
 
   const dispatch = useDispatch()  
 

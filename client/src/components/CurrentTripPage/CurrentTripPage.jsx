@@ -14,14 +14,18 @@ import { useSelector } from "react-redux";
 
 function CurrentTripPage() {
   const [trip, setTrip] = useState({})
-const user = useSelector(state => state.user)
-const { id } = useParams()
+  const user = useSelector(state => state.user)
+  const { id } = useParams()
 
-console.log(id);
+  console.log(id);
   useEffect(() => {
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(id).get().then((doc)=> setTrip(doc.data()))
-  }, [])
-  
+    let currentTrip
+    if (user.uid) {
+
+      currentTrip = db.collection('Users').doc(user.uid).collection('futureTrips').doc(id).get().then((doc) => setTrip(doc.data()))
+    }
+  }, [user])
+
 
   return (
     <div className="mainCont">
@@ -44,7 +48,7 @@ console.log(id);
 
               </Grid>
 
-              <CheckList  tripId={id}/>
+              <CheckList tripId={id} />
 
               {/* <TripMap trip={trip} /> */}
             </Grid>
@@ -59,7 +63,7 @@ console.log(id);
                 <DateOfTrip />
               </Grid>
               <Grid item xs={4}>
-                <CheckRing tripId={id}/>
+                {/* <CheckRing tripId={id}/> */}
               </Grid>
               <Grid item sm={7} style={{ marginTop: 70 }}>
                 {/* <BenzinForm trip={trip}/> */}

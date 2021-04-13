@@ -1,8 +1,9 @@
 import { ADD_DISTANCE, CREATE_TRIP, GET_TRIPS } from "../types/trips";
-// import { CREATE_TRIP, GET_TRIPS } from "../types/trips";
 import { db } from '../../firebase/firebase'
 import firebase from '../../firebase/firebase'
 import dotProp from 'dot-prop'
+
+
 const ADD_TRIP = 'ADD_TRIP'
 const ADD_TO_ALL = 'ADD_TO_ALL'
 const initState = {
