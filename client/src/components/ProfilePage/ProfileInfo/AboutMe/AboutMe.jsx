@@ -17,13 +17,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4, 0, 2),
   },
 }));
-// function generate(element) {
-//   return [0, 1, 2].map((value) =>
-//     React.cloneElement(element, {
-//       key: value,
-//     }),
-//   );
-// }
 export default function AboutMe(props) {
   const classes = useStyles();
   const [dense, setDense] = React.useState(false);
@@ -33,11 +26,10 @@ export default function AboutMe(props) {
       <Grid container spacing={2}>
         <Grid item xs={12} md={2}>
           <Typography variant="h6" className={classes.title}>
-            {props.userName}
+            {props.name}
           </Typography>
           <div className={classes.demo}>
             <List dense={dense}>
-              {/* {generate( */}
               <ListItem>
                 <ListItemText
                   primary={'user.something1'}
@@ -56,7 +48,6 @@ export default function AboutMe(props) {
                   secondary={secondary ? 'Secondary text' : null}
                 />
               </ListItem>
-              {/* )} */}
             </List>
           </div>
         </Grid>
