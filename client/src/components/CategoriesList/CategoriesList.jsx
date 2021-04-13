@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { getRecs } from "../../redux/actionCreators/recsAC"
-import Categories from "../Categories/Categories"
 
 function CategoriesList() {
 
@@ -18,11 +17,11 @@ function CategoriesList() {
       <div>
         <h2>Категории:</h2>
       </div>
-      {
+      {/* {
         categoriesList.length ?
           categoriesList.map((category) => <Categories key={category.id} title={category.title} id={category.id} />)
           : <h1>Ой, что-то пошло не так :(</h1>
-      }
+      } */}
 
     </div>
   )

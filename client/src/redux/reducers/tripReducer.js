@@ -87,6 +87,8 @@ export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getStat
 export const findAllTodos = (userKey, tripKey) => async (dispatch, getState) => {
   return db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey).collection('checkList').get()
 }
+
+
 export const addTripToFB = (trip, key) => async (dispatch, getState) => {
   console.log(key, 'YA TUT');
 

@@ -35,8 +35,8 @@ function App() {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((async (user) => {
-      dispatch(setUserData(user?.displayName, user?.refreshToken, user?.uid))
       if (user) {
+        dispatch(setUserData(user?.displayName, user?.refreshToken, user?.uid))
         await updateDbUser(user)
       }
     }))
@@ -61,7 +61,6 @@ function App() {
       <Switch>
         <Route path='/login'>
           <div className="loginContainer">
-            {/* <img src={bg} style={{postition:'absolute'}}/> */}
             <Login />
           </div>
         </Route>
@@ -90,8 +89,10 @@ function App() {
           <RecommendsList />
         </Route>
         <Route path='/recommendations'>
-          {/* <CategoriesList /> */}
-          {/* <Main /> */}
+          <CategoriesList />
+        </Route>
+        <Route path='/main'>
+          <Main />
         </Route>
         <Route path="/">
           <Landing />

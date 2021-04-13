@@ -22,7 +22,7 @@ console.log(id);
     db.collection('Users').doc(user.uid).collection('futureTrips').doc(id).get().then((doc)=> setTrip(doc.data()))
   }, [])
   
-  console.log(trip);
+
   return (
     <div className="mainCont">
 

@@ -55,7 +55,7 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    if (user) {
+    if (JSON.stringify(user) !== '{}') {
       setOpen(true);
     } else {
       history.push('/login')
@@ -69,8 +69,8 @@ export default function Navbar() {
   const [trip, setTrip] = useState({
     name: '',
     place: '',
-    start: '',
-    finish: '',
+    startDate: '',
+    endDate: '',
   })
 
   const dispatch = useDispatch()
@@ -103,34 +103,22 @@ export default function Navbar() {
     }
   }
 
+
+
   const handlerSubmit = (e, id) => {
     e.preventDefault()
     let tripId = ''
+    console.log(user.uid);
     dispatch(addTripToFB(trip, user.uid))
       .then((docref) => tripId = docref.id)
       .then(() => history.push(`/create/${tripId}`))
       .then(() => setOpen(false))
   }
 
-  const signOut = (e) => {
-    e.preventDefault()
-    firebase.auth().signOut()
-      .then(() => window.localStorage.removeItem('myApp'))
-      .then(() => history.push('/'))
+  const signOut = async () => {
+    await firebase.auth().signOut()
+    history.push('/')
   }
-
-  // const [local, setLocal] = useState(false)
-
-
-  // useEffect(() => {
-  //   console.log(user);
-  //   if (user) {
-  //     return setLocal(true)
-  //   } else {
-  //     return setLocal(false)
-  //   }
-  // }, [user])
-  // console.log(local);
 
   return (
     <div className={classes.root}>
@@ -145,7 +133,7 @@ export default function Navbar() {
                 <SlideInLeft style={{ display: 'inline-block' }}><img src="/WhiteText.svg" className="logoMove object van move-right" alt="" style={{ width: 240, marginLeft: 78, paddingTop: 5 }} /></SlideInLeft>
               </div>
             </Typography>
-            <div style={{ display: 'flex', justifyContent: "space-between", width: 550 }}>
+            <div className={JSON.stringify(user) !== '{}' ? 'logined' : 'unlogged'} style={{ display: 'flex', justifyContent: "space-between" }}>
               <Button onClick={handleClickOpen} className='buttonCreateTrip' variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                 Создать поездку
 </Button>
@@ -218,21 +206,24 @@ export default function Navbar() {
                   </DialogActions>
                 </form>
               </Dialog>
-              {/* {
-                local ? */}
+              {
+                JSON.stringify(user) !== '{}' ?
                   <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
-                  {/* : ''
-              } */}
+                  : ''
+              }
               <Button component={Link} to="/recommendations" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Советы</Button>
-              <Button component={Link} to="/main" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Поездки</Button>
-
-              {/* <DropDownButton /> */}
-              {/* {
-                local ? */}
-                  <Button onClick={signOut} style={{ color: 'white', fontWeight: 700 }} color='inherit'>Выйти</Button>
-                  {/* : */}
+              {
+                JSON.stringify(user) !== '{}' ?
+                  <DropDownButton />
+                  :
+                  <Button component={Link} to="/main" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Поездки</Button>
+              }
+              {
+                JSON.stringify(user) !== '{}' ?
+                  <Button onClick={() => signOut()} style={{ color: 'white', fontWeight: 700 }} color='inherit'>Выйти</Button>
+                  :
                   <Button component={Link} to="/login" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Войти</Button>
-              {/* } */}
+              }
             </div>
           </Toolbar>
         </div>

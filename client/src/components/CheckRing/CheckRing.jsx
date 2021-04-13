@@ -9,6 +9,9 @@ function CheckRing ({tripId}) {
     const [ring,setRing] = useState(0)
     // const todos = useSelector((state) => state.todos)
     // const dispatch = useDispatch()
+
+    
+    //mojno v context 
     const [todos, setTodos] = useState([])
     const dispatch = useDispatch()
     //  сюда должна вернуть всех тодошек
