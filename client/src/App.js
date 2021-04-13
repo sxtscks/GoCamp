@@ -26,7 +26,6 @@ import './App.css'
 import { setUserData } from './redux/reducers/userReducer';
 import AddTripForm from "./components/AddTrip/AddTripForm.js";
 // import CurTip from "./components/CurrentTripPage/CurrentTripPage.js";
-
 function App() {
 
   const dispatch = useDispatch()

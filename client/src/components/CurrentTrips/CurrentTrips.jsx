@@ -5,7 +5,6 @@ import { db } from "../../firebase/firebase";
 
 
 function CurrentTrips() {
-
   const dispatch = useDispatch()
 
   const user = useSelector(state => state.user)
