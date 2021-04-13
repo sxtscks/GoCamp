@@ -17,7 +17,7 @@ import TripPage from "./components/TripPage/TripPage.jsx";
 import { useEffect } from 'react';
 
 import firebase, { db } from './firebase/firebase'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { setUserData } from './redux/actionCreators/userAC';
 import CategoriesList from "./components/CategoriesList/CategoriesList.jsx";
 import RecommendsList from "./components/RecommendsList/RecommendsList.jsx";
@@ -43,7 +43,8 @@ function App() {
       }
     }))
   }, [])
-
+  
+ 
 
   const updateDbUser = async (sdkUser) => {
     await db.collection('Users').doc(sdkUser.uid).set(

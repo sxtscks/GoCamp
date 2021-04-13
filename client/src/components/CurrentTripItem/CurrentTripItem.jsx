@@ -6,11 +6,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-
+import firebase from '../../firebase/firebase';
 import {
   Link, useLocation,
 } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { db } from '../../firebase/firebase';
 
 const useStyles = makeStyles({
   root: {
@@ -33,13 +34,19 @@ const useStyles = makeStyles({
 });
 
 export default function CurrentTripItem({ name, id, author }) {
+  const user = useSelector(state => state.user)
   const classes = useStyles();
 
   let location = useLocation()
 
-  const user = useSelector(state => state.user)
-  console.log('USER UID', user.uid);
-  console.log('AUTHOR', author);
+
+const handlerRequest = (e) => {
+  e.preventDefault()
+ db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
+  'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
+ })
+}
+
 
   return (
     <Card className={classes.root}>
@@ -73,7 +80,7 @@ export default function CurrentTripItem({ name, id, author }) {
                 Подробнее
               </Button>
               :
-              <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+              <Button className='buttonCreateTrip' component={Link} onClick={handlerRequest} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                 Оставить заявку
               </Button>
             :

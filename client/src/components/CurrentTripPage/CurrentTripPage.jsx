@@ -10,6 +10,7 @@ import './CurrentTripPage.css'
 import BenzinForm from '../BenzinForm/BenzinForm';
 import TripMap from '../TripMap/TripMap';
 import { useSelector } from "react-redux";
+import EndTrip from "../endTrip/endTrip";
 
 
 function CurrentTripPage() {
@@ -54,7 +55,7 @@ function CurrentTripPage() {
               <Grid item xs={12}>
 
                 <Form tripId={id} />
-
+              <EndTrip trip={trip} tripId={id}/>
               </Grid>
 
               <CheckList tripId={id} />
@@ -83,6 +84,7 @@ function CurrentTripPage() {
                 <BenzinForm trip={trip} id={id} />
               </Grid>
               <h5 style={{ color: 'white' }}>Едут: </h5>
+              {user.uid === trip.author ? <p>{trip.waitingList}</p> : null}
             </Grid>
             <div className="roadMap">
             </div>

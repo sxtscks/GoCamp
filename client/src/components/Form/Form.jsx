@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addTodo } from '../../redux/actionCreators/todoAC'
 import { useState } from 'react'
 import { addTripsTodo } from '../../redux/reducers/tripReducer'
+import { db } from '../../firebase/firebase'
 
 function Form({ tripId }) {
   const dispatch = useDispatch()
