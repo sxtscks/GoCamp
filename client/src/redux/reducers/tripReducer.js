@@ -12,9 +12,6 @@ const initState = {
     start: '',
     finish: '',
     description: '',
-    people: [],
-    author: {},
-    checklist: []
   }
 }
 

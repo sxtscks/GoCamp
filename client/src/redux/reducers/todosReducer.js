@@ -55,7 +55,6 @@ const todosReducer = (state = [], action) => {
 //     //   return state.map(todo => {
 //     //     if (todo.id === action.payload) {
 
-
 //     //     }
 //     //   })
 //     case SET_TODO:
