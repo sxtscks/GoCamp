@@ -48,7 +48,7 @@ export default function CurrentTripItem({ name, id, persons, startDate, endDate,
         <Typography className={classes.pos} color="textSecondary">
           {/* {startDate.toDate().toDateString()} - {endDate.toDate().toDateString()} */}
         </Typography>
-        <Typography variant="body2" component="p">
+        {/* <Typography variant="body2" component="p">
           {
             persons?.length ?
               <div>
@@ -58,7 +58,7 @@ export default function CurrentTripItem({ name, id, persons, startDate, endDate,
               </div>
               : <p>Возьми кого-нибудь с собой!</p>
           }
-        </Typography>
+        </Typography> */}
       </CardContent>
       <CardActions>
         <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>

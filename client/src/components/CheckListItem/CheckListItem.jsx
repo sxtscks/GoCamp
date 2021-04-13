@@ -15,23 +15,6 @@ function CheckListItem({ tripId, todo, id }) {
   //   }
   const takerHandler = (e) => {
     e.preventDefault()
-    // db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
-      // .then((doc) => doc.data())
-      // .then((resp) => {
-      //   let arr = [];
-      //   let conf = resp.confirmed
-      //   conf = !resp.confirmed
-      //   arr.push(conf)
-      //   let taker = resp.taker
-      //   if (taker == user.uid) {
-      //     arr.push('')
-      //   } else {
-      //     arr.push(user.uid)
-      //   }
-      //   return arr
-        // console.log('user here=>>>>>', user.uid)
-        // resp.taker != user.uid ? resp.taker = user.uid : ''
-      // })
       db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
         "confirmed": !todo.confirmed,
         "taker": !todo.confirmed ? user.uid : ''
@@ -41,16 +24,9 @@ function CheckListItem({ tripId, todo, id }) {
 
   const importantHandler = (e) => {
     e.preventDefault()
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).get()
-      .then((doc) => doc.data())
-      .then((resp) => {
-        let conf = !resp.important
-        return conf
-      }).then(dat => db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
-        "important": dat
-      }).then(() => {
-        console.log('I am fine')
-      }))
+    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
+      "important": !todo.important,
+    })
       .catch((err) => console.log(err))
   }
 

@@ -20,7 +20,7 @@ function CurrentTrips() {
     if (user.uid) {
       currentTrips = db.collection('Users').doc(user.uid)
         .collection('futureTrips')
-        .onSnapshot((querySnapshot) => {
+        .onSnapshot((querySnapshot) => { 
           setMyTrips(querySnapshot.docs.map((trip) => ({ ...trip.data(), id: trip.id })))
         })
     }
