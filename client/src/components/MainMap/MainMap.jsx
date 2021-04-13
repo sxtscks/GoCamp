@@ -7,7 +7,7 @@ import './MainMap.css'
 
 
 
-function MainMap() {
+function MainMap({ myTrips }) {
 
   const key = 'de2b31d6-264f-4aab-b53f-b5c388f7bfde'
 
@@ -26,7 +26,7 @@ function MainMap() {
 
   // }, [])
 
-  // console.log(myTrips);
+  console.log(myTrips);
 
 
   return (
@@ -34,7 +34,7 @@ function MainMap() {
       <div>
         <Map defaultState={{
           center: [55.37, 35.75],
-          zoom: 6,
+          zoom: 4,
           controls: ['zoomControl', 'fullscreenControl'],
         }}
           modules={['control.ZoomControl', 'control.FullscreenControl', 'geocode']}
@@ -59,9 +59,24 @@ function MainMap() {
           }} options={{ float: 'right' }} /> */}
           <GeolocationControl options={{ float: 'left' }} />
           <Clusterer options={{ groupByCoordinates: false }}>
-            <Placemark
-              // geometry={myTrip.coordinates}
-            />
+            {myTrips ?
+              myTrips.map(trip => {
+                return (
+                  <div key={trip.id}>
+                    <Placemark
+                      onClick={() => console.log('Привет')}
+                      geometry={trip.coordinates}
+                    // options={{
+                    //   iconLayout: 'default#image',
+                    //   iconImageHref: `http://localhost:3001${event.thumbnail}`,
+                    //   iconImageSize: [40, 40],
+                    // }}
+                    />
+                  </div>
+                );
+              })
+              : ''
+            }
           </Clusterer>
         </Map>
       </div>

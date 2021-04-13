@@ -38,6 +38,7 @@ function App() {
       console.log('user from app>>>>>>>>', user);
       dispatch(setUserData(user?.displayName, user?.refreshToken, user?.uid))
       if (user) {
+        dispatch(setUserData(user?.displayName, user?.refreshToken, user?.uid))
         await updateDbUser(user)
       }
     }))

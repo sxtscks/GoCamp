@@ -6,10 +6,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-
+import firebase from '../../firebase/firebase';
 import {
-  Link,
+  Link, useLocation,
 } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { db } from '../../firebase/firebase';
 
 const useStyles = makeStyles({
   root: {
@@ -31,8 +33,20 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({ name, id, persons, startDate, endDate, place }) {
+export default function CurrentTripItem({ name, id, author }) {
+  const user = useSelector(state => state.user)
   const classes = useStyles();
+
+  let location = useLocation()
+
+
+const handlerRequest = (e) => {
+  e.preventDefault()
+ db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
+  'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
+ })
+}
+
 
   return (
     <Card className={classes.root}>
@@ -48,7 +62,7 @@ export default function CurrentTripItem({ name, id, persons, startDate, endDate,
         </Typography>
         {/* <Typography variant="body2" component="p">
           {
-            persons.length ?
+            persons?.length ?
               <div>
                 Количество людей: {persons.length}
                 <br />
@@ -59,12 +73,21 @@ export default function CurrentTripItem({ name, id, persons, startDate, endDate,
         </Typography> */}
       </CardContent>
       <CardActions>
-        <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
-          Подробнее
-</Button>
-        <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
-          {/* <AddBoxIcon/> */}
-</Button>
+        {
+          location.pathname === '/main' ?
+            author === user.uid ?
+              <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                Подробнее
+              </Button>
+              :
+              <Button className='buttonCreateTrip' component={Link} onClick={handlerRequest} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                Оставить заявку
+              </Button>
+            :
+            <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+              Подробнее
+          </Button>
+        }
       </CardActions>
     </Card>
   );

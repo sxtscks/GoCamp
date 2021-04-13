@@ -14,15 +14,28 @@ import { useSelector } from "react-redux";
 
 function CurrentTripPage() {
   const [trip, setTrip] = useState({})
-const user = useSelector(state => state.user)
-const { id } = useParams()
+  const user = useSelector(state => state.user)
+  const { id } = useParams()
 
-console.log(id);
+  console.log(id);
+
+
   useEffect(() => {
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(id).get().then((doc)=> setTrip(doc.data()))
-  }, [])
-  
+    let currentTrip
+    if (user.uid) {
+      db.collection('Users').doc(user.uid).collection('futureTrips').doc(id)
+        .onSnapshot((doc) => {
+          setTrip(doc.data())
+        })
+    }
+    return () => {
+      currentTrip && currentTrip()
+    }
+  }, [user])
+
   console.log(trip);
+
+
   return (
     <div className="mainCont">
 
@@ -44,9 +57,14 @@ console.log(id);
 
               </Grid>
 
-              <CheckList  tripId={id}/>
+              <CheckList tripId={id} />
+              {trip.name ?
 
-              {/* <TripMap trip={trip} /> */}
+                <TripMap trip={trip} id={id} />
+
+                :
+                <span>netu</span>
+              }
             </Grid>
             <Grid item
               spacing={2}
@@ -59,11 +77,13 @@ console.log(id);
                 <DateOfTrip />
               </Grid>
               <Grid item xs={4}>
-                <CheckRing tripId={id}/>              </Grid>
+                <CheckRing tripId={id} />
+              </Grid>
               <Grid item sm={7} style={{ marginTop: 70 }}>
-                {/* <BenzinForm trip={trip}/> */}
+                <BenzinForm trip={trip} id={id} />
               </Grid>
               <h5 style={{ color: 'white' }}>Едут: </h5>
+              {user.uid === trip.author ? <p>{trip.waitingList}</p> : null}
             </Grid>
             <div className="roadMap">
             </div>
