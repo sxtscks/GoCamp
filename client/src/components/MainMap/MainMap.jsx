@@ -58,11 +58,24 @@ function MainMap() {
             }
           }} options={{ float: 'right' }} /> */}
           <GeolocationControl options={{ float: 'left' }} />
-          <Clusterer options={{ groupByCoordinates: false }}>
-            <Placemark
-              // geometry={myTrip.coordinates}
-            />
-          </Clusterer>
+          {/* <Clusterer options={{ groupByCoordinates: false }}>
+            {eventState &&
+              eventState.map(event => {
+                return (
+                  <div key={event._id}>
+                    <Placemark
+                      onClick={() => console.log('Привет')}
+                      geometry={myTrip.coordinates}
+                      // options={{
+                      //   iconLayout: 'default#image',
+                      //   iconImageHref: `http://localhost:3001${event.thumbnail}`,
+                      //   iconImageSize: [40, 40],
+                      // }}
+                    />
+                  </div>
+                );
+              })}
+          </Clusterer> */}
         </Map>
       </div>
 

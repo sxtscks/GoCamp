@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
 import {
-  Link,
+  Link, useLocation,
 } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -33,6 +33,8 @@ const useStyles = makeStyles({
 
 export default function CurrentTripItem({ name, id, persons, startDate, endDate, place }) {
   const classes = useStyles();
+
+  let location = useLocation()
 
   return (
     <Card className={classes.root}>
@@ -62,9 +64,13 @@ export default function CurrentTripItem({ name, id, persons, startDate, endDate,
         <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
           Подробнее
 </Button>
-        <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
-          {/* <AddBoxIcon/> */}
-</Button>
+        {
+          location.pathname === '/main' ?
+            <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+              {/* <AddBoxIcon/> */}
+            </Button>
+            : ''
+        }
       </CardActions>
     </Card>
   );

@@ -33,7 +33,6 @@ function CurrentTrips() {
 
   const sortedTrips = myTrips.sort((a, b) => a.startDate - b.startDate)
 
-  // console.log('SORTED>>>', sortedTrips);
 
   return (
     <div style={{ marginTop: '5%' }} className="container">

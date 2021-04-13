@@ -15,7 +15,7 @@ function TripMap({ trip }) {
     <YMaps query={{ lang: 'ru_RU', ns: "use-load-option", apikey: key }}>
       <div>
         <Map defaultState={{
-          center: trip.coordinates,
+          center: trip.coordinates ? trip.coordinates : [55.37, 35.75],
           zoom: 6,
           controls: ['zoomControl', 'fullscreenControl'],
         }}
