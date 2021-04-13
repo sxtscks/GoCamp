@@ -17,9 +17,23 @@ function CurrentTripPage() {
   const user = useSelector(state => state.user)
   const { id } = useParams()
 
+  console.log(id);
+
+
   useEffect(() => {
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(id).get().then((doc) => setTrip(doc.data()))
-  }, [])
+    let currentTrip
+    if (user.uid) {
+      db.collection('Users').doc(user.uid).collection('futureTrips').doc(id)
+        .get().then((doc) => {
+          setTrip(doc.data())
+        })
+    }
+    return () => {
+      currentTrip && currentTrip()
+    }
+  }, [user])
+  console.log(trip);
+
 
   return (
     <div className="mainCont">
@@ -43,8 +57,13 @@ function CurrentTripPage() {
               </Grid>
 
               <CheckList tripId={id} />
+              {trip.name ?
 
-              <TripMap trip={trip} />
+                <TripMap trip={trip} id={id} />
+
+                :
+                <span>netu</span>
+              }
             </Grid>
             <Grid item
               spacing={2}
@@ -59,7 +78,7 @@ function CurrentTripPage() {
               <Grid item xs={4}>
                 <CheckRing tripId={id} />              </Grid>
               <Grid item sm={7} style={{ marginTop: 70 }}>
-                {/* <BenzinForm trip={trip}/> */}
+                <BenzinForm trip={trip} id={id} />
               </Grid>
               <h5 style={{ color: 'white' }}>Едут: </h5>
             </Grid>

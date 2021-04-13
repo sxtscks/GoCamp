@@ -177,17 +177,17 @@ export const userSignIn = (userEmail, userPassword) => async (dispatch, getState
   await firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
     .then(data => console.log(data))
 
-  firebase.auth().onAuthStateChanged(user => {
+  // firebase.auth().onAuthStateChanged(user => {
 
-    if (user) {
-      const userId = db.collection('Users').where('uid', '===', user.uid).id
-      console.log(userId);
-      dispatch(setUserData(user.displayName, user.refreshToken, user.uid, userId))
+  // if (user) {
+  //   const userId = db.collection('Users').where('uid', '==', user.uid).id
+  //   console.log(userId);
+  //   dispatch(setUserData(user.displayName, user.refreshToken, user.uid, userId))
 
-      // const myApp = {displayName: user.displayName, key: userId, token: user.refreshToken}
-      // window.localStorage.setItem('myApp', JSON.stringify(myApp))
-    }
-  })
+  //   // const myApp = {displayName: user.displayName, key: userId, token: user.refreshToken}
+  //   // window.localStorage.setItem('myApp', JSON.stringify(myApp))
+  // }
+  // })
 }
 
 

@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { db } from "../../firebase/firebase";
 
-function BenzinForm({ trip }) {
+
+function BenzinForm({ trip, id }) {
   const [cost, setCost] = useState('')
   const [km, setKm] = useState('')
   const handlerKm = (e) => {
     e.preventDefault()
     setKm(e.target.value)
   }
-
+  console.log(trip);
+  const user = useSelector(state => state.user)
   const handlerCost = (e) => {
     e.preventDefault()
-
     if (!e.target.km.value.match(/^\d+$/)) {
       alert('В поле "Расстояние" должно стоять числовое значение(только цифры)!');
       return e.target.km.value = ''
     } else {
-
       return setCost(`${Math.floor((e.target.km.value * e.target.gas.value) / e.target.person.value)} рублей с человека`)
     }
   }

@@ -117,6 +117,7 @@ export default function Navbar() {
   const handlerSubmit = (e, id) => {
     e.preventDefault()
     let tripId = ''
+    console.log(user.uid);
     dispatch(addTripToFB(trip, user.uid))
       .then((docref) => tripId = docref.id)
       .then(() => history.push(`/create/${tripId}`))
