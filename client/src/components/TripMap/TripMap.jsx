@@ -2,16 +2,22 @@ import { YMaps, Map, Placemark, RouteButton, GeolocationControl, Clusterer, Rout
 import './TripMap.css'
 import icon from './GoCampLogoGraph (1).png'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addDistance } from '../../redux/actionCreators/tripsAC'
+import { db } from "../../firebase/firebase";
 
-function TripMap({ trip }) {
+
+function TripMap({ trip, id }) {
 
   const key = 'de2b31d6-264f-4aab-b53f-b5c388f7bfde'
+  const user = useSelector(state => state.user)
 
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch() 
+  
+  if (!user.uid) return null
 
   return (
+    
     <YMaps query={{ lang: 'ru_RU', ns: "use-load-option", apikey: key }}>
       <div>
         <Map defaultState={{
@@ -34,7 +40,11 @@ function TripMap({ trip }) {
                   const activeRoute = multiRoute.getActiveRoute()
                   if (activeRoute) {
                     let distance = activeRoute.properties.get('distance')
-                    dispatch(addDistance(trip.id, distance))
+                    console.log('POPAL', distance);
+                    db.collection('Users').doc(user.uid).collection('futureTrips').doc(id).add({
+                      distance: distance
+                    })
+                    // dispatch(addDistance(trip.id, distance))
                   }
                 })
               })

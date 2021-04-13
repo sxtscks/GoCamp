@@ -11,18 +11,20 @@ function CheckList({ tripId }) {
   const user = useSelector(state => state.user)
 
   useEffect(() => {
-    const unsubscibeTodos = db.collection('Users').doc(user.uid)
-      .collection('futureTrips').doc(tripId)
-      .collection('checkList')
-      .onSnapshot((querySnapshot) => {
-        setTodos(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
-
-      })
+    let currentTodos
+    if (user.uid) {
+      currentTodos = db.collection('Users').doc(user.uid)
+        .collection('futureTrips').doc(tripId)
+        .collection('checkList')
+        .onSnapshot((querySnapshot) => {
+          setTodos(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
+        })
+      }
 
     return () => {
-      unsubscibeTodos()
+      currentTodos && currentTodos()
     }
-  }, [])
+  }, [user])
   return (
     <div>
       <ul className="list-group">
