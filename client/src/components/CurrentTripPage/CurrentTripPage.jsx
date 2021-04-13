@@ -24,7 +24,7 @@ function CurrentTripPage() {
     let currentTrip
     if (user.uid) {
       db.collection('Users').doc(user.uid).collection('futureTrips').doc(id)
-        .get().then((doc) => {
+        .onSnapshot((doc) => {
           setTrip(doc.data())
         })
     }
@@ -32,7 +32,7 @@ function CurrentTripPage() {
       currentTrip && currentTrip()
     }
   }, [user])
-  
+
   console.log(trip);
 
 

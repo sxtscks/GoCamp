@@ -50,7 +50,7 @@ export default function CurrentTripItem({ name, id, persons, startDate, endDate,
         </Typography>
         <Typography variant="body2" component="p">
           {
-            persons.length ?
+            persons?.length ?
               <div>
                 Количество людей: {persons.length}
                 <br />
