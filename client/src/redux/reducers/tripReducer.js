@@ -1,8 +1,9 @@
 import { ADD_DISTANCE, CREATE_TRIP, GET_TRIPS } from "../types/trips";
-// import { CREATE_TRIP, GET_TRIPS } from "../types/trips";
 import { db } from '../../firebase/firebase'
 import firebase from '../../firebase/firebase'
 import dotProp from 'dot-prop'
+
+
 const ADD_TRIP = 'ADD_TRIP'
 const ADD_TO_ALL = 'ADD_TO_ALL'
 const initState = {
@@ -87,6 +88,8 @@ export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getStat
 export const findAllTodos = (userKey, tripKey) => async (dispatch, getState) => {
   return db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey).collection('checkList').get()
 }
+
+
 export const addTripToFB = (trip, key) => async (dispatch, getState) => {
   console.log(key, 'YA TUT');
 

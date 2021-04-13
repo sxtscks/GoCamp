@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { YMaps, Map, Placemark, RouteButton, GeolocationControl, Clusterer, RoutePanel } from 'react-yandex-maps'
+import { db } from '../../firebase/firebase'
 import './MainMap.css'
 // import icon from './GoCampLogoGraph (1).png'
 
@@ -6,7 +9,24 @@ import './MainMap.css'
 
 function MainMap() {
 
-  const key = '51ad9d93-9100-4ffa-8ebf-138a17d2a225'
+  const key = 'de2b31d6-264f-4aab-b53f-b5c388f7bfde'
+
+  // const user = useSelector(state => state.user)
+  // const [myTrips, setMyTrips] = useState([])
+
+  // useEffect(() => {
+  //   let currentTrips = db.collection('Users').doc(user.uid)
+  //     .collection('futureTrips')
+  //     .onSnapshot((querySnapshot) => {
+  //       setMyTrips(querySnapshot.docs.map((trip) => ({ ...trip.data(), id: trip.id })))
+  //     })
+  //   return () => {
+  //     currentTrips()
+  //   }
+
+  // }, [])
+
+  // console.log(myTrips);
 
 
   return (
@@ -39,9 +59,9 @@ function MainMap() {
           }} options={{ float: 'right' }} /> */}
           <GeolocationControl options={{ float: 'left' }} />
           <Clusterer options={{ groupByCoordinates: false }}>
-            {/* <Placemark
-              geometry={myTrip.coordinates}
-            /> */}
+            <Placemark
+              // geometry={myTrip.coordinates}
+            />
           </Clusterer>
         </Map>
       </div>

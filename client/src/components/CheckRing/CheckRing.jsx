@@ -50,10 +50,10 @@ function CheckRing ({tripId}) {
                 fontWeight:800,
                 
         }}>
-                <div style={{textAlign:"'center"}}>{ring >= 98 ? 100 : ring}%</div>
-            </div>
-        </ProgressBar>
+          <div style={{ textAlign: "'center" }}>{ring >= 98 ? 100 : ring}%</div>
+        </div>
+      </ProgressBar>
     </div>
-)
+  )
 }
 export default CheckRing

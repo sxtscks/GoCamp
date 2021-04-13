@@ -44,7 +44,7 @@ export default function CurrentTripItem({ name, id, persons, startDate, endDate,
           {name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {startDate} - {endDate}
+          {/* {startDate.toDate().toDateString()} - {endDate.toDate().toDateString()} */}
         </Typography>
         <Typography variant="body2" component="p">
           {
