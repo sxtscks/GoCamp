@@ -33,19 +33,19 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({ name, id, author }) {
+export default function CurrentTripItem({ name, id, author, persons }) {
   const user = useSelector(state => state.user)
   const classes = useStyles();
 
   let location = useLocation()
 
 
-const handlerRequest = (e) => {
-  e.preventDefault()
- db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
-  'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
- })
-}
+  const handlerRequest = (e) => {
+    e.preventDefault()
+    db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
+      'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
+    })
+  }
 
 
   return (
@@ -75,7 +75,7 @@ const handlerRequest = (e) => {
       <CardActions>
         {
           location.pathname === '/main' ?
-            author === user.uid ?
+            author === user.uid || persons.includes(user.uid) ?
               <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                 Подробнее
               </Button>
