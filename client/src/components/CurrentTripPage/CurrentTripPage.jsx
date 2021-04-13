@@ -32,6 +32,7 @@ function CurrentTripPage() {
       currentTrip && currentTrip()
     }
   }, [user])
+  
   console.log(trip);
 
 
@@ -76,7 +77,8 @@ function CurrentTripPage() {
                 <DateOfTrip />
               </Grid>
               <Grid item xs={4}>
-                <CheckRing tripId={id} />              </Grid>
+                <CheckRing tripId={id} />
+              </Grid>
               <Grid item sm={7} style={{ marginTop: 70 }}>
                 <BenzinForm trip={trip} id={id} />
               </Grid>

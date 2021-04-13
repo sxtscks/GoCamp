@@ -10,15 +10,21 @@ function CheckRing({ tripId }) {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
-  useEffect(() => {
-    const unsubscibeTodos = db.collection('Users').doc(user.uid)
-      .collection('futureTrips').doc(tripId)
-      .collection('checkList')
-      .onSnapshot((querySnapshot) => {
-        setTodos(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
+  // useEffect(() => {
+  //   let unsubscibeTodos;
+  //   if (user.uid) {
+  //     unsubscibeTodos = db.collection('Users').doc(user.uid)
+  //       .collection('futureTrips').doc(tripId)
+  //       .collection('checkList')
+  //       .onSnapshot((querySnapshot) => {
+  //         setTodos(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
+  //       })
+  //   }
+  //   return () => {
+  //     unsubscibeTodos && unsubscibeTodos()
+  //   }
 
-      })
-  }, [])
+  // }, [])
 
   useEffect(() => {
     let currentTodos

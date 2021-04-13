@@ -12,12 +12,12 @@ function TripMap({ trip, id }) {
   const key = 'de2b31d6-264f-4aab-b53f-b5c388f7bfde'
   const user = useSelector(state => state.user)
 
-  const dispatch = useDispatch() 
+  const dispatch = useDispatch()
   
   if (!user.uid) return null
 
   return (
-    
+
     <YMaps query={{ lang: 'ru_RU', ns: "use-load-option", apikey: key }}>
       <div>
         <Map defaultState={{
