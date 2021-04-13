@@ -10,6 +10,7 @@ import './CurrentTripPage.css'
 import BenzinForm from '../BenzinForm/BenzinForm';
 import TripMap from '../TripMap/TripMap';
 import { useSelector } from "react-redux";
+import Chat from "../Chat/Chat";
 
 
 function CurrentTripPage() {
@@ -87,6 +88,7 @@ function CurrentTripPage() {
             </Grid>
             <div className="roadMap">
             </div>
+            <Chat />
           </Grid>
         </div>
       </div>

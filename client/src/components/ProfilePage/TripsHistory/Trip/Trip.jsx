@@ -5,7 +5,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Divider from '@material-ui/core/Divider';
-const Trip = ({trip}) => {
+const Trip = ({ trip }) => {
   return (
     <div>
       <ListItem>
@@ -14,7 +14,7 @@ const Trip = ({trip}) => {
             <BeachAccessIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary={trip} secondary="Jan 9, 2014" />
+        <ListItemText primary={trip.name} secondary={trip.place} />
       </ListItem>
       <Divider variant="inset" component="li" />
     </div>

@@ -7,8 +7,8 @@ import { db } from '../../firebase/firebase'
 const ProfilePage = () => {
   const [user, setUser] = useState({});
   const userFromState = useSelector(state => state.user)
-  const userFinishedTrips = useSelector(state => state.user.finishedTrips)
-  const userFutureTrips = useSelector(state => state.user.futureTrips)
+  const [futureTrips, setFutureTrips] = useState([]);
+  const [lastTrips, setLastTrips] = useState([]);
   useEffect(() => {
     let currentUser
     if (userFromState.uid) {
@@ -16,12 +16,30 @@ const ProfilePage = () => {
         .onSnapshot((doc) => setUser(doc.data()))
     }
   }, [userFromState])
+  useEffect(() => {
+    let currentUser
+    if (userFromState.uid) {
+      currentUser = db.collection('Users').doc(userFromState.uid).collection("futureTrips")
+        .onSnapshot((querySnapshot) => {
+          setFutureTrips(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
+        })
+    }
+  }, [userFromState])
+  useEffect(() => {
+    let currentUser
+    if (userFromState.uid) {
+      currentUser = db.collection('Users').doc(userFromState.uid).collection("lastTrips")
+        .onSnapshot((querySnapshot) => {
+          setLastTrips(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
+        })
+    }
+  }, [userFromState])
   return (
     <div>
       <ProfileInfo user={user} />
       <Achievements />
       {/* <Grid container direction="row" justify="center" alignItems="center" flexWrap="nowrap"> */}
-      <TripsHistory userFinishedTrips={userFinishedTrips} userFutureTrips={userFutureTrips} />
+      <TripsHistory userFinishedTrips={lastTrips} userFutureTrips={futureTrips} />
       {/* <FriendsList /> */}
       {/* </Grid> */}
     </div>
