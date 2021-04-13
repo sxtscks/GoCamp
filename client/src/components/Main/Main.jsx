@@ -11,8 +11,6 @@ import CurrentTripItem from '../CurrentTripItem/CurrentTripItem'
 function Main() {
 
   const user = useSelector(state => state.user)
-  const [tripMap, setTripMap] = useState([])
-  const [idis,setIdis] = useState([])
   const [myTrips, setMyTrips] = useState([])
 
 
@@ -25,23 +23,25 @@ function Main() {
           setMyTrips((prev)=> [...prev,...querySnapshot.docs.map((trip) => ({ ...trip.data(), id: trip.id }))])
         })
           )})
-    
-
-
-
     return () => {
       currentUsersTrips && currentUsersTrips()
     }
-
-
-    
     },[])
-    
-    const sortedTrips = myTrips.sort((a, b) => a.startDate - b.startDate)
+   
 
+    const simpleArr = myTrips
+    const sortedTrips = simpleArr.sort((a, b) => a.startDate - b.startDate).filter((item, i, ar) => ar.indexOf(item) === i)
+
+    let filerTrips = [];
+    simpleArr.filter(function(item){
+      let i = filerTrips.findIndex(x => (x.name == item.name && x.date == item.date && x.amt == item.amt));
+      if(i <= -1){
+        filerTrips.push(item);
+      }
+      return null;
+    });
 
     console.log('idis',myTrips)
-
 
 
 
@@ -49,11 +49,9 @@ function Main() {
   return (
     <div className="d-flex">
       <div className="feedContainer">
-        {/* <CurrentTrips />  */}
-        {/* {idis.map((e)=> <p>{e.name}</p>)} */}
         {
-        sortedTrips.length ?
-          sortedTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} persons={trip.persons} place={trip.place} startDate={trip.startDate} endDate={trip.endDate} id={trip.id} /></ul>)
+        filerTrips.length ?
+        filerTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} persons={trip.persons} place={trip.place} startDate={trip.startDate} endDate={trip.endDate} id={trip.id} /></ul>)
           : <h3>Список пуст. Создайте новую поездку!</h3>
       }
       </div>
