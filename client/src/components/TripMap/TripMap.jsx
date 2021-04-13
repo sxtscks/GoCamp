@@ -48,6 +48,7 @@ function TripMap({ trip, id }) {
                   }
                 })
               })
+              
             }
           }} options={{ float: 'right' }} />
           <GeolocationControl options={{ float: 'left' }} />
