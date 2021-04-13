@@ -180,7 +180,7 @@ export const userSignIn = (userEmail, userPassword) => async (dispatch, getState
   firebase.auth().onAuthStateChanged(user => {
 
     if (user) {
-      const userId = db.collection('Users').where('uid', '==', user.uid).id
+      const userId = db.collection('Users').where('uid', '===', user.uid).id
       console.log(userId);
       dispatch(setUserData(user.displayName, user.refreshToken, user.uid, userId))
 

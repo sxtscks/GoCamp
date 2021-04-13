@@ -6,7 +6,6 @@ import { useUserContext } from '../../context/userContext';
 
 
 function CurrentTrips() {
-
   const dispatch = useDispatch()
 
   const user = useSelector(state => state.user)

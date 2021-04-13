@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 import {
   Link,
@@ -60,6 +61,9 @@ export default function CurrentTripItem({ name, id, persons, startDate, endDate,
       <CardActions>
         <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
           Подробнее
+</Button>
+        <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+          {/* <AddBoxIcon/> */}
 </Button>
       </CardActions>
     </Card>

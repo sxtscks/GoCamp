@@ -59,8 +59,7 @@ console.log(id);
                 <DateOfTrip />
               </Grid>
               <Grid item xs={4}>
-                {/* <CheckRing tripId={id}/> */}
-              </Grid>
+                <CheckRing tripId={id}/>              </Grid>
               <Grid item sm={7} style={{ marginTop: 70 }}>
                 {/* <BenzinForm trip={trip}/> */}
               </Grid>
