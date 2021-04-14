@@ -88,7 +88,7 @@ export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getStat
     const persons = el.data().persons
     if (persons.length) {
       persons.map((person) => {
-        db.collection('Users').doc(el).collection('checkList').add(
+        db.collection('Users').doc(person).collection('checkList').add(
           todo
         )
       })
@@ -106,7 +106,7 @@ export const addTripToFB = (trip, key) => async (dispatch, getState) => {
 
   return db.collection('Users').doc(key).collection('futureTrips').add({
     ...trip,
-    persons: [],
+    persons: [key],
     benzin: 0,
     waitingList: [],
     wayLength: 0,
