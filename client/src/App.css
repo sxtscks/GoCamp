@@ -39,8 +39,8 @@
 
 .loginContainer {
 min-height: 90px;
-background: url('bg5.png');
+/* background: url('bg5.png');
 background-size:cover;
 background-attachment: fixed;
-min-height: 900px;
+min-height: 900px; */
 }

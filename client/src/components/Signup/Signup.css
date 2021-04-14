@@ -1,0 +1,13 @@
+.regPage {
+    /* height: 100vh; */
+    /* margin-top: 10%; */
+    background: url('registerBG.png');
+    background-size:cover;
+    /* background-position: 0 20% 20% 20% ; */
+    background-attachment: fixed;
+    height: 100vh;
+    overflow-y: hidden;
+    
+}
+
+

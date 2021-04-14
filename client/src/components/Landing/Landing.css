@@ -1,5 +1,5 @@
 .landing {
-    background:  linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('./background.svg') no-repeat;
+    background:  linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('./landingBG.jpg') no-repeat;
     background-attachment: fixed;
     background-size:100%;
 }
@@ -10,7 +10,7 @@
     justify-content: center;
     flex-direction: column;
     align-self: center;
-    width: 50%;
+    width:50%;
     height: 100vh;
     color: white;
 }
@@ -63,11 +63,16 @@
   height: 560px;
   color: #333;
 	background: #217ca3;
+  background: url('./landos3.png')
+}
+.thirdScreenImg {
+  /* background: url('landos.png') */
 }
 
 .thirdPageContent {
   display: flex;
   justify-content: center;
+  background: url('./landos3.png')
 }
 
 .thirdPageContent h3 {
