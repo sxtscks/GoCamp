@@ -31,7 +31,7 @@ function CurrentTripPage() {
       db.collection('Users').doc(user.uid).collection('futureTrips').doc(id)
         .onSnapshot((doc) => {
           setTrip(doc.data())
-          doc.data().waitingList.map((el) => {
+          doc.data()?.waitingList?.map((el) => {
             db.collection('Users').doc(el).get().then((el) => setWaitLi(prev => [...prev, { ...el.data(), id: el.id }]))
           })
           
@@ -130,7 +130,7 @@ function CurrentTripPage() {
             </Grid>
             <div className="roadMap">
             </div>
-            <Chat id={id} />
+            {/* <Chat id={id} /> */}
           </Grid>
         </div>
       </div>
