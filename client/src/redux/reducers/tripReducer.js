@@ -2,12 +2,8 @@ import { ADD_DISTANCE, CREATE_TRIP, GET_TRIPS } from "../types/trips";
 import { db } from '../../firebase/firebase'
 import firebase from '../../firebase/firebase'
 import dotProp from 'dot-prop'
-<<<<<<< HEAD
-import { v4 as uuidv4 } from 'uuid'
-=======
 import {v4 as uuidv4} from 'uuid'
 
->>>>>>> ba373285228286be8e313c4de9d0aaf8fe0a54d2
 
 const ADD_TRIP = 'ADD_TRIP'
 const ADD_TO_ALL = 'ADD_TO_ALL'
