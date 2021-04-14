@@ -72,9 +72,7 @@ function App() {
           <AddTripForm />
         </Route>
         <Route path='/signup'>
-          <div>
-            <Signup />
-          </div>
+          <Signup />
         </Route>
         <Route path="/profile">
           <ProfilePage />
