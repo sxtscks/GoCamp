@@ -44,7 +44,7 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
   let history = useHistory()
 
   useEffect(() => {
-    persons.map((id) => {
+    persons?.map((id) => {
       const a = db.collection('Users').doc(id).get()
       a.then((person) => setPeople([...people, person.data()]))
     })
@@ -93,7 +93,7 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
       <CardActions>
         {
           location.pathname === '/main' ?
-            author === user.uid ?? persons.includes(user.uid) ?
+            author === user.uid || persons.includes(user.uid) ?
               <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                 Подробнее
               </Button>
@@ -105,8 +105,8 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
                   Оставить заявку
             </Button>
               ) :
-            <Button Button className='buttonCreateTrip' component={Link} onClick={handlerRequest} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
-              Оставить заявку
+            <Button Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+              Подробнее
               </Button>
         }
         {people.length ?

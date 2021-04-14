@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import { useDispatch } from 'react-redux';
 import { userSignUp} from '../../redux/reducers/userReducer';
 import { useHistory } from 'react-router-dom'
-
+import './Signup.css'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+
+  
 }));
 
 export default function Signup() {
@@ -58,8 +60,9 @@ export default function Signup() {
   return (
 
 
-
-    <Container component="main" maxWidth="xs" style={{ marginTop: '12%' }}>
+  <div className="itemsContainer">
+<div className="regPage">
+    <Container className='govnoPoganoe'component="main" maxWidth="xs" style={{ marginTop: '10%', padding:5}}>
       <CssBaseline />
       <div className={classes.paper} >
         <Typography component="h1" variant="h5" style={{ fontFamily: "Montserrat", fontWeight: '500' }}>
@@ -67,6 +70,7 @@ export default function Signup() {
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
+                className={classes.root}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -77,8 +81,12 @@ export default function Signup() {
             name="userName"
             value={user.userName}
             onChange={inputHandler}
+            InputProps={{
+              className: classes.input,
+          }}
           />
           <TextField
+                   className={classes.root}
             variant="outlined"
             margin="normal"
             required
@@ -92,6 +100,7 @@ export default function Signup() {
 
           />
           <TextField
+                   className={classes.root}
             variant="outlined"
             margin="normal"
             required
@@ -121,6 +130,7 @@ export default function Signup() {
         </form>
       </div>
     </Container>
-
+    </div>
+    </div>
   );
 }

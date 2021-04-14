@@ -7,6 +7,7 @@ import { db } from "../../firebase/firebase";
 function CheckRing({ tripId }) {
   const [ring, setRing] = useState(0)
   const [todos, setTodos] = useState([])
+  
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
@@ -26,6 +27,11 @@ function CheckRing({ tripId }) {
 
   }, [todos])
 
+
+
+
+
+  
   useEffect(() => {
     let currentTodos
     if (user.uid) {
