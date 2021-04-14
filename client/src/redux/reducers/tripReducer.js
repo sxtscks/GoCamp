@@ -2,6 +2,7 @@ import { ADD_DISTANCE, CREATE_TRIP, GET_TRIPS } from "../types/trips";
 import { db } from '../../firebase/firebase'
 import firebase from '../../firebase/firebase'
 import dotProp from 'dot-prop'
+import {v4 as uuidv4} from 'uuid'
 
 
 const ADD_TRIP = 'ADD_TRIP'
@@ -80,17 +81,19 @@ export const addTrip = (trip) => {
 
 export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getState) => {
   console.log('YA V DISPATCHE');
-  const trip = db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey)
-  const addTodo = trip.collection('checkList').add(
-    todo
-  )
-  const findPersons = trip.get().then((el) => {
+  const trip = await db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey)
+  // const addTodo = trip.collection('checkList').add(
+  //   todo
+  // )
+  const findPersons = await trip.get().then((el) => {
     const persons = el.data().persons
     if (persons.length) {
       persons.map((person) => {
-        db.collection('Users').doc(person).collection('checkList').add(
+        const id = uuidv4()
+        const todo1 = db.collection('Users').doc(person).collection('futureTrips').doc(tripKey).collection('checkList').doc().set(
           todo
         )
+        console.log('bjbn', todo1.then((el) => console.log(el)));
       })
     }
   })

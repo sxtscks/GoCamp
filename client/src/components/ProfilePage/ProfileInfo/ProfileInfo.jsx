@@ -7,7 +7,7 @@ const ProfileInfo = ({ user }) => {
     <div style={{ marginTop: '5%' }}>
       <Grid container direction="row" justify="center" alignItems="center">
         <AvatarPicture photo={user.photo} />
-        <AboutMe name={user.name} telegram={user.phone}/>
+        <AboutMe name={user.name} telegram={user.phone} aboutUser={user.aboutMe}/>
       </Grid>
     </div>
   )

@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import firebase from '../../firebase/firebase';
 import {
-  Link, useLocation,
+  Link, useHistory, useLocation,
 } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { db } from '../../firebase/firebase';
@@ -38,13 +38,18 @@ export default function CurrentTripItem({ name, id, author, persons }) {
   const classes = useStyles();
 
   let location = useLocation()
+  let history = useHistory()
 
 
   const handlerRequest = (e) => {
     e.preventDefault()
-    db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
-      'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
-    })
+    if (JSON.stringify(user) !== '{}') {
+      db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
+        'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
+      })
+    } else {
+      history.push('/login')
+    }
   }
 
 
