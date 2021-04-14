@@ -12,7 +12,7 @@ import TripMap from '../TripMap/TripMap';
 import { useSelector } from "react-redux";
 import Chat from "../Chat/Chat";
 
-import WaitingPerson from '../WaitingPerson/WaitingPerson'
+import WaitingPerson from '../WaitingPerson/WaitingPerson'
 
 function CurrentTripPage() {
   const [trip, setTrip] = useState({})
@@ -20,7 +20,7 @@ function CurrentTripPage() {
 
   const user = useSelector(state => state.user)
   const { id } = useParams()
-  
+
 
 
   useEffect(() => {
@@ -30,37 +30,38 @@ function CurrentTripPage() {
         .onSnapshot((doc) => {
           setTrip(doc.data())
           doc.data().waitingList.map((el) => {
-                    db.collection('Users').doc(el).get().then((el)=> setWaitLi(prev=>[...prev,{...el.data(), id: el.id}]))})
-
+            db.collection('Users').doc(el).get().then((el) => setWaitLi(prev => [...prev, { ...el.data(), id: el.id }]))
+          })
+          
         })
-      }
+    }
     return () => {
       currentTrip && currentTrip()
     }
   }, [user])
 
   const simpleArr = waitLi
-    const sortedTrips = simpleArr.sort((a, b) => a.startDate - b.startDate).filter((item, i, ar) => ar.indexOf(item) === i)
+  const sortedTrips = simpleArr.sort((a, b) => a.startDate - b.startDate).filter((item, i, ar) => ar.indexOf(item) === i)
 
-   
-    let cities = sortedTrips.reduce((acc, city) => {
-      if (acc.map[city.id]) // если данный город уже был
-        return acc; // ничего не делаем, возвращаем уже собранное
-  
-      acc.map[city.id] = true; // помечаем город, как обработанный
-      acc.cities.push(city); // добавляем объект в массив городов
-      return acc; // возвращаем собранное
-    }, {
-      map: {}, // здесь будут отмечаться обработанные города
-      cities: [] // здесь конечный массив уникальных городов
-    })
+
+  let cities = sortedTrips.reduce((acc, city) => {
+    if (acc.map[city.id]) // если данный город уже был
+      return acc; // ничего не делаем, возвращаем уже собранное
+
+    acc.map[city.id] = true; // помечаем город, как обработанный
+    acc.cities.push(city); // добавляем объект в массив городов
+    return acc; // возвращаем собранное
+  }, {
+    map: {}, // здесь будут отмечаться обработанные города
+    cities: [] // здесь конечный массив уникальных городов
+  })
     .cities; // получаем конечный массив
 
 
 
 
-  console.log('waitli>>>>>>>>>>>>>>>',waitLi)
- 
+  console.log('waitli>>>>>>>>>>>>>>>', waitLi)
+
 
   return (
     <div className="mainCont">
@@ -111,19 +112,19 @@ function CurrentTripPage() {
               <h5 style={{ color: 'white' }}>Едут: </h5>
               {/* {user.uid === trip.author ? } */}
               <Grid>
-              {cities.length ? cities.map((el)=>
-              <Grid>
+                {cities.length ? cities.map((el) =>
+                  <Grid>
 
-               <WaitingPerson  name={el.name} person={el} tripId={id} trip={trip}/>
-            
+                    <WaitingPerson name={el.name} person={el} tripId={id} trip={trip} />
+
+                  </Grid>
+
+
+
+
+                )
+                  : null}
               </Grid>
-
-       
-               
-               
-               )
-                : null}
-                </Grid>
             </Grid>
             <div className="roadMap">
             </div>
