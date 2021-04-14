@@ -60,17 +60,21 @@ export default function CurrentTripItem({ name, id, author, persons }) {
         <Typography className={classes.pos} color="textSecondary">
           {/* {startDate.toDate().toDateString()} - {endDate.toDate().toDateString()} */}
         </Typography>
-        {/* <Typography variant="body2" component="p">
-          {
-            persons?.length ?
-              <div>
-                Количество людей: {persons.length}
-                <br />
+        {
+          location.pathname === '/currentTrips' ?
+            <Typography variant="body2" component="p">
+              {
+                persons?.length ?
+                  <div>
+                    Количество людей: {persons.length}
+                    <br />
                 Едут: {persons.join(', ')}
-              </div>
-              : <p>Возьми кого-нибудь с собой!</p>
-          }
-        </Typography> */}
+                  </div>
+                  : <p>Возьми кого-нибудь с собой!</p>
+              }
+            </Typography>
+            : ''
+        }
       </CardContent>
       <CardActions>
         {
