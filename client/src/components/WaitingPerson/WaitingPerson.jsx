@@ -7,12 +7,22 @@ function WaitingPerson({person,tripId,trip}) {
 
     const handlerConfirm = (e) => {
         e.preventDefault()
+          db.collection('Users').doc(person.id).collection('futureTrips').doc(tripId).set({
+            name: trip.name,
+            distance: trip.distance,
+            author: trip.author,
+            coordinates: trip.coordinates,
+            persons: trip.persons,
+            endDate: trip.endDate,
+            startDate: trip.startDate,
+            place: trip.place,
+          })
+
           db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).update({
             "persons":  firebase.firestore.FieldValue.arrayUnion(person.id),
             "waitingList": firebase.firestore.FieldValue.arrayRemove(person.id)
         
           })
-          db.collection('Users').doc(person.id).collection('futureTrips').doc(tripId).set(trip)
       }
 
 
