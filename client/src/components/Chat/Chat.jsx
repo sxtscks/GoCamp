@@ -9,11 +9,12 @@ import { useSelector } from "react-redux";
 import { db } from "../../firebase/firebase";
 import firebase from 'firebase/app';
 
-const Chat = () => {
+const Chat = ({ id }) => {
   const currentUser = useSelector(state => state.user)
 
   const scroll = useRef();
-  const messagesRef = db.collection('messages');
+  const messagesRef = db.collection('Users').doc(currentUser.uid).collection('futureTrips').doc(id).collection('messages')
+
   const query = messagesRef.orderBy("createdAt").limit(25)
 
   const [messages] = useCollectionData(query, { idField: "id" }) //возвращает массив объектов, где каждый объект - сообщение
@@ -44,7 +45,7 @@ const Chat = () => {
 
         <span ref={scroll} />
       </main>
-      
+
       <form onSubmit={sendMessage} className="chatForm">
         <input
           value={formValue}

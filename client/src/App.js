@@ -43,8 +43,8 @@ function App() {
       }
     }))
   }, [])
-  
- 
+
+
 
   const updateDbUser = async (sdkUser) => {
     await db.collection('Users').doc(sdkUser.uid).set(
@@ -60,49 +60,49 @@ function App() {
 
   return (
     // <UserContextProvider>
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route path='/login'>
-            <div className="loginContainer">
-              <Login />
-            </div>
-          </Route>
-          <Route path='/add'>
-            <AddTripForm />
-          </Route>
-          <Route path='/signup'>
-            <div>
-              <Signup />
-            </div>
-          </Route>
-          <Route path="/profile">
-            <ProfilePage />
-          </Route>
-          <Route path='/create/:id'>
-            <CurrentTripPage />
-            {/* <CurTip/> */}
-          </Route>
-          <Route path='/currentTrips'>
-            <CurrentTrips />
-          </Route>
-          <Route path='/recommendations/topic/:id'>
-            <TripPage />
-          </Route>
-          <Route path='/recommendations/:id'>
-            <RecommendsList />
-          </Route>
-          <Route path='/recommendations'>
-            <CategoriesList />
-          </Route>
-          <Route path='/main'>
-            <Main />
-          </Route>
-          <Route path="/">
-            <Landing />
-          </Route>
-        </Switch>
-      </Router >
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route path='/login'>
+          <div className="loginContainer">
+            <Login />
+          </div>
+        </Route>
+        <Route path='/add'>
+          <AddTripForm />
+        </Route>
+        <Route path='/signup'>
+          <div>
+            <Signup />
+          </div>
+        </Route>
+        <Route path="/profile">
+          <ProfilePage />
+        </Route>
+        <Route path='/create/:id'>
+          <CurrentTripPage />
+          {/* <CurTip/> */}
+        </Route>
+        <Route path='/currentTrips'>
+          <CurrentTrips />
+        </Route>
+        <Route path='/recommendations/topic/:id'>
+          <TripPage />
+        </Route>
+        <Route path='/recommendations/:id'>
+          <RecommendsList />
+        </Route>
+        <Route path='/recommendations'>
+          <CategoriesList />
+        </Route>
+        <Route path='/main'>
+          <Main />
+        </Route>
+        <Route path="/">
+          <Landing />
+        </Route>
+      </Switch>
+    </Router >
     // </UserContextProvider>
   );
 }

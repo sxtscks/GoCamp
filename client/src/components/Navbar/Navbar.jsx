@@ -24,7 +24,7 @@ import { Grid, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { addTripToFB } from '../../redux/reducers/tripReducer';
 import firebase from '../../firebase/firebase'
-import {db} from '../../firebase/firebase'
+import { db } from '../../firebase/firebase'
 
 
 

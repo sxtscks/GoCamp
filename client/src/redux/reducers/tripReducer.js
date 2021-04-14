@@ -2,7 +2,12 @@ import { ADD_DISTANCE, CREATE_TRIP, GET_TRIPS } from "../types/trips";
 import { db } from '../../firebase/firebase'
 import firebase from '../../firebase/firebase'
 import dotProp from 'dot-prop'
+<<<<<<< HEAD
 import { v4 as uuidv4 } from 'uuid'
+=======
+import {v4 as uuidv4} from 'uuid'
+
+>>>>>>> ba373285228286be8e313c4de9d0aaf8fe0a54d2
 
 const ADD_TRIP = 'ADD_TRIP'
 const ADD_TO_ALL = 'ADD_TO_ALL'
@@ -84,8 +89,8 @@ export const addTrip = (trip) => {
 }
 
 export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getState) => {
-console.log('YA V DISPATCHE');
-  const trip = await  db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey)
+  console.log('YA V DISPATCHE');
+  const trip = await db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey)
   // const addTodo = trip.collection('checkList').add(
   //   todo
   // )
@@ -97,7 +102,7 @@ console.log('YA V DISPATCHE');
         const todo1 =  db.collection('Users').doc(person).collection('futureTrips').doc(tripKey).collection('checkList').doc(`todo${Date.now()}`).set(
           todo
         )
-        console.log('bjbn', todo1.then((el)=> console.log(el)));
+        console.log('bjbn', todo1.then((el) => console.log(el)));
       })
     }
   })

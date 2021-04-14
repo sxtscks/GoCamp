@@ -8,7 +8,7 @@ function Form({ tripId }) {
   const dispatch = useDispatch()
   const [value, setValue] = useState({ text: '', important: false, confirmed: false, taker: '' })
 
-const user = useSelector(state=> state.user)
+  const user = useSelector(state => state.user)
 
   function handlerChange(event) {
     setValue({ ...value, [event.target.name]: event.target.value })
@@ -22,8 +22,8 @@ const user = useSelector(state=> state.user)
     console.log(tripId, "tripId in form");
 
     dispatch(addTripsTodo(user.uid, tripId, value))
-      // .then((docref) => todoId = docref.id)
-    setValue({text: ''})
+    // .then((docref) => todoId = docref.id)
+    setValue({ text: '' })
   }
 
 

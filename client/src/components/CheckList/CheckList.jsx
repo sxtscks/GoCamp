@@ -12,7 +12,7 @@ function CheckList({ tripId }) {
 
   useEffect(() => {
     let currentTodos
-    
+
     if (user.uid) {
       currentTodos = db.collection('Users').doc(user.uid)
         .collection('futureTrips').doc(tripId)
@@ -20,7 +20,7 @@ function CheckList({ tripId }) {
         .onSnapshot((querySnapshot) => {
           setTodos(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
         })
-      }
+    }
 
     return () => {
       currentTodos && currentTodos()

@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import firebase from '../../firebase/firebase';
 import {
-  Link, useLocation,
+  Link, useHistory, useLocation,
 } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { db } from '../../firebase/firebase';
@@ -41,6 +41,7 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
   const classes = useStyles();
 
   let location = useLocation()
+  let history = useHistory()
 
   useEffect(() => {
     persons.map((id) => {
@@ -51,9 +52,13 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
   console.log(people);
   const handlerRequest = (e) => {
     e.preventDefault()
-    db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
-      'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
-    })
+    if (JSON.stringify(user) !== '{}') {
+      db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
+        'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
+      })
+    } else {
+      history.push('/login')
+    }
   }
 
 
@@ -69,17 +74,21 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
         <Typography className={classes.pos} color="textSecondary">
           {/* {startDate.toDate().toDateString()} - {endDate.toDate().toDateString()} */}
         </Typography>
-        {/* <Typography variant="body2" component="p">
-          {
-            persons?.length ?
-              <div>
-                Количество людей: {persons.length}
-                <br />
+        {
+          location.pathname === '/currentTrips' ?
+            <Typography variant="body2" component="p">
+              {
+                persons?.length ?
+                  <div>
+                    Количество людей: {persons.length}
+                    <br />
                 Едут: {persons.join(', ')}
-              </div>
-              : <p>Возьми кого-нибудь с собой!</p>
-          }
-        </Typography> */}
+                  </div>
+                  : <p>Возьми кого-нибудь с собой!</p>
+              }
+            </Typography>
+            : ''
+        }
       </CardContent>
       <CardActions>
         {

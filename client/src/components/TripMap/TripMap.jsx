@@ -13,7 +13,7 @@ function TripMap({ trip, id }) {
   const user = useSelector(state => state.user)
 
   const dispatch = useDispatch()
-  
+
   if (!user.uid) return null
 
   return (
@@ -43,12 +43,12 @@ function TripMap({ trip, id }) {
                     console.log('POPAL', distance);
                     db.collection('Users').doc(user.uid).collection('futureTrips').doc(id).set({
                       distance: distance
-                    },{ merge: true })
+                    }, { merge: true })
                     // dispatch(addDistance(trip.id, distance))
                   }
                 })
               })
-              
+
             }
           }} options={{ float: 'right' }} />
           <GeolocationControl options={{ float: 'left' }} />

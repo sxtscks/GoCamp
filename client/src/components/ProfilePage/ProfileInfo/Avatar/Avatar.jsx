@@ -12,15 +12,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
+    width: theme.spacing(19),
+    height: theme.spacing(19),
   },
   large: {
     width: theme.spacing(30),
     height: theme.spacing(30),
   },
 }));
-export default function AvatarPicture(props) {
+export default function AvatarPicture({user}) {
   const classes = useStyles();
   const userIdInFirebase = useSelector(state => state.user.uid)
   const [fileUrl, setFileUrl] = useState(null);
@@ -39,11 +39,11 @@ export default function AvatarPicture(props) {
   };
   return (
     <div className={classes.root}>
-      {props.photo ?
-        <Avatar alt="Remy Sharp" src={props.photo} className={classes.large} />
+      {user.photo ?
+        <Avatar alt="Remy Sharp" src={user.photo} className={classes.small} />
         :
         <div>
-          <Avatar alt="Remy Sharp" src="https://img2.pngio.com/person-icon-computer-icons-user-profile-symbol-person-free-png-user-avatars-png-910_512.png" className={classes.large} />
+          <Avatar alt="Remy Sharp" src="https://img2.pngio.com/person-icon-computer-icons-user-profile-symbol-person-free-png-user-avatars-png-910_512.png" className={classes.small} />
           <form onSubmit={onSubmit}>
             <div>
               <input type="file" onChange={onFileChange} />
