@@ -2,7 +2,7 @@ import { ADD_DISTANCE, CREATE_TRIP, GET_TRIPS } from "../types/trips";
 import { db } from '../../firebase/firebase'
 import firebase from '../../firebase/firebase'
 import dotProp from 'dot-prop'
-
+import { v4 as uuidv4 } from 'uuid'
 
 const ADD_TRIP = 'ADD_TRIP'
 const ADD_TO_ALL = 'ADD_TO_ALL'
@@ -15,7 +15,12 @@ const initState = {
     description: '',
   }
 }
-
+const ID = function () {
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return '_' + Math.random().toString(36).substr(2, 9);
+};
 
 const tripReducer = (state = initState, action) => {
   // const { name, start, finish, description } = action.payload
@@ -88,7 +93,8 @@ console.log('YA V DISPATCHE');
     const persons = el.data().persons
     if (persons.length) {
       persons.map((person) => {
-        const todo1 =  db.collection('Users').doc(person).collection('futureTrips').doc(tripKey).collection('checkList').add(
+        const id = ID()
+        const todo1 =  db.collection('Users').doc(person).collection('futureTrips').doc(tripKey).collection('checkList').doc(`todo${Date.now()}`).set(
           todo
         )
         console.log('bjbn', todo1.then((el)=> console.log(el)));
