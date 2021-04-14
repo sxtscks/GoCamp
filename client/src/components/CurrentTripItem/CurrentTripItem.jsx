@@ -79,7 +79,7 @@ export default function CurrentTripItem({ name, id, author, persons }) {
       <CardActions>
         {
           location.pathname === '/main' ?
-            author === user.uid || persons.includes(user.uid) ?
+            persons.includes(user.uid) ?
               <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                 Подробнее
               </Button>
