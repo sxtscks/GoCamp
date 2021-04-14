@@ -5,6 +5,12 @@ import {
   Link,
 } from "react-router-dom";
 import TripMap from '../TripMap/TripMap';
+import Grid from '@material-ui/core/Grid';
+import  icon1 from './campList.png'
+import  icon2 from './checklistIcon.png'
+import  icon3 from './autoList.png'
+import  icon4 from './backpackList.png'
+
 
 
 function Landing() {
@@ -12,17 +18,16 @@ function Landing() {
     <div className='landing'>
       <div className="container">
         <div className="firstScreen">
-          <div className="textOne">
-            <h1> Привет, дружок</h1>
-          </div>
-          <hr></hr>
+        <div className="textOne">
+          GoCamp
+        </div>
+     
           <div className="textTwo">
-            <h2>добро пожаловать в наш уютный бложек</h2>
+            <p>cоздай свое собственное путешествие</p>
           </div>
-          <hr></hr>
           <div className="textThree">
-            <h1>Погнали в поход</h1>
-            <Button className='buttonCreateTrip' component={Link} to="/create" variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+
+            <Button className='buttonCreateTrip1' component={Link} to="/create" variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700, fontSize:20, borderRadius:10}}>
               Создать поездку
 </Button>
           </div>
@@ -30,15 +35,49 @@ function Landing() {
       </div>
       <div>
         <div className="secondScreen">
-          <div className="container secondPageContent">
-            <h3>Вторая страница</h3>
+          <div className="container secondPageContent d-flex flex-wrap">
+            <div className="conflex d-flex">
+              <div className="imgCont">
+                <img src={icon2} style={{width:'150px'}}alt=""/>
+              </div>
+              <div className="txtCont">
+                <span>планируй маршрут    и поездку
+                </span>
+              </div>
+              </div>
+            <div className="conflex d-flex">
+              <div className="imgCont">
+                <img src={icon4} style={{width:'150px'}}alt=""/>
+              </div>
+              <div className="txtCont">
+                <span>грамотно организуй сборы</span>
+              </div>
+              </div>
+            <div className="conflex d-flex">
+              <div className="imgCont">
+                <img src={icon3} style={{width:'150px'}}alt=""/>
+              </div>
+              <div className="txtCont">
+                <span>автоматически считай затраты на бензин</span>
+              </div>
+              </div>
+            <div className="conflex d-flex">
+              <div className="imgCont">
+                <img src={icon1} style={{width:'150px'}}alt=""/>
+              </div>
+              <div className="txtCont">
+                <span>наслаждайся путешествием</span>
+              </div>
+              </div>
           </div>
         </div>
       </div>
       <div>
         <div className="thirdScreen">
           <div className="container thirdPageContent">
-            <h3>Третья страница</h3>
+            <div className='thirdScreentext'>
+              <p>  Вперед! Приключения ждут!</p> 
+            </div>
           </div>
         </div>
       </div>
