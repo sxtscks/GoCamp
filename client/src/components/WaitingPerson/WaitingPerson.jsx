@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from "react-redux";
 import firebase,{db} from '../../firebase/firebase'
 
-function WaitingPerson({person,tripId}) {
+function WaitingPerson({person,tripId,trip}) {
     const user = useSelector(state => state.user)
 
     const handlerConfirm = (e) => {
@@ -12,7 +12,7 @@ function WaitingPerson({person,tripId}) {
             "waitingList": firebase.firestore.FieldValue.arrayRemove(person.id)
         
           })
-          .catch((err) => console.log(err))
+          db.collection('Users').doc(person.id).collection('futureTrips').doc(tripId).set(trip)
       }
 
 

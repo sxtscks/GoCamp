@@ -112,7 +112,7 @@ function CurrentTripPage() {
               {cities.length ? cities.map((el)=>
               <Grid>
 
-               <WaitingPerson  name={el.name} person={el} tripId={id}/>
+               <WaitingPerson  name={el.name} person={el} tripId={id} trip={trip}/>
             
               </Grid>
 
