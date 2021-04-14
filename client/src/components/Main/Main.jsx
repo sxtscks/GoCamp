@@ -56,7 +56,7 @@ function Main() {
       <div className="feedContainer">
         {
           cities.length ?
-            cities.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} author={trip.author} persons={trip.persons} /></ul>)
+          cities.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} author={trip.author} waitingList={trip.waitingList}  persons={trip.persons} /></ul>)
             : <h3>Список пуст. Создайте новую поездку!</h3>
         }
       </div>

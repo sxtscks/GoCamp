@@ -6,10 +6,16 @@ const EndTrip = ({ tripId, trip }) => {
 
   const user = useSelector(state => state.user)
   const history = useHistory()
+  
   async function endTrip() {
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).delete()
-    await db.collection('Users').doc(user.uid).collection('lastTrips').add({
-      ...trip
+    const persons = []
+    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).get().then((doc)=> persons.push(doc.data().persons))
+
+    persons.map((person)=> {
+      db.collection('Users').doc(person).collection('futureTrips').doc(tripId).delete()
+      db.collection('Users').doc(user.uid).collection('lastTrips').add({
+        ...trip
+      })
     })
   }
   const submitHandler = (e) => {

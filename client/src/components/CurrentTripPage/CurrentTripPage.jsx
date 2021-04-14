@@ -12,17 +12,13 @@ import TripMap from '../TripMap/TripMap';
 import { useSelector } from "react-redux";
 import EndTrip from "../endTrip/endTrip";
 import Chat from "../Chat/Chat";
-
 import WaitingPerson from '../WaitingPerson/WaitingPerson'
-
 function CurrentTripPage() {
   const user = useSelector(state => state.user)
   const { id } = useParams()
-
   const [trip, setTrip] = useState({})
   const [waitLi, setWaitLi] = useState([])
   let simpleArr
-
   useEffect(() => {
     console.log(id);
     let currentTrip
@@ -45,22 +41,17 @@ function CurrentTripPage() {
           //             if (prev.find(person => person.id === el.data().id)) return prev
           //             return [...prev,{...el.data(), id: el.id}]
           //           }))})
-
         })
     }
     return () => {
       currentTrip && currentTrip()
     }
   }, [user])
-
   // simpleArr = waitLi
   //   const sortedTrips = simpleArr.sort((a, b) => a.startDate - b.startDate).filter((item, i, ar) => ar.indexOf(item) === i)
-
-
   //   let waiters = sortedTrips.reduce((acc, waiter) => {
   //     if (acc.map[waiter.id]) 
   //       return acc; 
-
   //     acc.map[waiter.id] = true; 
   //     acc.waiters.push(waiter); 
   //     return acc; 
@@ -69,18 +60,10 @@ function CurrentTripPage() {
   //     waiters: [] 
   //   })
   //   .waiters; 
-
-
-
-
   console.log('waitli>>>>>>>>>>>>>>>', waitLi)
-
-
   return (
     <div className="mainCont">
-
       <div className="tripPage">
-
         <div className="container">
           <Grid
             container spacing={2}
@@ -88,20 +71,14 @@ function CurrentTripPage() {
           // justify="space-between"
           // alignItems="center"
           >
-
-
             <Grid item sm={6} style={{ marginTop: 30 }} >
               <Grid item xs={12}>
-
                 <Form tripId={id} />
                 <EndTrip trip={trip} tripId={id} />
               </Grid>
-
               <CheckList tripId={id} />
               {trip?.name ?
-
                 <TripMap trip={trip} id={id} />
-
                 :
                 <span>netu</span>
               }
@@ -112,7 +89,6 @@ function CurrentTripPage() {
               // justify="center"
               alignItems="center"
               style={{ marginLeft: 150 }}>
-
               <Grid item sm={8} xs={3} style={{ marginTop: 40, marginLeft: 30 }}>
                 <DateOfTrip />
               </Grid>
@@ -135,13 +111,11 @@ function CurrentTripPage() {
             </Grid>
             <div className="roadMap">
             </div>
-            {/* <Chat id={id} /> */}
+            <Chat id={id} />
           </Grid>
         </div>
       </div>
     </div>
-
   );
 }
-
 export default CurrentTripPage;

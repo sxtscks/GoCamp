@@ -16,7 +16,12 @@ const initState = {
     description: '',
   }
 }
-
+const ID = function () {
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return '_' + Math.random().toString(36).substr(2, 9);
+};
 
 const tripReducer = (state = initState, action) => {
   // const { name, start, finish, description } = action.payload
@@ -89,8 +94,8 @@ export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getStat
     const persons = el.data().persons
     if (persons.length) {
       persons.map((person) => {
-        const id = uuidv4()
-        const todo1 = db.collection('Users').doc(person).collection('futureTrips').doc(tripKey).collection('checkList').doc().set(
+        const id = ID()
+        const todo1 =  db.collection('Users').doc(person).collection('futureTrips').doc(tripKey).collection('checkList').doc(`todo${Date.now()}`).set(
           todo
         )
         console.log('bjbn', todo1.then((el) => console.log(el)));

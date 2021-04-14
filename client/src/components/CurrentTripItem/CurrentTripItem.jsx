@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -33,14 +33,23 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({ name, id, author, persons }) {
+export default function CurrentTripItem({ name, id, author, persons, waitingList }) {
+  const [request, setRequest] = useState(false)
+  const [people, setPeople] = useState([])
+
   const user = useSelector(state => state.user)
   const classes = useStyles();
 
   let location = useLocation()
   let history = useHistory()
 
-
+  useEffect(() => {
+    persons?.map((id) => {
+      const a = db.collection('Users').doc(id).get()
+      a.then((person) => setPeople([...people, person.data()]))
+    })
+  }, [])
+  console.log(people);
   const handlerRequest = (e) => {
     e.preventDefault()
     if (JSON.stringify(user) !== '{}') {
@@ -84,20 +93,33 @@ export default function CurrentTripItem({ name, id, author, persons }) {
       <CardActions>
         {
           location.pathname === '/main' ?
-            persons.includes(user.uid) ?
+            author === user.uid || persons.includes(user.uid) ?
               <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                 Подробнее
               </Button>
-              :
-              <Button className='buttonCreateTrip' component={Link} onClick={handlerRequest} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
-                Оставить заявку
-              </Button>
-            :
-            <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+              : ((waitingList?.includes(user.uid)) ?
+                <Button className='buttonCreateTrip' component={Link} onClick={handlerRequest} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                  На рассмотрении
+              </Button> :
+                <Button className='buttonCreateTrip' component={Link} onClick={handlerRequest} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                  Оставить заявку
+            </Button>
+              ) :
+            <Button Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
               Подробнее
-          </Button>
+              </Button>
         }
+        {people.length ?
+          people.map((el) => {
+            return <div className='d-flex'>
+              <img src={el.photo} style={{ width: 30, height: 30 }} alt="" />
+            </div>
+          }) :
+
+          'hjhj'
+        }
+
       </CardActions>
-    </Card>
+    </Card >
   );
 }
