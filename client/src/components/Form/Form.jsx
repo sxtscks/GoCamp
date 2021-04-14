@@ -7,7 +7,6 @@ import { db } from '../../firebase/firebase'
 function Form({ tripId }) {
   const dispatch = useDispatch()
   const [value, setValue] = useState({ text: '', important: false, confirmed: false, taker: '' })
-  const userFromLS = JSON.parse(window.localStorage.getItem('myApp'))
 
 const user = useSelector(state=> state.user)
 
@@ -19,10 +18,11 @@ const user = useSelector(state=> state.user)
   const addTodoHandler = (e) => {
     e.preventDefault()
     let todoId = '';
-    console.log(value);
+    console.log(user, "SUer in form");
+    console.log(tripId, "tripId in form");
+
     dispatch(addTripsTodo(user.uid, tripId, value))
-      .then((docref) => todoId = docref.id)
-      .then(() => console.log(todoId, 'fyufyh'))
+      // .then((docref) => todoId = docref.id)
     setValue({text: ''})
   }
 

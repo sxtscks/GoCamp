@@ -10,7 +10,7 @@ function BenzinForm({ trip, id }) {
     e.preventDefault()
     setKm(e.target.value)
   }
-  console.log(trip);
+  
   const user = useSelector(state => state.user)
   const handlerCost = (e) => {
     e.preventDefault()
