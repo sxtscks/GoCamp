@@ -80,17 +80,18 @@ export const addTrip = (trip) => {
 
 export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getState) => {
 console.log('YA V DISPATCHE');
-  const trip = db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey)
-  const addTodo = trip.collection('checkList').add(
-    todo
-  )
-  const findPersons = trip.get().then((el) => {
+  const trip = await  db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey)
+  // const addTodo = trip.collection('checkList').add(
+  //   todo
+  // )
+  const findPersons = await trip.get().then((el) => {
     const persons = el.data().persons
     if (persons.length) {
       persons.map((person) => {
-        db.collection('Users').doc(person).collection('checkList').add(
+        const todo1 =  db.collection('Users').doc(person).collection('futureTrips').doc(tripKey).collection('checkList').add(
           todo
         )
+        console.log('bjbn', todo1.then((el)=> console.log(el)));
       })
     }
   })

@@ -9,7 +9,7 @@ function WaitingPerson({person,tripId,trip}) {
         e.preventDefault()
           db.collection('Users').doc(person.id).collection('futureTrips').doc(tripId).set({
             name: trip.name,
-            distance: trip.distance,
+            // distance: trip.distance,
             author: trip.author,
             coordinates: trip.coordinates,
             persons: trip.persons,

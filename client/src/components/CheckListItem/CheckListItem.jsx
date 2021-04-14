@@ -13,6 +13,7 @@ function CheckListItem({ tripId, todo, id }) {
   //       e.preventDefault(e)
   //       return dispatch(confirmTodo(id))
   //   }
+  
   const takerHandler = (e) => {
     e.preventDefault()
       db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
