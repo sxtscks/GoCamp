@@ -50,6 +50,8 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
     })
   }, [])
   console.log(people);
+
+  
   const handlerRequest = (e) => {
     e.preventDefault()
     if (JSON.stringify(user) !== '{}') {

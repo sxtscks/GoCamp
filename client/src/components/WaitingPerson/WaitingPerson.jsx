@@ -5,9 +5,15 @@ import firebase, { db } from '../../firebase/firebase'
 function WaitingPerson({ person, tripId, trip }) {
   const user = useSelector(state => state.user)
 
-  const handlerConfirm = (e) => {
+  const handlerConfirm = async (e) => {
     e.preventDefault()
-    db.collection('Users').doc(person.id).collection('futureTrips').doc(tripId).set({
+    
+    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).update({
+      "persons": firebase.firestore.FieldValue.arrayUnion(person.id),
+      "waitingList": firebase.firestore.FieldValue.arrayRemove(person.id)
+      
+    })
+    await db.collection('Users').doc(person.id).collection('futureTrips').doc(tripId).set({
       name: trip.name,
       // distance: trip.distance,
       author: trip.author,
@@ -16,12 +22,6 @@ function WaitingPerson({ person, tripId, trip }) {
       endDate: trip.endDate,
       startDate: trip.startDate,
       place: trip.place,
-    })
-
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).update({
-      "persons": firebase.firestore.FieldValue.arrayUnion(person.id),
-      "waitingList": firebase.firestore.FieldValue.arrayRemove(person.id)
-
     })
   }
 

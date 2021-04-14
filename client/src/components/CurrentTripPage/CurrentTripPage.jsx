@@ -21,6 +21,8 @@ function CurrentTripPage() {
   
   const [trip, setTrip] = useState({})
   const [waitLi, setWaitLi] = useState([])
+  
+
   let  simpleArr
   
   useEffect(() => {
@@ -33,9 +35,7 @@ function CurrentTripPage() {
           setTrip(doc.data())
           let id
           console.log('waiting list >>>>', doc.data().waitingList)
-          Promise.all(doc.data().waitingList.map((el) => {
-            console.log('el here', el)
-            id = el
+          Promise.all(doc.data()?.waitingList?.map((el) => {
           return db.collection('Users').doc(el).get()
           .then((p) => {return {...p.data(),id:p.id}})}))
             .then((w) => setWaitLi(w))
@@ -134,7 +134,7 @@ function CurrentTripPage() {
             </Grid>
             <div className="roadMap">
             </div>
-            {/* <Chat id={id} /> */}
+            <Chat id={id} />
           </Grid>
         </div>
       </div>
