@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(30),
   },
 }));
-export default function AvatarPicture({user}) {
+export default function AvatarPicture({ user }) {
   const classes = useStyles();
   const userIdInFirebase = useSelector(state => state.user.uid)
   const [fileUrl, setFileUrl] = useState(null);
@@ -42,13 +42,20 @@ export default function AvatarPicture({user}) {
       {user.photo ?
         <Avatar alt="Remy Sharp" src={user.photo} className={classes.small} />
         :
-        <div>
+        <div className='avatarBox'>
           <Avatar alt="Remy Sharp" src="https://img2.pngio.com/person-icon-computer-icons-user-profile-symbol-person-free-png-user-avatars-png-910_512.png" className={classes.small} />
           <form onSubmit={onSubmit}>
             <div>
-              <input type="file" onChange={onFileChange} />
+              <div class="example-2">
+                <div class="form-group mt-3">
+                  <input type="file" name="file" id="file" class="input-file" onChange={onFileChange} />
+                  <label for="file" class="btn btn-tertiary js-labelFile">
+                    <span class="js-fileName">Загрузить файл</span>
+                  </label>
+                </div>
+              </div>
             </div>
-            <button>Загрузить фото</button>
+            <button className="btn btn-tertiary">Загрузить фото</button>
           </form>
         </div>
       }

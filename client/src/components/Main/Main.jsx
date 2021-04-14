@@ -61,7 +61,7 @@ function Main() {
         }
       </div>
       <div style={{ marginTop: '2.5%' }} className="mapContainer">
-        <MainMap myTrips={cities} />
+        <MainMap myTrips={cities} /> 
       </div>
     </div>
   )

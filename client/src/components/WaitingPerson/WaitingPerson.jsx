@@ -22,15 +22,22 @@ function WaitingPerson({ person, tripId, trip }) {
   const classes = useStyles();
   const user = useSelector(state => state.user)
 
-  const handlerConfirm = (e) => {
+  const handlerConfirm = async (e) => {
     e.preventDefault()
-    console.log('person id>>>>>>>>>>>>', person.id);
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).update({
+    await db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).update({
       "persons": firebase.firestore.FieldValue.arrayUnion(person.id),
       "waitingList": firebase.firestore.FieldValue.arrayRemove(person.id)
-
     })
-    db.collection('Users').doc(person.id).collection('futureTrips').doc(tripId).set(trip)
+    await db.collection('Users').doc(person.id).collection('futureTrips').doc(tripId).set({
+      name: trip.name,
+      // distance: trip.distance,
+      author: trip.author,
+      coordinates: trip.coordinates,
+      persons: trip.persons,
+      endDate: trip.endDate,
+      startDate: trip.startDate,
+      place: trip.place,
+    })
   }
 
 

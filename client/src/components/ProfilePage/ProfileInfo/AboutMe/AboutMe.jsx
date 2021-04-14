@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useSelector } from 'react-redux';
 import { db } from '../../../../firebase/firebase'
+import { ThemeProvider } from 'styled-components';
+const theme = createMuiTheme({
+  typography: {
+    fontSize: 10
+  },
+
+})
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    maxWidth: 752,
+    maxWidth: 190,
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
   },
   title: {
-    margin: theme.spacing(4, 0, 2),
+    margin: theme.spacing(3, 0, 1),
+    fontSize: "18px",
   },
 }));
 export default function AboutMe(props) {
@@ -54,6 +62,8 @@ export default function AboutMe(props) {
         <List dense={dense}>
           <ListItem >
             <ListItemText
+              disableTypography='true'
+              className={classes.title}
               primary={'Телефон:'}
               secondary={
                 !props.telegram
@@ -78,7 +88,9 @@ export default function AboutMe(props) {
           </ListItem>
           <ListItem>
             <ListItemText
-              primary={'О пользователе:'}
+              disableTypography='true'
+              className={classes.title}
+              primary={'О себе:'}
               secondary={
                 !props.aboutUser
                   ?
