@@ -5,13 +5,14 @@ import { db } from "../../firebase/firebase";
 
 
 function CheckList({ tripId }) {
-  // mojno v context 
+
   const [todos, setTodos] = useState([])
-  //  сюда должна вернуть всех тодошек
+
   const user = useSelector(state => state.user)
 
   useEffect(() => {
     let currentTodos
+
     if (user.uid) {
       currentTodos = db.collection('Users').doc(user.uid)
         .collection('futureTrips').doc(tripId)
@@ -19,7 +20,7 @@ function CheckList({ tripId }) {
         .onSnapshot((querySnapshot) => {
           setTodos(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
         })
-      }
+    }
 
     return () => {
       currentTodos && currentTodos()

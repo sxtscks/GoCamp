@@ -10,9 +10,10 @@ import './CurrentTripPage.css'
 import BenzinForm from '../BenzinForm/BenzinForm';
 import TripMap from '../TripMap/TripMap';
 import { useSelector } from "react-redux";
+import EndTrip from "../endTrip/endTrip";
 import Chat from "../Chat/Chat";
 
-import WaitingPerson from '../WaitingPerson/WaitingPerson'
+import WaitingPerson from '../WaitingPerson/WaitingPerson'
 
 function CurrentTripPage() {
   const [trip, setTrip] = useState({})
@@ -24,6 +25,7 @@ function CurrentTripPage() {
 
 
   useEffect(() => {
+    console.log(id);
     let currentTrip
     if (user.uid) {
       db.collection('Users').doc(user.uid).collection('futureTrips').doc(id)
@@ -81,11 +83,11 @@ function CurrentTripPage() {
               <Grid item xs={12}>
 
                 <Form tripId={id} />
-
+              <EndTrip trip={trip} tripId={id}/>
               </Grid>
 
               <CheckList tripId={id} />
-              {trip.name ?
+              {trip?.name ?
 
                 <TripMap trip={trip} id={id} />
 

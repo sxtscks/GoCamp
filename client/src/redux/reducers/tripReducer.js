@@ -79,10 +79,21 @@ export const addTrip = (trip) => {
 }
 
 export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getState) => {
-
- return  db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey).collection('checkList').add(
+  console.log('YA V DISPATCHE');
+  const trip = db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey)
+  const addTodo = trip.collection('checkList').add(
     todo
   )
+  const findPersons = trip.get().then((el) => {
+    const persons = el.data().persons
+    if (persons.length) {
+      persons.map((person) => {
+        db.collection('Users').doc(el).collection('checkList').add(
+          todo
+        )
+      })
+    }
+  })
 }
 
 export const findAllTodos = (userKey, tripKey) => async (dispatch, getState) => {
@@ -97,16 +108,16 @@ export const addTripToFB = (trip, key) => async (dispatch, getState) => {
     ...trip,
     persons: [],
     benzin: 0,
-    waitingList:[],
+    waitingList: [],
     wayLength: 0,
     checkList: [],
     author: key
   })
 }
 
-export const takeTodo = (userKey, tripId, todoId) => async (dispatch, getState)=> {
+export const takeTodo = (userKey, tripId, todoId) => async (dispatch, getState) => {
   console.log('DISPATCH');
-    db.collection('Users').doc(userKey).collection('futureTrips').doc(tripId).collection('checkList').doc(todoId).update({
+  db.collection('Users').doc(userKey).collection('futureTrips').doc(tripId).collection('checkList').doc(todoId).update({
     taker: 'userKey'
   })
 }
