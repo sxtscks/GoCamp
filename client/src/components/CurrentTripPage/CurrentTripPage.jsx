@@ -11,6 +11,7 @@ import BenzinForm from '../BenzinForm/BenzinForm';
 import TripMap from '../TripMap/TripMap';
 import { useSelector } from "react-redux";
 import EndTrip from "../endTrip/endTrip";
+import Chat from "../Chat/Chat";
 
 
 function CurrentTripPage() {
@@ -22,11 +23,12 @@ function CurrentTripPage() {
 
 
   useEffect(() => {
+    console.log(id);
     let currentTrip
     if (user.uid) {
       db.collection('Users').doc(user.uid).collection('futureTrips').doc(id)
         .onSnapshot((doc) => {
-          setTrip(doc.data())
+          console.log(doc)
         })
     }
     return () => {
@@ -59,7 +61,7 @@ function CurrentTripPage() {
               </Grid>
 
               <CheckList tripId={id} />
-              {trip.name ?
+              {trip?.name ?
 
                 <TripMap trip={trip} id={id} />
 
@@ -84,10 +86,11 @@ function CurrentTripPage() {
                 <BenzinForm trip={trip} id={id} />
               </Grid>
               <h5 style={{ color: 'white' }}>Едут: </h5>
-              {user.uid === trip.author ? <p>{trip.waitingList}</p> : null}
+              {user.uid === trip?.author ? <p>{trip.waitingList}</p> : null}
             </Grid>
             <div className="roadMap">
             </div>
+            <Chat />
           </Grid>
         </div>
       </div>
