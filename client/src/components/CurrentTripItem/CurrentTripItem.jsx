@@ -116,7 +116,7 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
         {people ?
           people.map((el) => {
             return <div className='d-flex'>
-              {/* <img src={el.photo} style={{ width: 30, height: 30 }} alt="" /> */}
+              <img src={el.photo} style={{ width: 30, height: 30 }} alt="" />
             </div>
           }) :
 

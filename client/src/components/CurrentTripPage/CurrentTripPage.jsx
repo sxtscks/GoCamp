@@ -18,7 +18,6 @@ function CurrentTripPage() {
   const { id } = useParams()
   const [trip, setTrip] = useState({})
 
-
   useEffect(() => {
     let currentTrip
 
@@ -31,12 +30,12 @@ function CurrentTripPage() {
 
 
       })
-
     return () => {
       currentTrip && currentTrip()
     }
   }, [])
 
+ 
 
   return (
     <div className="mainCont">
@@ -50,6 +49,12 @@ function CurrentTripPage() {
           >
             <Grid item sm={6} style={{ marginTop: 30 }} >
               <Grid item xs={12}>
+                {/* Notification */}
+                {
+                  trip.author === user.uid || trip?.waitingList?.length > 0 ?
+                    <img src="https://lh3.googleusercontent.com/C4d-yyif3xUnNmqFpNwVbJUs6vUDu6-QUP_WzLfc14_2R8FaVYd2c1L99gFTZLDjfQZR=w300" style={{ width: 30, height: 30 }} alt="" />
+                    : null
+                }
                 <Form tripId={id} />
                 <EndTrip trip={trip} tripId={id} />
               </Grid>
@@ -88,7 +93,7 @@ function CurrentTripPage() {
             </Grid>
             <div className="roadMap">
             </div>
-            <Chat tripId={id} messages= {trip.messages} />
+            <Chat tripId={id} messages={trip.messages} />
           </Grid>
         </div>
       </div>

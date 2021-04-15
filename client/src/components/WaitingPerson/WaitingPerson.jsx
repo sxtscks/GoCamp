@@ -49,7 +49,7 @@ function WaitingPerson({ person, tripId, trip }) {
   return (
     <div className='d-flex'>
       <Avatar alt="Remy Sharp" src={person.photo} className={classes.orange}>
-        {person.name.slice(0, 1)}
+        {/* {person.name.slice(0, 1)} */}
       </Avatar>
       <p style={{ color: 'white' }}>{person.name}</p>
       <div className='buttonCont'>
