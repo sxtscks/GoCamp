@@ -22,16 +22,10 @@ function Main() {
   const history = useHistory()
 
   useEffect(() => {
-    let currentUsersTrips = db.collection("Users")
+    let currentUsersTrips = db.collection("Trips")
       .onSnapshot((querySnapshot) => {
 
-        Promise.all(querySnapshot.docs.map((user) => db.collection('Users').doc(user.id).collection('futureTrips').get()
-        ))
-        // .then(qss => console.log({qss}))
-          .then(qss => qss.flatMap(qs => qs.docs.map(d => ({...d.data(), id: d.id}))))
-          .then(allTrips => [...new Map(allTrips.map(item => [item['name'], item])).values()])
-          // .then(allTrips => allTrips.filter(trip => trip.length))
-          .then(trips =>setMyTrips(trips))
+        setMyTrips(querySnapshot.docs.map(trip => trip.data()))
       })
     return () => {
       currentUsersTrips && currentUsersTrips()
