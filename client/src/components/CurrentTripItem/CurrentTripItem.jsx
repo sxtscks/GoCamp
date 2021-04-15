@@ -104,7 +104,7 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
                 <Button className='buttonCreateTrip' component={Link}  to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                   На рассмотрении
               </Button> :
-                <Button className='buttonCreateTrip' component={Link} onClick={(e) => handlerRequest({ e, author, id, user })} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                <Button className='buttonCreateTrip' component={Link} onClick={(e) => handlerRequest({ e, author, id, user })}  variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                   Оставить заявку
             </Button>
               ) :
