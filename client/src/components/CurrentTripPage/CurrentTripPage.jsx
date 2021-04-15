@@ -47,30 +47,12 @@ function CurrentTripPage() {
       currentTrip && currentTrip()
     }
   }, [user])
-  // simpleArr = waitLi
-  //   const sortedTrips = simpleArr.sort((a, b) => a.startDate - b.startDate).filter((item, i, ar) => ar.indexOf(item) === i)
-  //   let waiters = sortedTrips.reduce((acc, waiter) => {
-  //     if (acc.map[waiter.id]) 
-  //       return acc; 
-  //     acc.map[waiter.id] = true; 
-  //     acc.waiters.push(waiter); 
-  //     return acc; 
-  //   }, {
-  //     map: {}, 
-  //     waiters: [] 
-  //   })
-  //   .waiters; 
+
   console.log('waitli>>>>>>>>>>>>>>>', waitLi)
   return (
     <div className="mainCont d-flex">
       <div className="tripPage d-flex">
-       
-          {/* <Grid
-            container spacing={2}
-          // direction="row-reverse"
-          // justify="space-between"
-          // alignItems="center"
-          > */}
+    
           <div className="formMapBenzin">
          
             <div className="formMapBenzWaiting d-flex flex-column">
@@ -145,42 +127,12 @@ function CurrentTripPage() {
 
                 </div>
             </div>
-            {/* <Grid item
-              spacing={2}
-              direction="column"
-              // justify="center"
-              alignItems="center"
-              style={{ marginLeft: 150 }}>
-              <Grid item sm={8} xs={3} style={{ marginTop: 40, marginLeft: 30 }}>
-              </Grid>
-              <Grid item xs={4}> */}
-                {/* <CheckRing tripId={id} />
-              </Grid>
-              <Grid item sm={7} style={{ marginTop: 70 }}>
-                <BenzinForm trip={trip} id={id} />
-              </Grid>
-              <h5 style={{ color: 'white' }}>Едут: </h5> */}
-              {/* {user.uid === trip.author ? } */}
-              {/* <Grid container direction="row" justify="center" alignItems="center" style={{background:'white',borderRadius:'10'}}>
-                <span style={{ fontFamily: 'Montserrat', margin: 5, fontWeight: 700, color: 'white', fontSize: 20, textAlign: 'end' }}>Ожидают подтверждения:</span>
-                {waitLi.length ? waitLi.map((el) =>
-                  <Grid key={el.id}>
-                   
-                    <WaitingPerson name={el.name} person={el} tripId={id} trip={trip} />
-                  </Grid>
-                )
-                  : <p>ahahaahha</p>}
-              </Grid>
-            </Grid> */}
-            <div className="roadMap">
-            </div>
-            {/* <Chat id={id} /> */}
-          {/* </Grid> */}
+     
       </div>
 
 
       <div className="chatContainer">
-      <Chat id={id} />
+      <Chat tripId={id} messages={trip.messages} />
       </div>
     </div>
   );
