@@ -178,17 +178,17 @@ function CurrentTripPage() {
           <div className='cont1 d-flex flex-column justify-content-center'>
             <div className='textUsers'>
               <span >Заявки:</span>
+
             </div>
             <div className='waitersForm d-flex justify-content-between'>
-              <div className='user'>
-                <img src='https://i.imgur.com/5c5JP4B.png' alt='' />
-              </div>
-              <div className='user'>
-                <img src='https://i.imgur.com/5c5JP4B.png' alt='' />
-              </div>
-              <div className='user'>
-                <img src='https://i.imgur.com/5c5JP4B.png' alt='' />
-              </div>
+              {
+                trip.waitingList?.length ? trip.waitingList.map((el) =>
+                  <div key={el.id}>
+                    <WaitingPerson name={el.name} person={el} tripId={id} trip={trip} />
+                  </div>
+                )
+                  : null
+              }
             </div>
           </div>
         </div>
