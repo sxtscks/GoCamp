@@ -57,9 +57,9 @@ function CheckRing({ tripId }) {
   return (
     <div className="item" style={{
       position: 'relative',
-      margin: '50px 0 0 50px '
-
+      padding: '10px 10px 20px 10px'
     }}>
+      <div className="ring d-flex justify-content-center">
       <ProgressBar
         radius={100}
         progress={ring >= 98 ? 100 : ring}
@@ -75,11 +75,15 @@ function CheckRing({ tripId }) {
           color: '#f46e16',
           fontSize: '50px',
           fontWeight: 800,
+          height: '30px'
+
 
         }}>
           <div style={{ textAlign: "'center" }}>{ring >= 98 ? 100 : ring}%</div>
         </div>
       </ProgressBar>
+      
+            </div>
     </div>
   )
 }

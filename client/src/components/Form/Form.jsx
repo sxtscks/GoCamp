@@ -28,9 +28,9 @@ function Form({ tripId }) {
 
 
   return (
-    <form className="container d-flex col-8 my-2" onSubmit={addTodoHandler}>
-      <div className="mb-3">
-        <input type="text" name="text" value={value.text} onChange={(e) => handlerChange(e)} className="form-control" id="exampleInputEmail1" />
+    <form className=" d-flex justify-content-center" onSubmit={addTodoHandler}>
+      <div > 
+        <input type="text" name="text" value={value.text} onChange={(e) => handlerChange(e)} className="form-control" id="exampleInputEmail1" style={{height:40}}/>
 
       </div>
       <button type="submit" className="btn mx-3" style={{ height: 40, fontFamily: 'Montserrat', fontWeight: 700, color: 'white', fontSize: 15, background: '#F46E16' }}>Добавить</button>

@@ -5,7 +5,7 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import PriorityHighSharpIcon from '@material-ui/icons/PriorityHighSharp';
 import DoneOutlineOutlinedIcon from '@material-ui/icons/DoneOutlineOutlined';
 import { db } from '../../firebase/firebase';
-
+import './CheckListItem.css'
 function CheckListItem({ tripId, todo, id }) {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
@@ -67,9 +67,9 @@ function CheckListItem({ tripId, todo, id }) {
 
   return (
 
-    <li className="list-group-item d-flex justify-content-between mx-8" style={{ backgroundColor: todo.important ? "#FF9F5F" : null }}>
+    <li className="list-group-item check d-flex justify-content-between mx-8" style={{ backgroundColor: todo.important ? "#FF9F5F" : null }}>
 
-      <span className="mt-2" style={{ fontFamily: 'Montserrat', fontWeight: 700, color: "#211f30", fontSize: 15 }}> {todo.text}</span>
+      <span className="mt-2" style={{ fontFamily: 'Montserrat', fontWeight: 700, color: "white", fontSize: 15 }}> {todo.text}</span>
 
       {/* onClick={() => dispatch(confirmTodo(id))} */}
 
