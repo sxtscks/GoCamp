@@ -15,7 +15,8 @@ const Chat = ({ id }) => {
 const currentUser  = JSON.parse(window.localStorage.getItem('myApp'))
   const scroll = useRef();
   console.log(currentUser, 'CurrentUser');
-  const messagesRef = db.collection('Users').doc(currentUser?.uid).collection('futureTrips').doc(id).collection('messages')
+  const messagesRef = db.collection('messages')
+  //.doc(currentUser?.uid).collection('futureTrips').doc(id).collection('messages')
 
   const query = messagesRef.orderBy("createdAt").limit(25)
 

@@ -67,10 +67,13 @@ const ProfilePage = () => {
         .onSnapshot((querySnapshot) => {
           setLastTrips(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
         })
+        return () => {
+          currentUser && currentUser()
+        }
     }
   }, [userFromState])
 
-
+console.log(lastTrips, '<<<<<<<lasttrips');
   const activateEditMode = () => {
     setEditModeTel(true);
   }
@@ -213,7 +216,7 @@ const ProfilePage = () => {
                       <div className="progress mb-3" style={{ height: "5px" }}>
                         <div className="progress-bar bg-primary" role="progressbar" style={{ width: "80%" }} aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                       </div> */}
-                      <Achievements />
+                      <Achievements lastTrips={lastTrips} />
                     </div>
                   </div>
                 </div>

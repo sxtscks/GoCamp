@@ -9,14 +9,17 @@ const EndTrip = ({ tripId, trip }) => {
   
   async function endTrip() {
     const persons = []
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).get().then((doc)=> persons.push(doc.data().persons))
-
-    persons.map((person)=> {
-      db.collection('Users').doc(person).collection('futureTrips').doc(tripId).delete()
-      db.collection('Users').doc(user.uid).collection('lastTrips').add({
-        ...trip
-      })
+    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).delete()
+    db.collection('Users').doc(user.uid).collection('lastTrips').add({
+      ...trip
     })
+
+    // persons.map((person)=> {
+    //   db.collection('Users').doc(person).collection('futureTrips').doc(tripId).delete()
+    //   db.collection('Users').doc(user.uid).collection('lastTrips').add({
+    //     ...trip
+    //   })
+    // })
   }
   const submitHandler = (e) => {
     e.preventDefault()

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { Grid } from '@material-ui/core';
@@ -19,15 +19,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Achievements() {
+export default function Achievements({ lastTrips }) {
+  const [achievement, setAchievement] = useState(false)
   const classes = useStyles();
+
+  // 2 > lastTrips.length > 0
+  // function checkLastTrip () {
+  //   if (lastTrips.length > 0) {
+  //       setAchievement(true)
+  //   }
+  // }
+  // checkLastTrip()
+  console.log(lastTrips);
+
+
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <div className={classes.root}>
-        <Avatar alt="Tent" src={iconTent} className={classes.large}/>
-        <Avatar alt="Foot" src={iconFoot} className={classes.large}/>
-        <Avatar alt="Lamp" src={iconLamp} className={classes.large}/>
+        {/* <Avatar alt="Tent" src={iconTent} className={classes.large} />
+        <Avatar alt="Foot" src={iconFoot} className={classes.large} /> */}
+        {
+          (lastTrips[0]?.author) ?  <Avatar alt="Lamp" src={iconLamp} className={classes.large} /> : null
+
+        }
+       
       </div>
     </Grid>
   );
