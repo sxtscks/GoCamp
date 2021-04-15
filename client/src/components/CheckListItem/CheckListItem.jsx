@@ -14,7 +14,7 @@ function CheckListItem({ tripId, todo, id }) {
   //       e.preventDefault(e)
   //       return dispatch(confirmTodo(id))
   //   }
-console.log(todo, "ITEMTODO");
+  console.log(todo, "ITEMTODO");
   const takerHandler = (e) => {
     e.preventDefault()
     db.collection('CheckListItem').doc(id).update({

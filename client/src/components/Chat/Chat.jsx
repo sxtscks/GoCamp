@@ -19,19 +19,21 @@ const Chat = ({ tripId, messages }) => {
   const messagesRef = db.collection('Messages')
 
   useEffect(() => {
-    let currentTrip
+    let currentMessages
 
-    currentTrip = messages && messages.map((mes => db.collection('Messages').doc(mes).get().then((doc => ({ ...doc.data(), id: doc.id }))))).then((allMessages)=> setMessage({...message, allMessages}))
-
-    return () => {
-      currentTrip && currentTrip()
-    }
-  }, [])
+   if(tripId) {
+    currentMessages = db.collection('Trips').doc(tripId).onSnapshot((doc) => {
+      Promise.all(doc.data().messages.map(mesId => {
+        return db.collection('Messages').doc(mesId).get().then(doc => ({...doc.data(), id: doc.id}))
+      })).then(allMessages => setMessage(allMessages))
+    })
+   }
+  }, [tripId])
 
   const query = messagesRef.orderBy("createdAt").limit(25)
 
   // const [messages] = useCollectionData(query, { idField: "id" }) //возвращает массив объектов, где каждый объект - сообщение
-
+console.log(message, 'MESSSAGE');
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -56,7 +58,7 @@ const Chat = ({ tripId, messages }) => {
   return (
     <div className="chat">
       <main>
-        {messages && messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+        {message && message.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
 
         <span ref={scroll} />
       </main>
