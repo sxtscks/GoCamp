@@ -22,9 +22,11 @@ function WaitingPerson({ person, tripId, trip }) {
   const classes = useStyles();
   const user = useSelector(state => state.user)
 
+  
   const handlerConfirm = async (e) => {
     e.preventDefault()
-    await db.collection('Trips').doc(tripId).update({
+    console.log('tut');
+     db.collection('Trips').doc(tripId).update({
       "persons": firebase.firestore.FieldValue.arrayUnion(person.id),
       "waitingList": firebase.firestore.FieldValue.arrayRemove(person.id),
       "timeModified": Date.now()
