@@ -154,11 +154,6 @@ function CurrentTripPage() {
     <div className='mainCont d-flex'>
       <div className='tripPage d-flex'>
         <div className='formMapBenzin'>
-          {
-            trip.author === user.uid || trip?.waitingList?.length > 0 ?
-              <img src="https://lh3.googleusercontent.com/C4d-yyif3xUnNmqFpNwVbJUs6vUDu6-QUP_WzLfc14_2R8FaVYd2c1L99gFTZLDjfQZR=w300" style={{ width: 30, height: 30 }} alt="" />
-              : null
-          }
           <div className='formMapBenzWaiting d-flex flex-column'>
             <div className='formMapNameTrip'>
               <span>К мамке твоей</span>

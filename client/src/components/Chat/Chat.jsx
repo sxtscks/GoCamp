@@ -13,8 +13,9 @@ import { doc } from "prettier";
 const Chat = ({ tripId, messages }) => {
   const [formValue, setFormValue] = useState('')
   const [message, setMessage] = useState([])
-  // const currentUser = useSelector(state => state.user)
-  const currentUser = JSON.parse(window.localStorage.getItem('myApp'))
+  const currentUser = useSelector(state => state.user)
+  const [thisUser, setThisUser] = useState({})
+  // const currentUser = JSON.parse(window.localStorage.getItem('myApp'))
   const scroll = useRef();
   const messagesRef = db.collection('Messages')
 
@@ -30,6 +31,19 @@ const Chat = ({ tripId, messages }) => {
     }
   }, [tripId])
 
+  useEffect(() => {
+    let myUser
+
+    if (currentUser.uid) {
+      myUser = db.collection('Users').doc(currentUser.uid).get().then((doc) => setThisUser(doc.data()))
+    }
+
+    // return () => {
+    //   myUser && myUser()
+    // }
+  }, [currentUser])
+
+  console.log(thisUser);
   const query = messagesRef.orderBy("createdAt").limit(25)
 
   // const [messages] = useCollectionData(query, { idField: "id" }) //возвращает массив объектов, где каждый объект - сообщение
@@ -37,12 +51,12 @@ const Chat = ({ tripId, messages }) => {
 
   const sendMessage = async (event) => {
     event.preventDefault();
-    const { uid, photoURL, displayName } = currentUser;
+    const { uid, photo, displayName } = thisUser;
     await messagesRef.add({
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
-      // photoURL,
+      photo,
       displayName,
     }).then((doc) => db.collection('Trips').doc(tripId).update({
       "messages": firebase.firestore.FieldValue.arrayUnion(doc.id),
