@@ -52,7 +52,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({handlerRequest, name, id, author, persons, waitingList }) {
+export default function CurrentTripItem({ name, id, author, persons, waitingList }) {
   const [request, setRequest] = useState(false)
   const [people, setPeople] = useState([])
 
@@ -74,14 +74,26 @@ export default function CurrentTripItem({handlerRequest, name, id, author, perso
 
 
   useEffect(() => {
-   
-    persons?.map((id) => {
-      const a = db.collection('Users').doc(id).get()
-      a.then((person) => setPeople([...people, person.data()]))
-    })
-  }, [])
-  console.log('peoples', persons)
+    if (Array.isArray(persons))
 
+      Promise.all(persons.map(persId => db.collection('Users').doc(persId).get().then((person) => person.data())))
+        .then((persons) => setPeople(persons))
+
+  }, [persons])
+  console.log(people);
+
+
+  const handlerRequest = (e) => {
+    // e.preventDefault()
+    if (JSON.stringify(user) !== '{}') {
+      db.collection('Trips').doc(id).update({
+        'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid),
+        'timeModified': Date.now()
+      })
+    } else {
+      history.push('/login')
+    }
+  }
 
 
   return (
@@ -120,10 +132,10 @@ export default function CurrentTripItem({handlerRequest, name, id, author, perso
                 Подробнее
               </Button>
               : ((waitingList?.includes(user.uid)) ?
-                <Button className='buttonCreateTrip' component={Link} onClick={() =>handlerRequest({author, id, user})} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                <Button className='buttonCreateTrip' component={Link}  to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                   На рассмотрении
               </Button> :
-                <Button className='buttonCreateTrip' component={Link} onClick={(e) => handlerRequest({e, author, id, user})} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                <Button className='buttonCreateTrip' component={Link} onClick={(e) => handlerRequest({ e, author, id, user })}  variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                   Оставить заявку
             </Button>
               ) :
@@ -131,14 +143,14 @@ export default function CurrentTripItem({handlerRequest, name, id, author, perso
               Подробнее
               </Button>
         }
-        {people.length ?
+        {people ?
           people.map((el) => {
             return <div className='d-flex'>
-              {/* <img src={el.photo} style={{ width: 30, height: 30 }} alt="" /> */}
+              <img src={el.photo} style={{ width: 30, height: 30 }} alt="" />
             </div>
           }) :
 
-          'hjhj'
+          'none'
         }
 
       </CardActions>

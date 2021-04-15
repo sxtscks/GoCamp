@@ -109,6 +109,7 @@ export default function Login() {
               name="userEmail"
               value={user.userEmail}
               onChange={inputHandler}
+              className='inputStyle'
             />
             <TextField
               variant="outlined"
@@ -122,6 +123,8 @@ export default function Login() {
               name="userPassword"
               value={user.userPassword}
               onChange={inputHandler}
+              className='inputStyle'
+
             />
             <Button
               type="submit"

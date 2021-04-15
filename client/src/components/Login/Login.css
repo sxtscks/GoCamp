@@ -4,15 +4,14 @@
 }
 
 .loginPage {
-  background: url('./loginBG2.png') no-repeat;
+  background: url('./loginBG3.png') no-repeat;
   /* background-attachment: fixed; */
   height: 100vh;
   overflow-y: hidden;
-  background-size:100%;
+  background-size:103%;
 }
 
 .btsub :hover {
   background-color: '#f46e16'
 }
-
 

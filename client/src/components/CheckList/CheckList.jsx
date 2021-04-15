@@ -12,24 +12,24 @@ function CheckList({ tripId }) {
 
   useEffect(() => {
     let currentTodos
+    if (tripId) {
+      currentTodos = db.collection('Trips').doc(tripId).onSnapshot((doc) => {
+        Promise.all(doc.data().checkList.map(todoId => {
+          return db.collection('CheckListItem').doc(todoId).get().then(doc => ({...doc.data(), id: doc.id}))
+        })).then(allTodo => setTodos(allTodo))
+        })}
+      return () => {
+        currentTodos && currentTodos()
+      }
+    }, [tripId])
 
-    if (user.uid) {
-      currentTodos = db.collection('Users').doc(user.uid)
-        .collection('futureTrips').doc(tripId)
-        .collection('checkList')
-        .onSnapshot((querySnapshot) => {
-          setTodos(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
-        })
-    }
-
-    return () => {
-      currentTodos && currentTodos()
-    }
-  }, [user])
+    console.log({todos});
+    
   return (
     <div>
       <ul className="list-group">
-        {todos?.length ? todos.map((todo, indx) => <CheckListItem tripId={tripId} todo={todo} key={todo.id} id={todo.id} />) : ''}
+        ndfndjf
+        {todos?.length ? todos.map((todo, indx) => <CheckListItem tripId={tripId} todo={todo} key={todo?.id} id={todo?.id} />) : ''}
       </ul>
     </div>
   )

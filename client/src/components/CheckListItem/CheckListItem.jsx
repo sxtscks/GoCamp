@@ -6,6 +6,8 @@ import PriorityHighSharpIcon from '@material-ui/icons/PriorityHighSharp';
 import DoneOutlineOutlinedIcon from '@material-ui/icons/DoneOutlineOutlined';
 import { db } from '../../firebase/firebase';
 import './CheckListItem.css'
+import firebase from '../../firebase/firebase'
+
 function CheckListItem({ tripId, todo, id }) {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
@@ -13,12 +15,25 @@ function CheckListItem({ tripId, todo, id }) {
   //       e.preventDefault(e)
   //       return dispatch(confirmTodo(id))
   //   }
-
+  console.log(todo, "ITEMTODO");
   const takerHandler = (e) => {
     e.preventDefault()
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
-      "confirmed": !todo.confirmed,
-      "taker": !todo.confirmed ? user.uid : ''
+    db.collection('CheckListItem').doc(id).update({
+      "confirmed": !todo.confirmed
+    }).then(() => {
+      db.collection('Trips').doc(tripId).update({
+        "timeModified": Date.now()
+      })
+    })
+  }
+  const importantHandler = (e) => {
+    e.preventDefault()
+    db.collection('CheckListItem').doc(id).update({
+      "important": !todo.important,
+    }).then(() => {
+      db.collection('Trips').doc(tripId).update({
+        "timeModified": Date.now()
+      })
     })
       .catch((err) => console.log(err))
   }
@@ -26,37 +41,31 @@ function CheckListItem({ tripId, todo, id }) {
   //   const trip = db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).get().then((doc)=> arrIdPersons.push(doc.data().persons))
 
   // const takerHandler = (e) => {
-    // e.preventDefault()
-//   arrIdPersons.map((person) => {
-//     db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc('someIdTodo', todo.id).update({
-//       "confirmed": !todo.confirmed,
-//       "taker": !todo.confirmed ? user.uid : ''
-//     })
-//   })
+  // e.preventDefault()
+  //   arrIdPersons.map((person) => {
+  //     db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc('someIdTodo', todo.id).update({
+  //       "confirmed": !todo.confirmed,
+  //       "taker": !todo.confirmed ? user.uid : ''
+  //     })
+  //   })
   // }
 
 
-  
+
   // const importantHandler = (e) => {
   //   e.preventDefault()
   //   // arrIdPersons.map((person) => {
-    //     db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc('someIdTodo', todo.id).update({
-    //       "important": !todo.important,
-    //     })
-    //   })
+  //     db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc('someIdTodo', todo.id).update({
+  //       "important": !todo.important,
+  //     })
+  //   })
   // }
 
-  const importantHandler = (e) => {
-    e.preventDefault()
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
-      "important": !todo.important,
-    })
-      .catch((err) => console.log(err))
-  }
+  
 
   const deleteHandler = (e) => {
     e.preventDefault()
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).delete()
+    db.collection('Trips').doc(tripId).update({ "checkList": firebase.firestore.FieldValue.arrayRemove(id) })
       .then(() => {
         console.log('I am fine')
       })
@@ -67,9 +76,9 @@ function CheckListItem({ tripId, todo, id }) {
 
   return (
 
-    <li className="list-group-item check d-flex justify-content-between mx-8" style={{ backgroundColor: todo.important ? "#FF9F5F" : null }}>
+    <li className="list-group-item d-flex justify-content-between mx-8" style={{ backgroundColor: todo?.important ? "#FF9F5F" : null }}>
 
-      <span className="mt-2" style={{ fontFamily: 'Montserrat', fontWeight: 700, color: "white", fontSize: 15 }}> {todo.text}</span>
+      <span className="mt-2" style={{ fontFamily: 'Montserrat', fontWeight: 700, color: "#211f30", fontSize: 15 }}> {todo?.text}</span>
 
       {/* onClick={() => dispatch(confirmTodo(id))} */}
 

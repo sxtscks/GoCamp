@@ -2,26 +2,28 @@ import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { db } from '../../firebase/firebase'
 
-const EndTrip = ({ tripId, trip }) => {
+const EndTrip = ({ trip, tripId }) => {
 
   const user = useSelector(state => state.user)
   const history = useHistory()
-  
-  async function endTrip() {
-    const persons = []
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).get().then((doc)=> persons.push(doc.data().persons))
 
-    persons.map((person)=> {
-      db.collection('Users').doc(person).collection('futureTrips').doc(tripId).delete()
-      db.collection('Users').doc(user.uid).collection('lastTrips').add({
-        ...trip
-      })
+  async function endTrip() {
+    db.collection('Trips').doc(tripId).delete()
+    db.collection('LastTrips').add({
+      ...trip
     })
+
+    // persons.map((person)=> {
+    //   db.collection('Users').doc(person).collection('futureTrips').doc(tripId).delete()
+    //   db.collection('Users').doc(user.uid).collection('lastTrips').add({
+    //     ...trip
+    //   })
+    // })
   }
   const submitHandler = (e) => {
     e.preventDefault()
     endTrip()
-     history.push('/')
+    history.push('/currentTrips')
   }
   return (
     <button onClick={submitHandler} >Завершить поездку</button>

@@ -98,7 +98,7 @@ export default function Navbar() {
       setTrip(prev => {
         return {
           ...prev,
-          coordinates,
+          coordinates: coordinates,
           [event.target.name]: event.target.value,
         }
       })
@@ -124,9 +124,9 @@ export default function Navbar() {
     e.preventDefault()
     let tripId = ''
     console.log(user.uid);
-    dispatch(addTripToFB(trip, user.uid))
-      .then((docref) => tripId = docref.id)
-      .then(() => history.push(`/create/${tripId}`))
+    dispatch(addTripToFB(trip, user?.uid))
+      .then((docref) => docref.id)
+      .then((tripId) => history.push(`/create/${tripId}`))
       .then(() => setOpen(false))
   }
 
@@ -144,8 +144,7 @@ export default function Navbar() {
             <Typography variant="h6" className={classes.title}>
               <div className="logoContainer ">
                 <Link to='/'><img src="/finalLogoHope.png" alt="" style={{ width: 378, margin: 6, position: 'absolute', top: 1, left: -280, paddingTop: 2, zIndex: 3 }} /></Link>
-                {/* <div style={{width:108,height:67,position:'absolute',left:-5,zIndex:2, backgroundColor:'red'}}></div> */}
-                <SlideInLeft style={{ display: 'inline-block' }}><img src="/WhiteText.svg" className="logoMove object van move-right" alt="" style={{ width: 240, marginLeft: 78, paddingTop: 5 }} /></SlideInLeft>
+                <SlideInLeft style={{ display: 'inline-block' }}><img src="/WhiteText.svg" className="logoMove object van move-right" alt="" style={{ width: 240, marginLeft: 82, paddingTop: 5 }} /></SlideInLeft>
               </div>
             </Typography>
             <div className={JSON.stringify(user) !== '{}' ? 'logined' : 'unlogged'} style={{ display: 'flex', justifyContent: "space-between" }}>
@@ -154,14 +153,11 @@ export default function Navbar() {
 </Button>
               <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <form onSubmit={handlerSubmit}>
-                  <DialogTitle id="form-dialog-title">Создать поездку</DialogTitle>
+                  <DialogTitle disableTypography="true" style={{fontFamily: 'Montserrat', fontWeight: 700, fontSize: '21px' }} id="form-dialog-title">Создать поездку</DialogTitle>
                   <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
                     <CloseIcon />
                   </IconButton>
                   <DialogContent style={{ fontFamily: 'Montserrat' }}>
-                    <DialogContentText>
-                      Введи название поездки и выбери дату(после можно будет изменить)
-          </DialogContentText>
                     <Grid container>
                       <TextField
                         autoFocus
@@ -214,7 +210,7 @@ export default function Navbar() {
                   </DialogContent>
                   <DialogActions>
                     <Grid container justify="center">
-                      <Button type='submit' color="primary" style={{ background: '#F46E16', color: 'white', fontWeight: 600, fontSize: '16px', height: '40px', transition: '0.3s' }}>
+                      <Button type='submit' color="primary" style={{ background: '#F46E16', color: 'white', fontWeight: 600, fontSize: '16px', height: '40px', width: '200px', marginTop: '10px', transition: '0.3s' }}>
                         Поехали
           </Button>
                     </Grid>

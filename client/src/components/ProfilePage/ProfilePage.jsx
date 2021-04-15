@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Achievements from './Achievements/Achievements'
-import ProfileInfo from './ProfileInfo/ProfileInfo'
-import TripsHistory from './TripsHistory/TripsHistory'
 import { useSelector } from 'react-redux'
 import { db } from '../../firebase/firebase'
 import './ProfilePage.css'
 import AvatarPicture from './ProfileInfo/Avatar/Avatar'
-import AboutMe from './ProfileInfo/AboutMe/AboutMe'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Trip from './TripsHistory/Trip/Trip';
 import { Grid } from '@material-ui/core';
-import Preloader from '../Preloader/Preloader'
 
 
 const ProfilePage = () => {
@@ -25,7 +21,6 @@ const ProfilePage = () => {
   const [editModeAbout, setEditModeAbout] = useState(false);
   const userIdInFirebase = useSelector(state => state.user.uid)
 
-  const [loader, setLoader] = useState(false)
 
 
   const useStyles = makeStyles((theme) => ({
@@ -39,37 +34,40 @@ const ProfilePage = () => {
   const classes = useStyles();
 
   useEffect(() => {
-    setLoader(true)
     let currentUser
     if (userFromState.uid) {
       currentUser = db.collection('Users').doc(userFromState.uid)
         .onSnapshot((doc) => setUser(doc.data()))
     }
-    setLoader(false)
-  }, [userFromState])
+  }, [userFromState]) 
 
 
   useEffect(() => {
     let currentUser
-    if (userFromState.uid) {
-      currentUser = db.collection('Users').doc(userFromState.uid).collection("futureTrips")
-        .onSnapshot((querySnapshot) => {
-          setFutureTrips(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
-        })
-    }
-  }, [userFromState])
+    currentUser = db.collection("Trips")
+      .onSnapshot((querySnapshot) => {
+        setFutureTrips(querySnapshot.docs.map(trip => ({ ...trip.data(), id: trip.id })))
+      })
+      return () => {
+        currentUser && currentUser()
+      }
+  }, [])
+
+  const filteredArr = futureTrips.filter((trip) => trip.persons.includes(userIdInFirebase))
 
 
-  useEffect(() => {
-    let currentUser
-    if (userFromState.uid) {
-      currentUser = db.collection('Users').doc(userFromState.uid).collection("lastTrips")
-        .onSnapshot((querySnapshot) => {
-          setLastTrips(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
-        })
-    }
-  }, [userFromState])
-
+  // useEffect(() => {
+  //   let currentUser
+  //   if (userFromState.uid) {
+  //     currentUser = db.collection('Users').doc(userFromState.uid).collection("lastTrips")
+  //       .onSnapshot((querySnapshot) => {
+  //         setLastTrips(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
+  //       })
+  //     return () => {
+  //       currentUser && currentUser()
+  //     }
+  //   }
+  // }, [userFromState])
 
   const activateEditMode = () => {
     setEditModeTel(true);
@@ -196,8 +194,8 @@ const ProfilePage = () => {
                       <h6 className="d-flex align-items-center">Текущие поездки</h6>
                       <Grid container direction="row" justify="start" alignItems="center" flexWrap="nowrap">
                         <List className={classes.root}>
-                          {futureTrips
-                            ? futureTrips.map((trip, index) => <Trip key={index} trip={trip} />)
+                          {filteredArr
+                            ? filteredArr.map((trip, index) => <Trip key={index} trip={trip} />)
                             : 'Создай новую поездку!'
                           }
                         </List>
@@ -213,7 +211,7 @@ const ProfilePage = () => {
                       <div className="progress mb-3" style={{ height: "5px" }}>
                         <div className="progress-bar bg-primary" role="progressbar" style={{ width: "80%" }} aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                       </div> */}
-                      <Achievements />
+                      <Achievements lastTrips={lastTrips} />
                     </div>
                   </div>
                 </div>

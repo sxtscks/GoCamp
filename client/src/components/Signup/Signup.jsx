@@ -70,7 +70,7 @@ export default function Signup() {
         </Typography>
             <form className={classes.form} noValidate>
               <TextField
-                className={classes.root}
+                className='inputStyle'
                 variant="outlined"
                 margin="normal"
                 fullWidth
@@ -86,7 +86,7 @@ export default function Signup() {
                 }}
               />
               <TextField
-                className={classes.root}
+                className='inputStyle'
                 variant="outlined"
                 margin="normal"
                 required
@@ -100,7 +100,7 @@ export default function Signup() {
 
               />
               <TextField
-                className={classes.root}
+                className='inputStyle'
                 variant="outlined"
                 margin="normal"
                 required

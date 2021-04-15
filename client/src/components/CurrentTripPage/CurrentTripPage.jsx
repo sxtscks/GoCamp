@@ -17,122 +17,216 @@ function CurrentTripPage() {
   const user = useSelector(state => state.user)
   const { id } = useParams()
   const [trip, setTrip] = useState({})
-  const [waitLi, setWaitLi] = useState([])
-  let simpleArr
+
   useEffect(() => {
-    console.log(id);
     let currentTrip
-    if (user.uid) {
-      currentTrip = db.collection('Users').doc(user.uid).collection('futureTrips').doc(id)
-        .onSnapshot((doc) => {
-          console.log('doc data here>>>>>>', doc.data())
-          setTrip(doc.data())
-          let id
-          console.log('waiting list >>>>', doc.data().waitingList)
-          Promise.all(doc.data().waitingList.map((el) => {
-            console.log('el here', el)
-            id = el
-            return db.collection('Users').doc(el).get()
-              .then((p) => { return { ...p.data(), id: p.id } })
-          }))
-            .then((w) => setWaitLi(w))
-          // doc.data().waitingList.map((el) => {
-          //           db.collection('Users').doc(el).get().then((el)=> setWaitLi(prev=>{
-          //             if (prev.find(person => person.id === el.data().id)) return prev
-          //             return [...prev,{...el.data(), id: el.id}]
-          //           }))})
-        })
-    }
+
+    currentTrip = db.collection('Trips').doc(id)
+      .onSnapshot((doc) => {
+        let currentTrip = doc.data()
+
+        Promise.all(currentTrip.waitingList.map(personId => db.collection('Users').doc(personId).get().then(doc => ({ ...doc.data(), id: doc.id }))))
+          .then((waitingListPersons) => setTrip({ ...currentTrip, id: doc.id, waitingList: waitingListPersons }))
+
+
+      })
     return () => {
       currentTrip && currentTrip()
     }
-  }, [user])
+  }, [])
 
-  console.log('waitli>>>>>>>>>>>>>>>', waitLi)
+
+
   return (
-    <div className="mainCont d-flex">
-      <div className="tripPage d-flex">
-    
-          <div className="formMapBenzin">
-         
-            <div className="formMapBenzWaiting d-flex flex-column">
-            <div className="formMapNameTrip">
+    //     <div className="mainCont d-flex">
+    //       <div className="tripPage d-flex">
+    //         Notification
+    //         <div>
+    //           <div>
+    //             {
+    //               trip.author === user.uid || trip?.waitingList?.length > 0 ?
+    //                 <img src="https://lh3.googleusercontent.com/C4d-yyif3xUnNmqFpNwVbJUs6vUDu6-QUP_WzLfc14_2R8FaVYd2c1L99gFTZLDjfQZR=w300" style={{ width: 30, height: 30 }} alt="" />
+    //                 : null
+    //             }
+    //             <Form tripId={id} />
+    //             <EndTrip trip={trip} tripId={id} />
+    //             <CheckList tripId={id} />
+    //             {trip?.name ?
+    //               <TripMap trip={trip} id={id} />
+    //               :
+    //               <span>netu</span>    //             <EndTrip trip={trip} tripId={id} />
+    //             }
+    //           </div>
+    //           <div className="benzinForm">
+    //             <BenzinForm trip={trip} id={id} />
+    //           </div>
+
+    //         </div >
+
+    //         <div className="cont1 d-flex flex-column justify-content-center">
+    //           <div className='textUsers'>
+    //             <span >Заявки:</span>
+    //           </div>
+    //           <div className="waitersForm d-flex justify-content-between">
+
+    //             <div className="user">
+    //               <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+    //             </div>
+    //             <div className="user">
+    //               <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+    //             </div>
+    //             <div className="user">
+    //               <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div >
+
+    //       <div className="formTodoRingContainer d-flex flex-column">
+    //         <div className="formFormTodoRing">
+    //           <div className="formTodo">
+    //             <Form tripId={id} />
+    //           </div>
+
+    //           <div className="formTodoList">
+    //             <CheckList tripId={id} />
+    //           </div>
+
+    //           <div className="formTodoRing">
+    //             <CheckRing tripId={id} />
+    //           </div>
+    //         </div>
+    //         <div className='textUsers'>
+    //           <span >Едут:</span>
+    //         </div>
+    //         <div className="cont2 d-flex justify-content-center">
+    //           <div className="members d-flex justify-content-between">
+    //             <div className="user">
+    //               <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+    //             </div>
+    //             <div className="user">
+    //               <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+    //             </div>
+    //             <div className="user">
+    //               <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+    //             </div>
+    //             <div className="user">
+    //               <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //       {/* <Grid item
+    //               spacing={2}
+    //               direction="column"
+    //               // justify="center"
+    //               alignItems="center"
+    //               style={{ marginLeft: 150 }}>
+    //               <Grid item sm={8} xs={3} style={{ marginTop: 40, marginLeft: 30 }}>
+    //               </Grid>
+    //               <Grid item xs={4}> */}
+    //       {/* <CheckRing tripId={id} />
+    //               </Grid>
+    //               <Grid item sm={7} style={{ marginTop: 70 }}>
+    //                 <BenzinForm trip={trip} id={id} />
+    //               </Grid>
+    //               <h5 style={{ color: 'white' }}>Едут: </h5> */}
+    //       {/* {user.uid === trip.author ? } */}
+    //       {
+    //         trip.waitingList?.length ? trip.waitingList.map((el) =>
+    //             <Grid key={el.id}>
+
+    //               <WaitingPerson name={el.name} person={el} tripId={id} trip={trip} />
+    //             {/* </Grid> */}
+    //             <div className="roadMap">
+    //         </div>
+    //         <Chat tripId={id} messages={trip.messages} />
+    //            </Grid>
+    //     </div >
+    //     <Chat tripId={id} messages={trip.messages} />
+    //       </div >
+    //     </div >
+    //   );
+    // }
+    // export default CurrentTripPage;
+
+
+    <div className='mainCont d-flex'>
+      <div className='tripPage d-flex'>
+        <div className='formMapBenzin'>
+          {
+            trip.author === user.uid || trip?.waitingList?.length > 0 ?
+              <img src="https://lh3.googleusercontent.com/C4d-yyif3xUnNmqFpNwVbJUs6vUDu6-QUP_WzLfc14_2R8FaVYd2c1L99gFTZLDjfQZR=w300" style={{ width: 30, height: 30 }} alt="" />
+              : null
+          }
+          <div className='formMapBenzWaiting d-flex flex-column'>
+            <div className='formMapNameTrip'>
               <span>К мамке твоей</span>
+              <EndTrip trip={trip} tripId={id} />
             </div>
-                 <div className="mapForm">
-                  {trip?.name ?
+            <div className='mapForm'>
+              {trip?.name ?
                 <TripMap trip={trip} id={id} />
                 :
                 <span>netu</span>
               }
-               </div>
-            <div className="benzinForm">
-                 <BenzinForm trip={trip} id={id} />
             </div>
-     
-            </div>
-            
-            <div className="cont1 d-flex flex-column justify-content-center">
-            <div className='textUsers'>
-                    <span >Заявки:</span>
-                  </div>
-            <div className="waitersForm d-flex justify-content-between">
-              
-            <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-            </div>
+            <div className='benzinForm'>
+              <BenzinForm trip={trip} id={id} />
             </div>
           </div>
-    
-            <div className="formTodoRingContainer d-flex flex-column">
-              <div className="formFormTodoRing">
-                <div className="formTodo">
-                  <Form tripId={id} />
-                </div>
-
-                <div className="formTodoList">
-                  <CheckList tripId={id} />
-                </div>
-
-                <div className="formTodoRing">
-                  <CheckRing tripId={id} />
-                </div>
-                </div>
-                  <div className='textUsers'>
-                    <span >Едут:</span>
-                  </div>
-                <div className="cont2 d-flex justify-content-center">
-                <div className="members d-flex justify-content-between">
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                </div>
-                 
-
-                </div>
+          <div className='cont1 d-flex flex-column justify-content-center'>
+            <div className='textUsers'>
+              <span >Заявки:</span>
             </div>
-     
+            <div className='waitersForm d-flex justify-content-between'>
+              <div className='user'>
+                <img src='https://i.imgur.com/5c5JP4B.png' alt='' />
+              </div>
+              <div className='user'>
+                <img src='https://i.imgur.com/5c5JP4B.png' alt='' />
+              </div>
+              <div className='user'>
+                <img src='https://i.imgur.com/5c5JP4B.png' alt='' />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='formTodoRingContainer d-flex flex-column'>
+          <div className='formFormTodoRing'>
+            <div className='formTodo'>
+              <Form tripId={id} />
+            </div>
+            <div className='formTodoList'>
+              <CheckList tripId={id} />
+            </div>
+            <div className='formTodoRing'>
+              <CheckRing tripId={id} />
+            </div>
+          </div>
+          <div className='textUsers'>
+            <span >Едут:</span>
+          </div>
+          <div className='cont2 d-flex justify-content-center'>
+            <div className='members d-flex justify-content-between'>
+              <div className='user'>
+                <img src='https://i.imgur.com/5c5JP4B.png' alt='' />
+              </div>
+              <div className='user'>
+                <img src='https://i.imgur.com/5c5JP4B.png' alt='' />
+              </div>
+              <div className='user'>
+                <img src='https://i.imgur.com/5c5JP4B.png' alt='' />
+              </div>
+              <div className='user'>
+                <img src='https://i.imgur.com/5c5JP4B.png' alt='' />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-
-      <div className="chatContainer">
-      <Chat tripId={id} messages={trip.messages} />
+      <div className='chatContainer'>
+        <Chat tripId={id} messages={trip.messages} />
       </div>
     </div>
   );
