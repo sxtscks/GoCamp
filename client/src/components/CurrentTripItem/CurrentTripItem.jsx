@@ -146,12 +146,7 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
         {people ?
           people.map((el) => {
             return <div className='d-flex'>
-              {
-                el.photo ?
-                <img src={el.photo } style={{ width: 30, height: 30 }} alt="" />
-                :
-                <img src={'https://img2.pngio.com/person-icon-computer-icons-user-profile-symbol-person-free-png-user-avatars-png-910_512.png'} style={{ width: 50, height: 30 }} alt="" />
-              }
+              <img src={el.photo} style={{ width: 30, height: 30 }} alt="" />
             </div>
           }) :
 
