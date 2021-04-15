@@ -17,27 +17,27 @@ function CurrentTripPage() {
   const user = useSelector(state => state.user)
   const { id } = useParams()
   const [trip, setTrip] = useState({})
-  
-  
+
+
   useEffect(() => {
     let currentTrip
-   
-      currentTrip = db.collection('Trips').doc(id)
-        .onSnapshot((doc) => {
-          let currentTrip = doc.data()
 
-          Promise.all(currentTrip.waitingList.map(personId => db.collection('Users').doc(personId).get().then(doc => ({...doc.data(), id: doc.id}))))
-          .then((waitingListPersons) => setTrip({...currentTrip, id: doc.id, waitingList:waitingListPersons }))
-          
-          
-        })
-    
+    currentTrip = db.collection('Trips').doc(id)
+      .onSnapshot((doc) => {
+        let currentTrip = doc.data()
+
+        Promise.all(currentTrip.waitingList.map(personId => db.collection('Users').doc(personId).get().then(doc => ({ ...doc.data(), id: doc.id }))))
+          .then((waitingListPersons) => setTrip({ ...currentTrip, id: doc.id, waitingList: waitingListPersons }))
+
+
+      })
+
     return () => {
       currentTrip && currentTrip()
     }
   }, [])
-  
-  
+
+
   return (
     <div className="mainCont">
       <div className="tripPage">

@@ -31,13 +31,12 @@ function CurrentTrips() {
 
   return (
     <div style={{ marginTop: '5%' }} className="container">
-      <div>
-        <h2>Текущие Поездки:</h2>
-      </div>
       {
         sortedTrips.length ?
           sortedTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} /></ul>)
-          : <h3>Список пуст. Создайте новую поездку!</h3>
+          : <div className='d-flex justify-content-center align-items-center' style={{padding: '370px'}}>
+            <h3>Список пуст. Создай новую поездку!</h3>
+          </div>
       }
     </div>
   )
