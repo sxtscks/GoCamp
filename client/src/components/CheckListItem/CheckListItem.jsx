@@ -5,6 +5,7 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import PriorityHighSharpIcon from '@material-ui/icons/PriorityHighSharp';
 import DoneOutlineOutlinedIcon from '@material-ui/icons/DoneOutlineOutlined';
 import { db } from '../../firebase/firebase';
+import firebase from '../../firebase/firebase'
 
 function CheckListItem({ tripId, todo, id }) {
   const dispatch = useDispatch()
@@ -16,7 +17,7 @@ function CheckListItem({ tripId, todo, id }) {
 
   const takerHandler = (e) => {
     e.preventDefault()
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
+    db.collection('CheckListItem').doc(tripId).update({
       "confirmed": !todo.confirmed,
       "taker": !todo.confirmed ? user.uid : ''
     })
@@ -26,29 +27,29 @@ function CheckListItem({ tripId, todo, id }) {
   //   const trip = db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).get().then((doc)=> arrIdPersons.push(doc.data().persons))
 
   // const takerHandler = (e) => {
-    // e.preventDefault()
-//   arrIdPersons.map((person) => {
-//     db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc('someIdTodo', todo.id).update({
-//       "confirmed": !todo.confirmed,
-//       "taker": !todo.confirmed ? user.uid : ''
-//     })
-//   })
+  // e.preventDefault()
+  //   arrIdPersons.map((person) => {
+  //     db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc('someIdTodo', todo.id).update({
+  //       "confirmed": !todo.confirmed,
+  //       "taker": !todo.confirmed ? user.uid : ''
+  //     })
+  //   })
   // }
 
 
-  
+
   // const importantHandler = (e) => {
   //   e.preventDefault()
   //   // arrIdPersons.map((person) => {
-    //     db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc('someIdTodo', todo.id).update({
-    //       "important": !todo.important,
-    //     })
-    //   })
+  //     db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc('someIdTodo', todo.id).update({
+  //       "important": !todo.important,
+  //     })
+  //   })
   // }
 
   const importantHandler = (e) => {
     e.preventDefault()
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
+    db.collection('CheckListItem').doc(tripId).update({
       "important": !todo.important,
     })
       .catch((err) => console.log(err))
@@ -56,7 +57,7 @@ function CheckListItem({ tripId, todo, id }) {
 
   const deleteHandler = (e) => {
     e.preventDefault()
-    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).delete()
+    db.collection('Trips').doc(tripId).update({ "checkList": firebase.firestore.FieldValue.arrayRemove({ id }) })
       .then(() => {
         console.log('I am fine')
       })
