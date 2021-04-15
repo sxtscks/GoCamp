@@ -12,11 +12,28 @@ import {
 } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { db } from '../../firebase/firebase';
+import bg1 from './backgrounds/bg1.png'
+import bg2 from './backgrounds/bg2.png'
+import bg3 from './backgrounds/bg3.png'
+import bg4 from './backgrounds/bg4.png'
+import bg5 from './backgrounds/bg5.png'
+
+
+
+  let arr = [bg1,bg2,bg3,bg4,bg5]
+  function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  let randBg = Math.floor(getRandomArbitrary(0,arr.length+1))
+
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-    background: 'whitesmoke',
+    // background:'url('+bg1+') center',
+    background: 'linear-gradient(90deg, rgba(245,245,245,1) 0%, rgba(245,245,245,1) 43%, rgba(255,255,255,0.2091211484593838) 70%), url('+arr[randBg]+') center',
+    backgroundSize: 'cover',
+  
   },
   bullet: {
     display: 'inline-block',
@@ -38,6 +55,7 @@ export default function CurrentTripItem({ name, id, author }) {
   const classes = useStyles();
 
   let location = useLocation()
+
 
 
 const handlerRequest = (e) => {
