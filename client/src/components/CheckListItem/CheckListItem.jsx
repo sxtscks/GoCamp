@@ -13,14 +13,38 @@ function CheckListItem({ tripId, todo, id }) {
   //       e.preventDefault(e)
   //       return dispatch(confirmTodo(id))
   //   }
+
   const takerHandler = (e) => {
     e.preventDefault()
-      db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
-        "confirmed": !todo.confirmed,
-        "taker": !todo.confirmed ? user.uid : ''
-      })
+    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).update({
+      "confirmed": !todo.confirmed,
+      "taker": !todo.confirmed ? user.uid : ''
+    })
       .catch((err) => console.log(err))
   }
+  // const arrIdPersons = []
+  //   const trip = db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).get().then((doc)=> arrIdPersons.push(doc.data().persons))
+
+  // const takerHandler = (e) => {
+    // e.preventDefault()
+//   arrIdPersons.map((person) => {
+//     db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc('someIdTodo', todo.id).update({
+//       "confirmed": !todo.confirmed,
+//       "taker": !todo.confirmed ? user.uid : ''
+//     })
+//   })
+  // }
+
+
+  
+  // const importantHandler = (e) => {
+  //   e.preventDefault()
+  //   // arrIdPersons.map((person) => {
+    //     db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc('someIdTodo', todo.id).update({
+    //       "important": !todo.important,
+    //     })
+    //   })
+  // }
 
   const importantHandler = (e) => {
     e.preventDefault()
@@ -30,14 +54,14 @@ function CheckListItem({ tripId, todo, id }) {
       .catch((err) => console.log(err))
   }
 
-const deleteHandler = (e)=> {
-  e.preventDefault()
-  db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).delete()
-  .then(()=>{
-    console.log('I am fine')
-  })
-    .catch((err) => console.log(err))
-}
+  const deleteHandler = (e) => {
+    e.preventDefault()
+    db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).collection('checkList').doc(id).delete()
+      .then(() => {
+        console.log('I am fine')
+      })
+      .catch((err) => console.log(err))
+  }
 
 
 
@@ -51,10 +75,10 @@ const deleteHandler = (e)=> {
 
       <div className="buttons">
         {/* <button className="btn btn-primary mx-1" onClick={() => setEdit(!edit)}> Edit</button> */}
-        <button className="btn mx-1" onClick={takerHandler}  style={{fontFamily:'Montserrat', fontWeight:400, color:'white', fontSize:10,background:todo.confirmed ? null : '#65A414'}}> <DoneOutlineOutlinedIcon fontSize="small" style={{ color:todo.confirmed? '#65A414' : null }}/></button> 
-        <button className="btn mx-1" onClick={deleteHandler} style={{fontFamily:'Montserrat', fontWeight:400, color:'white', fontSize:10,background:'#f23333'}}> <DeleteOutlineOutlinedIcon fontSize="small" /></button>
-        <button className="btn mx-1" onClick={importantHandler} style={{fontFamily:'Montserrat', fontWeight:400, color:'white', fontSize:10,background:todo.important? "#FFFFFF":'#F46E16'}}> <PriorityHighSharpIcon fontSize="small" style={{ color:todo.important? '#F46E16' : null }}/></button> 
-        
+        <button className="btn mx-1" onClick={takerHandler} style={{ fontFamily: 'Montserrat', fontWeight: 400, color: 'white', fontSize: 10, background: todo.confirmed ? null : '#65A414' }}> <DoneOutlineOutlinedIcon fontSize="small" style={{ color: todo.confirmed ? '#65A414' : null }} /></button>
+        <button className="btn mx-1" onClick={deleteHandler} style={{ fontFamily: 'Montserrat', fontWeight: 400, color: 'white', fontSize: 10, background: '#f23333' }}> <DeleteOutlineOutlinedIcon fontSize="small" /></button>
+        <button className="btn mx-1" onClick={importantHandler} style={{ fontFamily: 'Montserrat', fontWeight: 400, color: 'white', fontSize: 10, background: todo.important ? "#FFFFFF" : '#F46E16' }}> <PriorityHighSharpIcon fontSize="small" style={{ color: todo.important ? '#F46E16' : null }} /></button>
+
       </div>
     </li >
   )

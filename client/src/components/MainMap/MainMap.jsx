@@ -11,7 +11,7 @@ function MainMap({ myTrips }) {
 
   const key = 'de2b31d6-264f-4aab-b53f-b5c388f7bfde'
 
-  // const user = useSelector(state => state.user)
+  const user = useSelector(state => state.user)
   // const [myTrips, setMyTrips] = useState([])
 
   // useEffect(() => {
@@ -28,6 +28,7 @@ function MainMap({ myTrips }) {
 
   console.log(myTrips);
 
+  if(!user.uid) return null
 
   return (
     <YMaps query={{ lang: 'ru_RU', ns: "use-load-option", apikey: key }}>
@@ -59,7 +60,7 @@ function MainMap({ myTrips }) {
           }} options={{ float: 'right' }} /> */}
           <GeolocationControl options={{ float: 'left' }} />
           <Clusterer options={{ groupByCoordinates: false }}>
-            {myTrips ?
+            {myTrips.length ?
               myTrips.map(trip => {
                 return (
                   <div key={trip.id}>

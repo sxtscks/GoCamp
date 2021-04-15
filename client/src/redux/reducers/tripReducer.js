@@ -2,6 +2,7 @@ import { ADD_DISTANCE, CREATE_TRIP, GET_TRIPS } from "../types/trips";
 import { db } from '../../firebase/firebase'
 import firebase from '../../firebase/firebase'
 import dotProp from 'dot-prop'
+import {v4 as uuidv4} from 'uuid'
 
 
 const ADD_TRIP = 'ADD_TRIP'
@@ -15,7 +16,12 @@ const initState = {
     description: '',
   }
 }
-
+const ID = function () {
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return '_' + Math.random().toString(36).substr(2, 9);
+};
 
 const tripReducer = (state = initState, action) => {
   // const { name, start, finish, description } = action.payload
@@ -79,10 +85,23 @@ export const addTrip = (trip) => {
 }
 
 export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getState) => {
-
- return  db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey).collection('checkList').add(
-    todo
-  )
+  console.log('YA V DISPATCHE');
+  const trip = await db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey)
+  // const addTodo = trip.collection('checkList').add(
+  //   todo
+  // )
+  const findPersons = await trip.get().then((el) => {
+    const persons = el.data().persons
+    if (persons.length) {
+      persons.map((person) => {
+        const id = ID()
+        const todo1 =  db.collection('Users').doc(person).collection('futureTrips').doc(tripKey).collection('checkList').doc(`todo${Date.now()}`).set(
+          todo
+        )
+        console.log('bjbn', todo1.then((el) => console.log(el)));
+      })
+    }
+  })
 }
 
 export const findAllTodos = (userKey, tripKey) => async (dispatch, getState) => {
@@ -95,18 +114,18 @@ export const addTripToFB = (trip, key) => async (dispatch, getState) => {
 
   return db.collection('Users').doc(key).collection('futureTrips').add({
     ...trip,
-    persons: [],
+    persons: [key],
     benzin: 0,
-    waitingList:[],
+    waitingList: [],
     wayLength: 0,
     checkList: [],
     author: key
   })
 }
 
-export const takeTodo = (userKey, tripId, todoId) => async (dispatch, getState)=> {
+export const takeTodo = (userKey, tripId, todoId) => async (dispatch, getState) => {
   console.log('DISPATCH');
-    db.collection('Users').doc(userKey).collection('futureTrips').doc(tripId).collection('checkList').doc(todoId).update({
+  db.collection('Users').doc(userKey).collection('futureTrips').doc(tripId).collection('checkList').doc(todoId).update({
     taker: 'userKey'
   })
 }

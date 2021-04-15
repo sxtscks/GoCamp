@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: 360,
+    maxWidth: 330,
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -15,18 +15,17 @@ export default function TripsHistory({ userFinishedTrips, userFutureTrips }) {
   return (
     <div>
       <Grid container direction="row" justify="center" alignItems="center" flexWrap="nowrap">
-        <List className={classes.root}>
+        {/* <List className={classes.root}>
           <h2>Past Trips:</h2>
           {userFinishedTrips
             ? userFinishedTrips.map((trip, index) => <Trip key={index} trip={trip} />)
             : 'No trips before'
           }
-        </List>
+        </List> */}
         <List className={classes.root}>
-          <h2>Future Trips:</h2>
           {userFutureTrips
             ? userFutureTrips.map((trip, index) => <Trip key={index} trip={trip} />)
-            : 'Create your next trip'
+            : 'Создай новую поездку!'
           }
         </List>
       </Grid>

@@ -24,6 +24,9 @@ import { Grid, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { addTripToFB } from '../../redux/reducers/tripReducer';
 import firebase from '../../firebase/firebase'
+import { db } from '../../firebase/firebase'
+
+
 
 const SlideInLeft = styled.div`animation: 1s ${keyframes`${slideInLeft} infinite`}`;
 
@@ -53,6 +56,9 @@ export default function Navbar() {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
+
+
+
 
   const handleClickOpen = () => {
     if (JSON.stringify(user) !== '{}') {
@@ -220,7 +226,6 @@ export default function Navbar() {
                   <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
                   : ''
               }
-              <Button component={Link} to="/recommendations" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Советы</Button>
               {
                 JSON.stringify(user) !== '{}' ?
                   <DropDownButton />

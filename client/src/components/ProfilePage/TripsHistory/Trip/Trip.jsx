@@ -3,20 +3,20 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import ExploreIcon from '@material-ui/icons/Explore';
 import Divider from '@material-ui/core/Divider';
-const Trip = ({trip}) => {
+const Trip = ({ trip }) => {
   return (
     <div>
       <ListItem>
         <ListItemAvatar>
-          <Avatar>
-            <BeachAccessIcon />
+          <Avatar style={{background: '#f46e16'}}>
+            <ExploreIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary={trip} secondary="Jan 9, 2014" />
+        <ListItemText primary={trip.name} secondary={trip.place} />
       </ListItem>
-      <Divider variant="inset" component="li" />
+      <Divider variant="fullwidth" component="li" />
     </div>
   )
 }

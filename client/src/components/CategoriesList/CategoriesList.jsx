@@ -4,12 +4,14 @@ import { getRecs } from "../../redux/actionCreators/recsAC"
 
 function CategoriesList() {
 
-  const categoriesList = useSelector(state => state.recommends)
-  const dispatch = useDispatch()
+  // const categoriesList = useSelector(state => state.recommends)
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getRecs(categoriesList))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getRecs(categoriesList))
+  // }, [])
+
+  
 
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import firebase from '../../firebase/firebase';
 import {
-  Link, useLocation,
+  Link, useHistory, useLocation,
 } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { db } from '../../firebase/firebase';
@@ -30,7 +30,7 @@ import bg5 from './backgrounds/bg5.png'
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-    // background:'url('+bg1+') center',
+    background:'url('+bg1+') center',
     background: 'linear-gradient(90deg, rgba(245,245,245,1) 0%, rgba(245,245,245,1) 43%, rgba(255,255,255,0.2091211484593838) 70%), url('+arr[randBg]+') center',
     backgroundSize: 'cover',
   
@@ -50,24 +50,37 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({ name, id, author }) {
+export default function CurrentTripItem({ name, id, author, persons, waitingList }) {
+  const [request, setRequest] = useState(false)
+  const [people, setPeople] = useState([])
+
   const user = useSelector(state => state.user)
   const classes = useStyles();
 
   let location = useLocation()
+  let history = useHistory()
 
-
-
-const handlerRequest = (e) => {
-  e.preventDefault()
- db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
-  'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
- })
-}
+  useEffect(() => {
+    persons?.map((id) => {
+      const a = db.collection('Users').doc(id).get()
+      a.then((person) => setPeople([...people, person.data()]))
+    })
+  }, [])
+  console.log(people);
+  const handlerRequest = (e) => {
+    e.preventDefault()
+    if (JSON.stringify(user) !== '{}') {
+      db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
+        'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
+      })
+    } else {
+      history.push('/login')
+    }
+  }
 
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} >
       <CardContent>
         {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
           {author}
@@ -78,35 +91,52 @@ const handlerRequest = (e) => {
         <Typography className={classes.pos} color="textSecondary">
           {/* {startDate.toDate().toDateString()} - {endDate.toDate().toDateString()} */}
         </Typography>
-        {/* <Typography variant="body2" component="p">
-          {
-            persons?.length ?
-              <div>
-                Количество людей: {persons.length}
-                <br />
+        {
+          location.pathname === '/currentTrips' ?
+            <Typography variant="body2" component="p">
+              {
+                persons?.length ?
+                  <div>
+                    Количество людей: {persons.length}
+                    <br />
                 Едут: {persons.join(', ')}
-              </div>
-              : <p>Возьми кого-нибудь с собой!</p>
-          }
-        </Typography> */}
+                  </div>
+                  : <p>Возьми кого-нибудь с собой!</p>
+              }
+            </Typography>
+            : ''
+        }
       </CardContent>
       <CardActions>
         {
           location.pathname === '/main' ?
-            author === user.uid ?
+            author === user.uid || persons.includes(user.uid) ?
               <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                 Подробнее
               </Button>
-              :
-              <Button className='buttonCreateTrip' component={Link} onClick={handlerRequest} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
-                Оставить заявку
-              </Button>
-            :
-            <Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+              : ((waitingList?.includes(user.uid)) ?
+                <Button className='buttonCreateTrip' component={Link} onClick={handlerRequest} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                  На рассмотрении
+              </Button> :
+                <Button className='buttonCreateTrip' component={Link} onClick={handlerRequest} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                  Оставить заявку
+            </Button>
+              ) :
+            <Button Button className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
               Подробнее
-          </Button>
+              </Button>
         }
+        {people.length ?
+          people.map((el) => {
+            return <div className='d-flex'>
+              <img src={el.photo} style={{ width: 30, height: 30 }} alt="" />
+            </div>
+          }) :
+
+          'hjhj'
+        }
+
       </CardActions>
-    </Card>
+    </Card >
   );
 }

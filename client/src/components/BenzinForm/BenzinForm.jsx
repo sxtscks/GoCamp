@@ -30,7 +30,7 @@ function BenzinForm({ trip, id }) {
           <div className="kmText" style={{ fontFamily: 'Montserrat', margin: 5, fontWeight: 700, color: 'white', fontSize: 15, textAlign: 'end' }}>
             <span>Расстояние:</span>
           </div>
-          <input value={trip.distance ? Math.floor(trip.distance.value / 1000) : ''} type="text" style={{ width: 100, margin: 5 }} name='km' className="form-control" id="exampleFormControlInput1" placeholder="km" onChange={handlerKm} />
+          <input value={trip?.distance ? Math.floor(trip.distance.value / 1000) : ''} type="text" style={{ width: 100, margin: 5 }} name='km' className="form-control" id="exampleFormControlInput1" placeholder="km" onChange={handlerKm} />
         </div>
         <div className="gas">
           <div className="gasText" style={{ fontFamily: 'Montserrat', margin: 5, fontWeight: 700, color: 'white', fontSize: 15, textAlign: 'end' }}>
