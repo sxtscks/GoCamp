@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import CurrentTripItem from '../CurrentTripItem/CurrentTripItem'
 import { db } from "../../firebase/firebase";
+import Preloader from '../Preloader/Preloader';
 
 
 function CurrentTrips() {
@@ -10,6 +11,7 @@ function CurrentTrips() {
 
 
   const [myTrips, setMyTrips] = useState([])
+
 
 
   useEffect(() => {
@@ -30,15 +32,17 @@ function CurrentTrips() {
 
 
   return (
-    <div style={{ marginTop: '7%' }} className="container d-flex justify-content-center flex-column align-items-center">
-      {
-        sortedTrips.length ?
-          sortedTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} /></ul>)
-          : <div className='d-flex justify-content-center align-items-center' style={{padding: '370px'}}>
-            <h3>Список пуст. Создай новую поездку!</h3>
-          </div>
-      }
-    </div>
+    <>
+      <div style={{ marginTop: '7%' }} className="container d-flex justify-content-center flex-column align-items-center">
+        {
+          sortedTrips.length ?
+            sortedTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} /></ul>)
+            : <div className='d-flex justify-content-center align-items-center' style={{ padding: '370px' }}>
+              <h3>Список пуст. Создай новую поездку!</h3>
+            </div>
+        }
+      </div>
+    </>
   )
 }
 

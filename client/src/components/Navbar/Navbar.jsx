@@ -153,14 +153,11 @@ export default function Navbar() {
 </Button>
               <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <form onSubmit={handlerSubmit}>
-                  <DialogTitle id="form-dialog-title">Создать поездку</DialogTitle>
+                  <DialogTitle disableTypography="true" style={{fontFamily: 'Montserrat', fontWeight: 700, fontSize: '21px' }} id="form-dialog-title">Создать поездку</DialogTitle>
                   <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
                     <CloseIcon />
                   </IconButton>
                   <DialogContent style={{ fontFamily: 'Montserrat' }}>
-                    <DialogContentText>
-                      Введи название поездки и выбери дату(после можно будет изменить)
-          </DialogContentText>
                     <Grid container>
                       <TextField
                         autoFocus
@@ -213,7 +210,7 @@ export default function Navbar() {
                   </DialogContent>
                   <DialogActions>
                     <Grid container justify="center">
-                      <Button type='submit' color="primary" style={{ background: '#F46E16', color: 'white', fontWeight: 600, fontSize: '16px', height: '40px', transition: '0.3s' }}>
+                      <Button type='submit' color="primary" style={{ background: '#F46E16', color: 'white', fontWeight: 600, fontSize: '16px', height: '40px', width: '200px', marginTop: '10px', transition: '0.3s' }}>
                         Поехали
           </Button>
                     </Grid>
