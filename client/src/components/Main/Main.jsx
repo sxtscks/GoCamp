@@ -24,58 +24,23 @@ function Main() {
   useEffect(() => {
     let currentUsersTrips = db.collection("Trips")
       .onSnapshot((querySnapshot) => {
-
-        setMyTrips(querySnapshot.docs.map(trip => trip.data()))
+        setMyTrips(querySnapshot.docs.map(trip => ({...trip.data(), id: trip.id})))
       })
     return () => {
       currentUsersTrips && currentUsersTrips()
     }
   }, [])
 
-  const handlerRequest = ({e,author, id, user}) => {
-    e.preventDefault()
-    console.log({author, id})
-    if (JSON.stringify(user) !== '{}') {
-      db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
-        'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
-      })
-      setSubscribeTrips(prev => [...prev, {author, id}])
-    } else {
-      history.push('/login')
-    }
-  }
-
-  useEffect(() => {
-    console.log({subscribeTrips})
-    let subscribes
-    if (subscribeTrips.length) {
-      subscribes = subscribeTrips.map(trip => db.collection("Users").doc(trip.author)
-      .collection('futureTrips').doc(trip.id).onSnapshot((doc) => {
-        console.log({doc: doc.data(), id: doc.id})
-        console.log({myTrips})
-        setMyTrips(prev => {
-          if (prev.id === doc.id) {
-            return {
-              ...doc.data(),
-              id: doc.id
-            }
-          }
-          return prev
-        })
-      }))}
-      
-    
-    return () => subscribes?.map(el => el())
-  }, [subscribeTrips])
+ 
 
 
-  
+
   return (
     <div className="d-flex">
       <div className="feedContainer">
         {
           myTrips.length ?
-          myTrips.map((trip) => <ul><CurrentTripItem handlerRequest={handlerRequest} key={trip.id} name={trip.name} id={trip.id} author={trip.author} waitingList={trip.waitingList} persons={trip.persons} /></ul>)
+          myTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} author={trip.author} waitingList={trip.waitingList} persons={trip.persons} /></ul>)
             : <div className='d-flex justify-content-center align-items-center' style={{paddingTop: '300px'}}>
               <Preloader />
             </div>
