@@ -144,7 +144,7 @@ export default function Navbar() {
             <Typography variant="h6" className={classes.title}>
               <div className="logoContainer ">
                 <Link to='/'><img src="/finalLogoHope.png" alt="" style={{ width: 378, margin: 6, position: 'absolute', top: 1, left: -280, paddingTop: 2, zIndex: 3 }} /></Link>
-                <SlideInLeft style={{ display: 'inline-block' }}><img src="/WhiteText.svg" className="logoMove object van move-right" alt="" style={{ width: 240, marginLeft: 78, paddingTop: 5 }} /></SlideInLeft>
+                <SlideInLeft style={{ display: 'inline-block' }}><img src="/WhiteText.svg" className="logoMove object van move-right" alt="" style={{ width: 240, marginLeft: 82, paddingTop: 5 }} /></SlideInLeft>
               </div>
             </Typography>
             <div className={JSON.stringify(user) !== '{}' ? 'logined' : 'unlogged'} style={{ display: 'flex', justifyContent: "space-between" }}>

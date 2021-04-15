@@ -30,7 +30,7 @@ function CurrentTrips() {
 
 
   return (
-    <div style={{ marginTop: '5%' }} className="container">
+    <div style={{ marginTop: '7%' }} className="container d-flex justify-content-center flex-column align-items-center">
       {
         sortedTrips.length ?
           sortedTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} /></ul>)
