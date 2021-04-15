@@ -17,49 +17,27 @@ function CurrentTripPage() {
   const user = useSelector(state => state.user)
   const { id } = useParams()
   const [trip, setTrip] = useState({})
-  const [waitLi, setWaitLi] = useState([])
-  let simpleArr
+  
+  
   useEffect(() => {
     let currentTrip
-    if (user.uid) {
+   
       currentTrip = db.collection('Trips').doc(id)
         .onSnapshot((doc) => {
-          console.log('doc data here>>>>>>', doc.data())
-          setTrip(doc.data())
-          // let id
-          // // console.log('waiting list >>>>', doc.data().waitingList)
-          // Promise.all(doc.data().waitingList.map((el) => {
-          //   console.log('el here', el)
-          //   id = el
-          //   return db.collection('Users').doc(el).get()
-          //     .then((p) => { return { ...p.data(), id: p.id } })
-          // }))
-          //   .then((w) => setWaitLi(w))
-          // doc.data().waitingList.map((el) => {
-          //           db.collection('Users').doc(el).get().then((el)=> setWaitLi(prev=>{
-          //             if (prev.find(person => person.id === el.data().id)) return prev
-          //             return [...prev,{...el.data(), id: el.id}]
-          //           }))})
+          let currentTrip = doc.data()
+
+          Promise.all(currentTrip.waitingList.map(personId => db.collection('Users').doc(personId).get().then(doc => doc.data())))
+          .then((waitingListPersons) => setTrip({...currentTrip, id: doc.id, waitingList:waitingListPersons }))
+          
+          
         })
-    }
+    
     return () => {
       currentTrip && currentTrip()
     }
-  }, [user])
-  // simpleArr = waitLi
-  //   const sortedTrips = simpleArr.sort((a, b) => a.startDate - b.startDate).filter((item, i, ar) => ar.indexOf(item) === i)
-  //   let waiters = sortedTrips.reduce((acc, waiter) => {
-  //     if (acc.map[waiter.id]) 
-  //       return acc; 
-  //     acc.map[waiter.id] = true; 
-  //     acc.waiters.push(waiter); 
-  //     return acc; 
-  //   }, {
-  //     map: {}, 
-  //     waiters: [] 
-  //   })
-  //   .waiters; 
-  console.log('waitli>>>>>>>>>>>>>>>', waitLi)
+  }, [])
+  
+  
   return (
     <div className="mainCont">
       <div className="tripPage">
@@ -100,7 +78,7 @@ function CurrentTripPage() {
               <h5 style={{ color: 'white' }}>Едут: </h5>
               {/* {user.uid === trip.author ? } */}
               <Grid>
-                {waitLi.length ? waitLi.map((el) =>
+                {trip.waitingList?.length ? trip.waitingList.map((el) =>
                   <Grid key={el.id}>
                     <WaitingPerson name={el.name} person={el} tripId={id} trip={trip} />
                   </Grid>

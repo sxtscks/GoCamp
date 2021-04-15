@@ -44,19 +44,21 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
   let history = useHistory()
 
   useEffect(() => {
-    persons?.map((id) => {
-      const a = db.collection('Users').doc(id).get()
-      a.then((person) => setPeople([...people, person.data()]))
-    })
-  }, [])
+    if (Array.isArray(persons))
+   
+      Promise.all(persons.map( persId=> db.collection('Users').doc(persId).get().then((person) => person.data() )))
+      .then((persons) => setPeople(persons))
+    
+  }, [persons])
   console.log(people);
 
   
   const handlerRequest = (e) => {
     e.preventDefault()
     if (JSON.stringify(user) !== '{}') {
-      db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
-        'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
+      db.collection('Trips').doc(id).update({
+        'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid),
+        'timeModified': Date.now()
       })
     } else {
       history.push('/login')

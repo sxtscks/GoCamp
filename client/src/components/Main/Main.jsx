@@ -25,7 +25,7 @@ function Main() {
     }
   }, [])
 
- 
+ console.log({myTrips})
 
 
 

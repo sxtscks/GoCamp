@@ -15,14 +15,13 @@ function CheckRing({ tripId }) {
   useEffect(() => {
     console.log('asdfasdfasdf')
     let currentTodos
-    if (user.uid) {
-
+    
       currentTodos = db.collection('Trips').doc(tripId).onSnapshot((doc) => {
         Promise.all(doc.data().checkList.map(todoId => {
           return db.collection('CheckListItem').doc(todoId).get().then(doc => ({...doc.data(), id: doc.id}))
         })).then(allTodo => setTodos(allTodo))
         })
-    }
+    
    
 
     return () => {
@@ -33,6 +32,7 @@ function CheckRing({ tripId }) {
 
   useEffect(() => {
     if (todos.length) {
+      console.log({todos})
       setRing((todos.length >= 1 ? (Math.floor(
         100 / (todos.length + todos.filter(todo => todo.important).length) * ((todos.filter(todo => todo.confirmed).length) + (todos.filter(todo => todo.confirmed && todo.important).length))
       )) : '100'))
