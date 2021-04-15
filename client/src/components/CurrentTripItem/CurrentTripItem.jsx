@@ -54,6 +54,7 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
 
 
   const handlerRequest = (e) => {
+    // e.preventDefault()
     if (JSON.stringify(user) !== '{}') {
       db.collection('Trips').doc(id).update({
         'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid),
@@ -115,11 +116,16 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
         {people ?
           people.map((el) => {
             return <div className='d-flex'>
-              {/* <img src={el.photo} style={{ width: 30, height: 30 }} alt="" /> */}
+              {
+                el.photo ?
+                <img src={el.photo } style={{ width: 30, height: 30 }} alt="" />
+                :
+                <img src={'https://img2.pngio.com/person-icon-computer-icons-user-profile-symbol-person-free-png-user-avatars-png-910_512.png'} style={{ width: 50, height: 30 }} alt="" />
+              }
             </div>
           }) :
 
-          'hjhj'
+          'none'
         }
 
       </CardActions>

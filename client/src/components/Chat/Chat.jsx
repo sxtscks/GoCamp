@@ -10,28 +10,30 @@ import { db } from "../../firebase/firebase";
 import firebase from 'firebase/app';
 import { doc } from "prettier";
 
-const Chat = ({ tripId, message }) => {
+const Chat = ({ tripId, messages }) => {
   const [formValue, setFormValue] = useState('')
-  const [messages, setMessages] = useState([])
+  const [message, setMessage] = useState([])
   // const currentUser = useSelector(state => state.user)
   const currentUser = JSON.parse(window.localStorage.getItem('myApp'))
   const scroll = useRef();
   const messagesRef = db.collection('Messages')
 
   useEffect(() => {
-    let currentTrip
+    let currentMessages
 
-    currentTrip = message && message.map((mes => db.collection('Messages').doc(mes).get().then((doc => ({ ...doc.data(), id: doc.id }))))).then((allMessages)=> setMessages({...messages, allMessages}))
-
-    return () => {
-      currentTrip && currentTrip()
+    if (tripId) {
+      currentMessages = db.collection('Trips').doc(tripId).onSnapshot((doc) => {
+        Promise.all(doc.data().messages.map(mesId => {
+          return db.collection('Messages').doc(mesId).get().then(doc => ({ ...doc.data(), id: doc.id }))
+        })).then(allMessages => setMessage(allMessages))
+      })
     }
-  }, [])
+  }, [tripId])
 
   const query = messagesRef.orderBy("createdAt").limit(25)
 
   // const [messages] = useCollectionData(query, { idField: "id" }) //возвращает массив объектов, где каждый объект - сообщение
-
+  console.log(message, 'MESSSAGE');
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -56,7 +58,7 @@ const Chat = ({ tripId, message }) => {
   return (
     <div className="chat">
       <main>
-        {messages && messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+        {message && message.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
 
         <span ref={scroll} />
       </main>
