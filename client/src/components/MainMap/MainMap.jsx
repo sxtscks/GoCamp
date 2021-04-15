@@ -26,9 +26,8 @@ function MainMap({ myTrips }) {
 
   // }, [])
 
-  console.log(myTrips);
 
-  if(!user.uid) return null
+  // if(!user.uid) return null
 
   return (
     <YMaps query={{ lang: 'ru_RU', ns: "use-load-option", apikey: key }}>
@@ -40,24 +39,6 @@ function MainMap({ myTrips }) {
         }}
           modules={['control.ZoomControl', 'control.FullscreenControl', 'geocode']}
           className='mainMap'>
-          {/* <RouteButton instanceRef={ref => {
-            if (ref) {
-              ref.routePanel.state.set({
-                from: "Москва",
-                to: myTrip.coordinates,
-                type: "auto"
-              });
-              const obj = ref.routePanel.getRouteAsync()
-              obj.then(function (multiRoute) {
-                multiRoute.model.events.add('requestsuccess', function () {
-                  const activeRoute = multiRoute.getActiveRoute()
-                  if (activeRoute) {
-                    console.log('distance', activeRoute.properties.get('distance').text);
-                  }
-                })
-              })
-            }
-          }} options={{ float: 'right' }} /> */}
           <GeolocationControl options={{ float: 'left' }} />
           <Clusterer options={{ groupByCoordinates: false }}>
             {myTrips.length ?
