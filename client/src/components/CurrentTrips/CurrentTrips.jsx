@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import CurrentTripItem from '../CurrentTripItem/CurrentTripItem'
 import { db } from "../../firebase/firebase";
-import Preloader from '../Preloader/Preloader';
 
 
 function CurrentTrips() {
@@ -33,7 +32,7 @@ function CurrentTrips() {
 
   return (
     <>
-      <div style={{ marginTop: '7%' }} className="container d-flex justify-content-center flex-column align-items-center">
+      <div style={{ marginTop: '7%' }} className="container">
         {
           sortedTrips.length ?
             sortedTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} /></ul>)

@@ -22,16 +22,16 @@ function WaitingPerson({ person, tripId, trip }) {
   const classes = useStyles();
   const user = useSelector(state => state.user)
 
-  
+
   const handlerConfirm = async (e) => {
     e.preventDefault()
     console.log('tut');
-     db.collection('Trips').doc(tripId).update({
+    db.collection('Trips').doc(tripId).update({
       "persons": firebase.firestore.FieldValue.arrayUnion(person.id),
       "waitingList": firebase.firestore.FieldValue.arrayRemove(person.id),
       "timeModified": Date.now()
     })
-    
+
   }
 
 
@@ -45,7 +45,6 @@ function WaitingPerson({ person, tripId, trip }) {
   }
 
 
-  console.log('lelelelele', person)
   return (
     <div className='d-flex'>
       <Avatar alt="Remy Sharp" src={person.photo} className={classes.orange}>

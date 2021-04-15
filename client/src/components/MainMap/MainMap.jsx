@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { YMaps, Map, Placemark, RouteButton, GeolocationControl, Clusterer, RoutePanel } from 'react-yandex-maps'
 import { db } from '../../firebase/firebase'
 import './MainMap.css'
-import placeMarkIcon from './pointMark.svg'
+// import icon from './GoCampLogoGraph (1).png'
 
 
 
@@ -48,6 +48,11 @@ function MainMap({ myTrips }) {
                     <Placemark
                       onClick={() => console.log('Привет')}
                       geometry={trip.coordinates}
+                    // options={{
+                    //   iconLayout: 'default#image',
+                    //   iconImageHref: `http://localhost:3001${event.thumbnail}`,
+                    //   iconImageSize: [40, 40],
+                    // }}
                     />
                   </div>
                 );

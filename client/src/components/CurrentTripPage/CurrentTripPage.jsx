@@ -41,88 +41,88 @@ function CurrentTripPage() {
   return (
     <div className="mainCont d-flex">
       <div className="tripPage d-flex">
-       
-          {/* <Grid
+
+        {/* <Grid
             container spacing={2}
           // direction="row-reverse"
           // justify="space-between"
           // alignItems="center"
           > */}
-          <div className="formMapBenzin">
-         
-            <div className="formMapBenzWaiting d-flex flex-column">
+        <div className="formMapBenzin">
+
+          <div className="formMapBenzWaiting d-flex flex-column">
             <div className="formMapNameTrip">
               <span>К мамке твоей</span>
             </div>
-                 <div className="mapForm">
-                  {trip?.name ?
+            <div className="mapForm">
+              {trip?.name ?
                 <TripMap trip={trip} id={id} />
                 :
                 <span>netu</span>
               }
-               </div>
+            </div>
             <div className="benzinForm">
-                 <BenzinForm trip={trip} id={id} />
+              <BenzinForm trip={trip} id={id} />
             </div>
-     
-            </div>
-            
-            <div className="cont1 d-flex flex-column justify-content-center">
+
+          </div>
+
+          <div className="cont1 d-flex flex-column justify-content-center">
             <div className='textUsers'>
-                    <span >Заявки:</span>
-                  </div>
-            <div className="waitersForm d-flex justify-content-between">
-              
-            <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
+              <span >Заявки:</span>
             </div>
+            <div className="waitersForm d-flex justify-content-between">
+
+              <div className="user">
+                <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+              </div>
+              <div className="user">
+                <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+              </div>
+              <div className="user">
+                <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+              </div>
             </div>
           </div>
-    
-            <div className="formTodoRingContainer d-flex flex-column">
-              <div className="formFormTodoRing">
-                <div className="formTodo">
-                  <Form tripId={id} />
-                </div>
+        </div>
 
-                <div className="formTodoList">
-                  <CheckList tripId={id} />
-                </div>
-
-                <div className="formTodoRing">
-                  <CheckRing tripId={id} />
-                </div>
-                </div>
-                  <div className='textUsers'>
-                    <span >Едут:</span>
-                  </div>
-                <div className="cont2 d-flex justify-content-center">
-                <div className="members d-flex justify-content-between">
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                    <div className="user">
-                      <img src="https://i.imgur.com/5c5JP4B.png" alt=""/>
-                    </div>
-                </div>
-                 
-
-                </div>
+        <div className="formTodoRingContainer d-flex flex-column">
+          <div className="formFormTodoRing">
+            <div className="formTodo">
+              <Form tripId={id} />
             </div>
-            {/* <Grid item
+
+            <div className="formTodoList">
+              <CheckList tripId={id} />
+            </div>
+
+            <div className="formTodoRing">
+              <CheckRing tripId={id} />
+            </div>
+          </div>
+          <div className='textUsers'>
+            <span >Едут:</span>
+          </div>
+          <div className="cont2 d-flex justify-content-center">
+            <div className="members d-flex justify-content-between">
+              <div className="user">
+                <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+              </div>
+              <div className="user">
+                <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+              </div>
+              <div className="user">
+                <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+              </div>
+              <div className="user">
+                <img src="https://i.imgur.com/5c5JP4B.png" alt="" />
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        {/* <Grid item
               spacing={2}
               direction="column"
               // justify="center"
@@ -131,25 +131,25 @@ function CurrentTripPage() {
               <Grid item sm={8} xs={3} style={{ marginTop: 40, marginLeft: 30 }}>
               </Grid>
               <Grid item xs={4}> */}
-                {/* <CheckRing tripId={id} />
+        {/* <CheckRing tripId={id} />
               </Grid>
               <Grid item sm={7} style={{ marginTop: 70 }}>
                 <BenzinForm trip={trip} id={id} />
               </Grid>
               <h5 style={{ color: 'white' }}>Едут: </h5> */}
-              {/* {user.uid === trip.author ? } */}
-              <Grid>
-                {trip.waitingList?.length ? trip.waitingList.map((el) =>
-                  <Grid key={el.id}>
-                   
-                    <WaitingPerson name={el.name} person={el} tripId={id} trip={trip} />
-                  </Grid>
-                )
-                  : <p>ahahaahha</p>}
-              </Grid>
-            <div className="roadMap">
-            </div>
-            <Chat tripId={id} messages= {trip.messages} />
+        {/* {user.uid === trip.author ? } */}
+        <Grid>
+          {trip.waitingList?.length ? trip.waitingList.map((el) =>
+            <Grid key={el.id}>
+
+              <WaitingPerson name={el.name} person={el} tripId={id} trip={trip} />
+            </Grid>
+          )
+            : <p>ahahaahha</p>}
+        </Grid>
+        <div className="roadMap">
+        </div>
+        <Chat tripId={id} messages={trip.messages} />
       </div>
     </div>
   );

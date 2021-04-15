@@ -101,7 +101,7 @@
 } */
 
 .footer {
-  height: 55px;
+  height: 50px;
   color: white;
 	background: #32384d;
   display:flex;
@@ -167,9 +167,6 @@
   padding: 10px
 }
 
-.secondPageContent {
-
-}
 
 /* .conflex {
   position: relative;
