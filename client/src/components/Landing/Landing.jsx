@@ -27,9 +27,9 @@ function Landing() {
           </div>
           <div className="textThree">
 
-            <Button className='buttonCreateTrip1' component={Link} to="/create" variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700, fontSize:20, borderRadius:10}}>
+            {/* <Button className='buttonCreateTrip1' component={Link} to="/create" variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700, fontSize:20, borderRadius:10}}>
               Создать поездку
-</Button>
+</Button> */}
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ const Chat = ({ id }) => {
   const currentUser = useSelector(state => state.user)
 
   const scroll = useRef();
-  const messagesRef = db.collection('Users').doc(currentUser.uid).collection('futureTrips').doc(id).collection('messages')
+  const messagesRef = db.collection('messages')
 
   const query = messagesRef.orderBy("createdAt").limit(25)
 
