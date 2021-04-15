@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/analytics";
@@ -8,17 +8,29 @@ import "./Chat.css";
 import { useSelector } from "react-redux";
 import { db } from "../../firebase/firebase";
 import firebase from 'firebase/app';
+import { doc } from "prettier";
 
-const Chat = ({ id }) => {
+const Chat = ({ tripId, messages }) => {
   const [formValue, setFormValue] = useState('')
+  const [message, setMessage] = useState([])
   // const currentUser = useSelector(state => state.user)
-const currentUser  = JSON.parse(window.localStorage.getItem('myApp'))
+  const currentUser = JSON.parse(window.localStorage.getItem('myApp'))
   const scroll = useRef();
-  const messagesRef = db.collection('messages')
+  const messagesRef = db.collection('Messages')
+
+  useEffect(() => {
+    let currentTrip
+
+    currentTrip = messages && messages.map((mes => db.collection('Messages').doc(mes).get().then((doc => ({ ...doc.data(), id: doc.id }))))).then((allMessages)=> setMessage({...message, allMessages}))
+
+    return () => {
+      currentTrip && currentTrip()
+    }
+  }, [])
 
   const query = messagesRef.orderBy("createdAt").limit(25)
 
-  const [messages] = useCollectionData(query, { idField: "id" }) //возвращает массив объектов, где каждый объект - сообщение
+  // const [messages] = useCollectionData(query, { idField: "id" }) //возвращает массив объектов, где каждый объект - сообщение
 
 
   const sendMessage = async (event) => {
@@ -30,7 +42,10 @@ const currentUser  = JSON.parse(window.localStorage.getItem('myApp'))
       uid,
       // photoURL,
       displayName,
-    });
+    }).then((doc) => db.collection('Trips').doc(tripId).update({
+      "messages": firebase.firestore.FieldValue.arrayUnion(doc.id),
+      "timeModified": Date.now()
+    }));
 
     setFormValue("");
 

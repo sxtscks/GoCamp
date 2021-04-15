@@ -29,7 +29,8 @@ function CurrentTripPage() {
           Promise.all(currentTrip.waitingList.map(personId => db.collection('Users').doc(personId).get().then(doc => ({...doc.data(), id: doc.id}))))
           .then((waitingListPersons) => setTrip({...currentTrip, id: doc.id, waitingList:waitingListPersons }))
           
-          
+          // Promise.all(currentTrip.messages?.map(messageId => db.collection('Messages').doc(messageId).get().then(doc => ({...doc.data(), id: doc.id}))))
+          // .then((ourMessages) => setTrip({...currentTrip, id: doc.id, messages:ourMessages }))
         })
     
     return () => {
@@ -88,7 +89,7 @@ function CurrentTripPage() {
             </Grid>
             <div className="roadMap">
             </div>
-            <Chat id={id} />
+            <Chat tripId={id} messages= {trip.messages} />
           </Grid>
         </div>
       </div>

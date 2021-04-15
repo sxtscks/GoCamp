@@ -25,6 +25,17 @@ console.log(todo, "ITEMTODO");
       })
     })
   }
+  const importantHandler = (e) => {
+    e.preventDefault()
+    db.collection('CheckListItem').doc(id).update({
+      "important": !todo.important,
+    }).then(() => {
+      db.collection('Trips').doc(tripId).update({
+        "timeModified": Date.now()
+      })
+    })
+      .catch((err) => console.log(err))
+  }
   // const arrIdPersons = []
   //   const trip = db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).get().then((doc)=> arrIdPersons.push(doc.data().persons))
 
@@ -49,17 +60,11 @@ console.log(todo, "ITEMTODO");
   //   })
   // }
 
-  const importantHandler = (e) => {
-    e.preventDefault()
-    db.collection('CheckListItem').doc(tripId).update({
-      "important": !todo.important,
-    })
-      .catch((err) => console.log(err))
-  }
+  
 
   const deleteHandler = (e) => {
     e.preventDefault()
-    db.collection('Trips').doc(tripId).update({ "checkList": firebase.firestore.FieldValue.arrayRemove({ id }) })
+    db.collection('Trips').doc(tripId).update({ "checkList": firebase.firestore.FieldValue.arrayRemove( id ) })
       .then(() => {
         console.log('I am fine')
       })
