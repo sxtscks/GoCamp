@@ -9,10 +9,10 @@ import { useSelector } from "react-redux";
 import { db } from "../../firebase/firebase";
 import firebase from 'firebase/app';
 
-const Chat = ({ id }) => {
+const Chat = ({ tripId }) => {
   const [formValue, setFormValue] = useState('')
   // const currentUser = useSelector(state => state.user)
-const currentUser  = JSON.parse(window.localStorage.getItem('myApp'))
+  const currentUser = JSON.parse(window.localStorage.getItem('myApp'))
   const scroll = useRef();
   const messagesRef = db.collection('messages')
 
@@ -30,7 +30,10 @@ const currentUser  = JSON.parse(window.localStorage.getItem('myApp'))
       uid,
       // photoURL,
       displayName,
-    });
+    }).then((doc) => db.collection('Trips').doc(tripId).update({
+      "messages": firebase.firestore.FieldValue.arrayUnion(doc.id),
+      "timeModified": Date.now()
+    }));
 
     setFormValue("");
 

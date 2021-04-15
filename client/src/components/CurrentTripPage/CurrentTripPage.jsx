@@ -88,7 +88,7 @@ function CurrentTripPage() {
             </Grid>
             <div className="roadMap">
             </div>
-            <Chat id={id} />
+            <Chat tripId={id} />
           </Grid>
         </div>
       </div>

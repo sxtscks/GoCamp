@@ -14,7 +14,7 @@ function CheckListItem({ tripId, todo, id }) {
   //       e.preventDefault(e)
   //       return dispatch(confirmTodo(id))
   //   }
-console.log(todo, "ITEMTODO");
+  console.log(todo, "ITEMTODO");
   const takerHandler = (e) => {
     e.preventDefault()
     db.collection('CheckListItem').doc(id).update({
@@ -59,7 +59,7 @@ console.log(todo, "ITEMTODO");
 
   const deleteHandler = (e) => {
     e.preventDefault()
-    db.collection('Trips').doc(tripId).update({ "checkList": firebase.firestore.FieldValue.arrayRemove({ id }) })
+    db.collection('Trips').doc(tripId).update({ "checkList": firebase.firestore.FieldValue.arrayRemove(id) })
       .then(() => {
         console.log('I am fine')
       })

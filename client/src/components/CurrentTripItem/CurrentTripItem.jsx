@@ -54,7 +54,6 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
 
 
   const handlerRequest = (e) => {
-    e.preventDefault()
     if (JSON.stringify(user) !== '{}') {
       db.collection('Trips').doc(id).update({
         'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid),
