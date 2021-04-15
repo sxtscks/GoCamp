@@ -1,8 +1,15 @@
-import preloader from '../loaderImage/spinning-circles.svg'
+import './loader.scss'
+
 const Preloader = () => {
   return (
-    <div>
-      <img src={preloader} />
+    <div className="fire">
+      <div className="flames">
+        <div className="flame"></div>
+        <div className="flame"></div>
+        <div className="flame"></div>
+        <div className="flame"></div>
+      </div>
+      <div className="logs"></div>
     </div>
   )
 }

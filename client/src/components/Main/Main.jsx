@@ -50,8 +50,6 @@ function Main() {
 
   console.log('idis', cities)
 
-
-
   return (
     <div className="d-flex">
       <div className="feedContainer">

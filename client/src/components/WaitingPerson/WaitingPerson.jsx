@@ -28,15 +28,10 @@ function WaitingPerson({ person, tripId, trip }) {
       "persons": firebase.firestore.FieldValue.arrayUnion(person.id),
       "waitingList": firebase.firestore.FieldValue.arrayRemove(person.id)
     })
-    await db.collection('Users').doc(person.id).collection('futureTrips').doc(tripId).set({
-      name: trip.name,
-      // distance: trip.distance,
-      author: trip.author,
-      coordinates: trip.coordinates,
-      persons: trip.persons,
-      endDate: trip.endDate,
-      startDate: trip.startDate,
-      place: trip.place,
+
+    const updatedTrip = await db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).get().then(doc => doc.data())
+    console.log({updatedTrip})
+    await db.collection('Users').doc(person.id).collection('futureTrips').doc(tripId).set({...updatedTrip
     })
   }
 

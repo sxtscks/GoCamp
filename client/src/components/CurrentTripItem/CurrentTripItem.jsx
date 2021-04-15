@@ -17,6 +17,7 @@ import bg2 from './backgrounds/bg2.png'
 import bg3 from './backgrounds/bg3.png'
 import bg4 from './backgrounds/bg4.png'
 import bg5 from './backgrounds/bg5.png'
+import Avatar from '@material-ui/core/Avatar';
 
 
 
@@ -24,13 +25,14 @@ import bg5 from './backgrounds/bg5.png'
   function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
   }
-  let randBg = Math.floor(getRandomArbitrary(0,arr.length+1))
+  let randBg = Math.floor(getRandomArbitrary(0,arr.length))
 
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
-    background:'url('+bg1+') center',
+    minWidth: 375,
+    minHeight:170,
+    // background:'url('+bg1+') center',
     background: 'linear-gradient(90deg, rgba(245,245,245,1) 0%, rgba(245,245,245,1) 43%, rgba(255,255,255,0.2091211484593838) 70%), url('+arr[randBg]+') center',
     backgroundSize: 'cover',
   
@@ -50,7 +52,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({ name, id, author, persons, waitingList }) {
+export default function CurrentTripItem({ name, id, author, persons, waitingList, cover }) {
   const [request, setRequest] = useState(false)
   const [people, setPeople] = useState([])
 
@@ -59,6 +61,17 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
 
   let location = useLocation()
   let history = useHistory()
+
+
+
+
+  let arr = [bg1,bg2,bg3,bg4,bg5]
+  function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  let randBg = Math.floor(getRandomArbitrary(0,arr.length))
+
+
 
   useEffect(() => {
     persons?.map((id) => {
@@ -77,10 +90,10 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
       history.push('/login')
     }
   }
-
+  console.log('persons here',people)
 
   return (
-    <Card className={classes.root} >
+    <Card style={{width: 775,minHeight:190,  background: 'linear-gradient(90deg, rgba(245,245,245,1) 20%, rgba(245,245,245,1) 43%, rgba(255,255,255,0.2091211484593838) 70%), url('+arr[randBg]+') center', backgroundSize: 'cover'}}>
       <CardContent>
         {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
           {author}
