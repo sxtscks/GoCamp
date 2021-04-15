@@ -2,6 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { Grid } from '@material-ui/core';
+import iconTent from './Дизайн без названия (4).png'
+import iconFoot from './Дизайн без названия (5).png'
+import iconLamp from './Дизайн без названия (6).png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   large: {
-    width: theme.spacing(12),
-    height: theme.spacing(12),
+    width: theme.spacing(13),
+    height: theme.spacing(13),
   },
 }));
 
@@ -22,12 +25,9 @@ export default function Achievements() {
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <div className={classes.root}>
-        <div>
-          <h2>Achievements: </h2>
-        </div>
-        <Avatar alt="Remy Sharp" src="https://yt3.ggpht.com/ytc/AAUvwni9fc9ER7WhFQQdhJJec_x0Y-l7ufpVjd7E7I0p=s900-c-k-c0x00ffffff-no-rj" className={classes.large}/>
-        <Avatar alt="Travis Howard" src="https://i.pinimg.com/originals/10/76/b4/1076b43d1fdc9c6487b648688ff6ac69.jpg" className={classes.large}/>
-        <Avatar alt="Cindy Baker" src="https://www.nastol.com.ua/download.php?img=201812/1920x1200/nastol.com.ua-310658.jpg" className={classes.large}/>
+        <Avatar alt="Tent" src={iconTent} className={classes.large}/>
+        <Avatar alt="Foot" src={iconFoot} className={classes.large}/>
+        <Avatar alt="Lamp" src={iconLamp} className={classes.large}/>
       </div>
     </Grid>
   );
