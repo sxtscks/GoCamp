@@ -124,9 +124,9 @@ export default function Navbar() {
     e.preventDefault()
     let tripId = ''
     console.log(user.uid);
-    dispatch(addTripToFB(trip, user.uid))
-      .then((docref) => tripId = docref.id)
-      .then(() => history.push(`/create/${tripId}`))
+    dispatch(addTripToFB(trip, user?.uid))
+      .then((docref) => docref.id)
+      .then((tripId) => history.push(`/create/${tripId}`))
       .then(() => setOpen(false))
   }
 

@@ -14,14 +14,16 @@ function CheckListItem({ tripId, todo, id }) {
   //       e.preventDefault(e)
   //       return dispatch(confirmTodo(id))
   //   }
-
+console.log(todo, "ITEMTODO");
   const takerHandler = (e) => {
     e.preventDefault()
-    db.collection('CheckListItem').doc(tripId).update({
-      "confirmed": !todo.confirmed,
-      "taker": !todo.confirmed ? user.uid : ''
+    db.collection('CheckListItem').doc(id).update({
+      "confirmed": !todo.confirmed
+    }).then(() => {
+      db.collection('Trips').doc(tripId).update({
+        "timeModified": Date.now()
+      })
     })
-      .catch((err) => console.log(err))
   }
   // const arrIdPersons = []
   //   const trip = db.collection('Users').doc(user.uid).collection('futureTrips').doc(tripId).get().then((doc)=> arrIdPersons.push(doc.data().persons))
@@ -68,9 +70,9 @@ function CheckListItem({ tripId, todo, id }) {
 
   return (
 
-    <li className="list-group-item d-flex justify-content-between mx-8" style={{ backgroundColor: todo.important ? "#FF9F5F" : null }}>
+    <li className="list-group-item d-flex justify-content-between mx-8" style={{ backgroundColor: todo?.important ? "#FF9F5F" : null }}>
 
-      <span className="mt-2" style={{ fontFamily: 'Montserrat', fontWeight: 700, color: "#211f30", fontSize: 15 }}> {todo.text}</span>
+      <span className="mt-2" style={{ fontFamily: 'Montserrat', fontWeight: 700, color: "#211f30", fontSize: 15 }}> {todo?.text}</span>
 
       {/* onClick={() => dispatch(confirmTodo(id))} */}
 
