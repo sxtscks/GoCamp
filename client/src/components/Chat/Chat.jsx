@@ -10,8 +10,9 @@ import { db } from "../../firebase/firebase";
 import firebase from 'firebase/app';
 
 const Chat = ({ id }) => {
-  const currentUser = useSelector(state => state.user)
-
+  const [formValue, setFormValue] = useState('')
+  // const currentUser = useSelector(state => state.user)
+const currentUser  = JSON.parse(window.localStorage.getItem('myApp'))
   const scroll = useRef();
   const messagesRef = db.collection('messages')
 
@@ -19,7 +20,6 @@ const Chat = ({ id }) => {
 
   const [messages] = useCollectionData(query, { idField: "id" }) //возвращает массив объектов, где каждый объект - сообщение
 
-  const [formValue, setFormValue] = useState('')
 
   const sendMessage = async (event) => {
     event.preventDefault();

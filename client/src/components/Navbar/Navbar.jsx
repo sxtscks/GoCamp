@@ -98,7 +98,7 @@ export default function Navbar() {
       setTrip(prev => {
         return {
           ...prev,
-          coordinates,
+          coordinates : coordinates,
           [event.target.name]: event.target.value,
         }
       })

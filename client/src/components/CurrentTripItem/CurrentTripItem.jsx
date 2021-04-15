@@ -52,6 +52,19 @@ export default function CurrentTripItem({handlerRequest, name, id, author, perso
   }, [])
 
 
+  // console.log(people);
+
+  
+  // const handlerRequest = (e) => {
+  //   e.preventDefault()
+  //   if (JSON.stringify(user) !== '{}') {
+  //     db.collection('Users').doc(author).collection('futureTrips').doc(id).update({
+  //       'waitingList': firebase.firestore.FieldValue.arrayUnion(user.uid)
+  //     })
+  //   } else {
+  //     history.push('/login')
+  //   }
+  // }
 
 
   return (

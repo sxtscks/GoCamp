@@ -16,12 +16,11 @@ function Form({ tripId }) {
 
 
   const addTodoHandler = (e) => {
+    console.log('IAM HERE');
     e.preventDefault()
     let todoId = '';
-    console.log(user, "SUer in form");
-    console.log(tripId, "tripId in form");
 
-    dispatch(addTripsTodo(user.uid, tripId, value))
+    dispatch(addTripsTodo( tripId, value))
     // .then((docref) => todoId = docref.id)
     setValue({ text: '' })
   }

@@ -20,22 +20,21 @@ function CurrentTripPage() {
   const [waitLi, setWaitLi] = useState([])
   let simpleArr
   useEffect(() => {
-    console.log(id);
     let currentTrip
     if (user.uid) {
-      currentTrip = db.collection('Users').doc(user.uid).collection('futureTrips').doc(id)
+      currentTrip = db.collection('Trips').doc(id)
         .onSnapshot((doc) => {
           console.log('doc data here>>>>>>', doc.data())
           setTrip(doc.data())
-          let id
-          console.log('waiting list >>>>', doc.data().waitingList)
-          Promise.all(doc.data().waitingList.map((el) => {
-            console.log('el here', el)
-            id = el
-            return db.collection('Users').doc(el).get()
-              .then((p) => { return { ...p.data(), id: p.id } })
-          }))
-            .then((w) => setWaitLi(w))
+          // let id
+          // // console.log('waiting list >>>>', doc.data().waitingList)
+          // Promise.all(doc.data().waitingList.map((el) => {
+          //   console.log('el here', el)
+          //   id = el
+          //   return db.collection('Users').doc(el).get()
+          //     .then((p) => { return { ...p.data(), id: p.id } })
+          // }))
+          //   .then((w) => setWaitLi(w))
           // doc.data().waitingList.map((el) => {
           //           db.collection('Users').doc(el).get().then((el)=> setWaitLi(prev=>{
           //             if (prev.find(person => person.id === el.data().id)) return prev
