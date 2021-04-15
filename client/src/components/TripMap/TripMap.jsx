@@ -41,7 +41,7 @@ function TripMap({ trip, id }) {
                   if (activeRoute) {
                     let distance = activeRoute.properties.get('distance')
                     console.log('POPAL', distance);
-                    db.collection('Users').doc(user.uid).collection('futureTrips').doc(id).set({
+                    db.collection('Trips').doc(id).set({
                       distance: distance
                     }, { merge: true })
                     // dispatch(addDistance(trip.id, distance))

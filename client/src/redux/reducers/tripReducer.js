@@ -2,7 +2,7 @@ import { ADD_DISTANCE, CREATE_TRIP, GET_TRIPS } from "../types/trips";
 import { db } from '../../firebase/firebase'
 import firebase from '../../firebase/firebase'
 import dotProp from 'dot-prop'
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 
 const ADD_TRIP = 'ADD_TRIP'
@@ -84,42 +84,32 @@ export const addTrip = (trip) => {
   }
 }
 
-export const addTripsTodo = (userKey, tripKey, todo) => async (dispatch, getState) => {
+export const addTripsTodo = (tripKey, todo) => async (dispatch, getState) => {
   console.log('YA V DISPATCHE');
-  const trip = await db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey)
-  // const addTodo = trip.collection('checkList').add(
-  //   todo
-  // )
-  const findPersons = await trip.get().then((el) => {
-    const persons = el.data().persons
-    if (persons.length) {
-      persons.map((person) => {
-        const id = ID()
-        const todo1 =  db.collection('Users').doc(person).collection('futureTrips').doc(tripKey).collection('checkList').doc(`todo${Date.now()}`).set(
-          todo
-        )
-        console.log('bjbn', todo1.then((el) => console.log(el)));
-      })
-    }
+  db.collection('CheckListItem').add(todo).then((doc) => {
+    db.collection('Trips').doc(tripKey).update({
+      "checkList": firebase.firestore.FieldValue.arrayUnion(doc.id)
+    })
   })
 }
 
-export const findAllTodos = (userKey, tripKey) => async (dispatch, getState) => {
-  return db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey).collection('checkList').get()
-}
+// export const findAllTodos = (userKey, tripKey) => async (dispatch, getState) => {
+//   return db.collection('Users').doc(userKey).collection('futureTrips').doc(tripKey).collection('checkList').get()
+// }
 
 
 export const addTripToFB = (trip, key) => async (dispatch, getState) => {
   console.log(key, 'YA TUT');
 
-  return db.collection('Users').doc(key).collection('futureTrips').add({
+ return  db.collection('Trips').add({
     ...trip,
     persons: [key],
     benzin: 0,
     waitingList: [],
-    wayLength: 0,
+    messages: [],
     checkList: [],
-    author: key
+    author: key,
+    timeModified: Date.now()
   })
 }
 
