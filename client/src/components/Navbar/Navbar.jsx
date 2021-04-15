@@ -226,7 +226,6 @@ export default function Navbar() {
                   <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
                   : ''
               }
-              <Button component={Link} to="/recommendations" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Советы</Button>
               {
                 JSON.stringify(user) !== '{}' ?
                   <DropDownButton />

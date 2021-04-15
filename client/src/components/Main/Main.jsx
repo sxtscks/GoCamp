@@ -5,6 +5,7 @@ import './Main.css'
 import { db } from "../../firebase/firebase"
 import { useState, useEffect } from 'react'
 import CurrentTripItem from '../CurrentTripItem/CurrentTripItem'
+import Preloader from "../Preloader/Preloader"
 
 
 
@@ -56,12 +57,14 @@ function Main() {
       <div className="feedContainer">
         {
           cities.length ?
-          cities.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} author={trip.author} waitingList={trip.waitingList}  persons={trip.persons} /></ul>)
-            : <h3>Список пуст. Создайте новую поездку!</h3>
+            cities.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} author={trip.author} waitingList={trip.waitingList} persons={trip.persons} /></ul>)
+            : <div className='d-flex justify-content-center align-items-center' style={{paddingTop: '300px'}}>
+              <Preloader />
+            </div>
         }
       </div>
       <div style={{ marginTop: '2.5%' }} className="mapContainer">
-        <MainMap myTrips={cities} /> 
+        <MainMap myTrips={cities} />
       </div>
     </div>
   )
