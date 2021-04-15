@@ -26,7 +26,7 @@ function CurrentTripPage() {
         .onSnapshot((doc) => {
           let currentTrip = doc.data()
 
-          Promise.all(currentTrip.waitingList.map(personId => db.collection('Users').doc(personId).get().then(doc => doc.data())))
+          Promise.all(currentTrip.waitingList.map(personId => db.collection('Users').doc(personId).get().then(doc => ({...doc.data(), id: doc.id}))))
           .then((waitingListPersons) => setTrip({...currentTrip, id: doc.id, waitingList:waitingListPersons }))
           
           
