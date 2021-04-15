@@ -11,47 +11,32 @@ function CheckRing({ tripId }) {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
-  useEffect(() => {
-    let unsubscibeTodos;
-    if (user.uid) {
-      unsubscibeTodos = db.collection('Users').doc(user.uid)
-        .collection('futureTrips').doc(tripId)
-        .collection('checkList')
-        .onSnapshot((querySnapshot) => {
-          setTodos(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
-        })
-    }
-    return () => {
-      unsubscibeTodos && unsubscibeTodos()
-    }
-
-  }, [todos])
-
-
-
-
-
   
   useEffect(() => {
+    console.log('asdfasdfasdf')
     let currentTodos
     if (user.uid) {
 
-      currentTodos = db.collection('Users').doc(user.uid)
-        .collection('futureTrips').doc(tripId)
-        .collection('checkList')
-        .onSnapshot((querySnapshot) => {
-          setTodos(querySnapshot.docs.map(el => ({ ...el.data(), id: el.id })))
-
+      currentTodos = db.collection('Trips').doc(tripId).onSnapshot((doc) => {
+        Promise.all(doc.data().checkList.map(todoId => {
+          return db.collection('CheckListItem').doc(todoId).get().then(doc => ({...doc.data(), id: doc.id}))
+        })).then(allTodo => setTodos(allTodo))
         })
     }
-    setRing((todos.length >= 1 ? (Math.floor(
-      100 / (todos.length + todos.filter(todo => todo.important).length) * ((todos.filter(todo => todo.confirmed).length) + (todos.filter(todo => todo.confirmed && todo.important).length))
-    )) : '100'))
+   
 
     return () => {
       currentTodos && currentTodos()
     }
 
+  }, [])
+
+  useEffect(() => {
+    if (todos.length) {
+      setRing((todos.length >= 1 ? (Math.floor(
+        100 / (todos.length + todos.filter(todo => todo.important).length) * ((todos.filter(todo => todo.confirmed).length) + (todos.filter(todo => todo.confirmed && todo.important).length))
+      )) : '100'))
+    }
   }, [todos])
 
   return (

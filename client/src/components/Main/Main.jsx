@@ -16,14 +16,10 @@ function Main() {
 
 
   useEffect(() => {
-    let currentUsersTrips = db.collection("Users")
+    let currentUsersTrips = db.collection("Trips")
       .onSnapshot((querySnapshot) => {
-        querySnapshot.docs.map((trip) => db.collection('Users').doc(trip.id)
-          .collection('futureTrips')
-          .onSnapshot((querySnapshot) => {
-            setMyTrips((prev) => [...prev, ...querySnapshot.docs.map((trip) => ({ ...trip.data(), id: trip.id }))])
-          })
-        )
+
+        setMyTrips(querySnapshot.docs.map(trip => trip.data()))
       })
     return () => {
       currentUsersTrips && currentUsersTrips()
