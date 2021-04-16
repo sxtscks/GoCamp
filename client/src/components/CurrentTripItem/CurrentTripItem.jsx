@@ -21,21 +21,21 @@ import Avatar from '@material-ui/core/Avatar';
 
 
 
-  let arr = [bg1,bg2,bg3,bg4,bg5]
-  function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-  let randBg = Math.floor(getRandomArbitrary(0,arr.length))
+let arr = [bg1, bg2, bg3, bg4, bg5]
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+let randBg = Math.floor(getRandomArbitrary(0, arr.length))
 
 
 const useStyles = makeStyles({
   root: {
     minWidth: 375,
-    minHeight:170,
+    minHeight: 170,
     // background:'url('+bg1+') center',
-    background: 'linear-gradient(90deg, rgba(245,245,245,1) 0%, rgba(245,245,245,1) 43%, rgba(255,255,255,0.2091211484593838) 70%), url('+arr[randBg]+') center',
+    background: 'linear-gradient(90deg, rgba(245,245,245,1) 0%, rgba(245,245,245,1) 43%, rgba(255,255,255,0.2091211484593838) 70%), url(' + arr[randBg] + ') center',
     backgroundSize: 'cover',
-  
+
   },
   bullet: {
     display: 'inline-block',
@@ -52,7 +52,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({ name, id, author, persons, waitingList }) {
+export default function CurrentTripItem({ name, id, start, end, author, persons, waitingList }) {
   const [request, setRequest] = useState(false)
   const [people, setPeople] = useState([])
 
@@ -65,18 +65,18 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
 
 
 
-  let arr = [bg1,bg2,bg3,bg4,bg5]
+  let arr = [bg1, bg2, bg3, bg4, bg5]
   function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
   }
-  let randBg = Math.floor(getRandomArbitrary(0,arr.length))
+  let randBg = Math.floor(getRandomArbitrary(0, arr.length))
 
 
 
   useEffect(() => {
     if (Array.isArray(persons))
 
-      Promise.all(persons.map(persId => db.collection('Users').doc(persId).get().then((person) => person.data())))
+      Promise.all(persons.map(persId => db.collection('Users').doc(persId).get().then((person) => ({ ...person.data(), id: person.id }))))
         .then((persons) => setPeople(persons))
 
   }, [persons])
@@ -94,10 +94,13 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
       history.push('/login')
     }
   }
+  const dateStart = start?.toDate().toLocaleDateString()
+  const dateEnd = end?.toDate().toLocaleDateString()
+
 
 
   return (
-    <Card style={{width: 775,minHeight:190,  background: 'linear-gradient(90deg, rgba(245,245,245,1) 20%, rgba(245,245,245,1) 43%, rgba(255,255,255,0.2091211484593838) 70%), url('+arr[randBg]+') center', backgroundSize: 'cover'}}>
+    <Card style={{ width: 775, minHeight: 190, background: 'linear-gradient(90deg, rgba(245,245,245,1) 20%, rgba(245,245,245,1) 43%, rgba(255,255,255,0.2091211484593838) 70%), url(' + arr[randBg] + ') center', backgroundSize: 'cover' }}>
       <CardContent>
         {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
           {author}
@@ -109,14 +112,16 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
           {/* {startDate.toDate().toDateString()} - {endDate.toDate().toDateString()} */}
         </Typography>
         {
-          location.pathname === '/currentTrips' ?
+          location.pathname === '/main' ?
             <Typography variant="body2" component="p">
               {
                 persons?.length ?
                   <div>
                     Количество людей: {persons.length}
                     <br />
-                Едут: {persons.join(', ')}
+                Дата начала: {dateStart}
+                    <br />
+                Дата конца: {dateEnd}
                   </div>
                   : <p>Возьми кого-нибудь с собой!</p>
               }
@@ -132,10 +137,10 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
                 Подробнее
               </Button>
               : ((waitingList?.includes(user.uid)) ?
-                <Button disabled={!persons.includes(user.uid)} className='buttonCreateTrip' component={Link}  to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: 'grey', color: 'white', fontWeight: 700 }}>
+                <Button disabled={!persons.includes(user.uid)} className='buttonCreateTrip' component={Link} to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: 'grey', color: 'white', fontWeight: 700 }}>
                   На рассмотрении
               </Button> :
-                <Button className='buttonCreateTrip' component={Link} onClick={(e) => handlerRequest({ e, author, id, user })}  variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                <Button className='buttonCreateTrip' component={Link} onClick={(e) => handlerRequest({ e, author, id, user })} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                   Оставить заявку
             </Button>
               ) :
@@ -146,7 +151,9 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
         {people ?
           people.map((el) => {
             return <div className='d-flex'>
-              <img src={el?.photo} style={{ width: 30, height: 30 }} alt="" />
+              <Link to={`profile/${el.id}`}>
+                <img src={el?.photo} style={{ width: 30, height: 30 }} alt="" />
+              </Link>
             </div>
           }) :
 

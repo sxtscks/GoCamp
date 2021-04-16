@@ -69,7 +69,7 @@ function App() {
         <Route path='/signup'>
           <Signup />
         </Route>
-        <Route path="/profile">
+        <Route path="/profile/:id">
           <ProfilePage />
         </Route>
         <Route path='/create/:id'>

@@ -48,11 +48,11 @@ function MainMap({ myTrips }) {
                     <Placemark
                       onClick={() => console.log('Привет')}
                       geometry={trip.coordinates}
-                    // options={{
-                    //   iconLayout: 'default#image',
-                    //   iconImageHref: `http://localhost:3001${event.thumbnail}`,
-                    //   iconImageSize: [40, 40],
-                    // }}
+                    options={{
+                      iconLayout: 'default#image',
+                      // iconImageHref: `http://localhost:3001${event.thumbnail}`,
+                      iconImageSize: [40, 40],
+                    }}
                     />
                   </div>
                 );
