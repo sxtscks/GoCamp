@@ -35,7 +35,8 @@ function Main() {
 
 
   return (
-    <div className="d-flex contMain" >
+    <>
+    <div className="comtMain d-flex">
       <div className="feedContainer">
         {
           myTrips.length ?
@@ -49,6 +50,7 @@ function Main() {
         <MainMap myTrips={myTrips} />
       </div>
     </div>
+    </>
   )
 }
 

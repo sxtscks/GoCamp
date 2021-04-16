@@ -91,14 +91,7 @@ function CurrentTripPage() {
                 )
                   : null
               }
-              {
-                trip.waitingList?.length ? trip.waitingList.map((el) =>
-                  <div key={el.id}>
-                    <WaitingPerson name={el.name} person={el} tripId={id} trip={trip} />
-                  </div>
-                )
-                  : null
-              }
+            
             </div>
           </div>
         </div>
