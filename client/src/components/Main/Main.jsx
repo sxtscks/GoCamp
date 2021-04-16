@@ -34,6 +34,7 @@ function Main() {
 
 
   return (
+    <>
     <div className="d-flex contMain" >
       <div className="feedContainer">
         {
@@ -47,7 +48,8 @@ function Main() {
       <div  className="mapContainer">
         <MainMap myTrips={myTrips} />
       </div>
-    </div>
+      </div>
+     </>
   )
 }
 
