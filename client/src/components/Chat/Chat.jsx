@@ -9,19 +9,15 @@ import { useSelector } from "react-redux";
 import { db } from "../../firebase/firebase";
 import firebase from 'firebase/app';
 import { doc } from "prettier";
-
 const Chat = ({ tripId, messages }) => {
   const [formValue, setFormValue] = useState('')
   const [message, setMessage] = useState([])
-  const currentUser = useSelector(state => state.user)
-  const [thisUser, setThisUser] = useState({})
-  // const currentUser = JSON.parse(window.localStorage.getItem('myApp'))
+  // const currentUser = useSelector(state => state.user)
+  const currentUser = JSON.parse(window.localStorage.getItem('myApp'))
   const scroll = useRef();
   const messagesRef = db.collection('Messages')
-
   useEffect(() => {
     let currentMessages
-
     if (tripId) {
       currentMessages = db.collection('Trips').doc(tripId).onSnapshot((doc) => {
         Promise.all(doc.data().messages.map(mesId => {
@@ -30,53 +26,35 @@ const Chat = ({ tripId, messages }) => {
       })
     }
   }, [tripId])
-
-  useEffect(() => {
-    let myUser
-
-    if (currentUser.uid) {
-      myUser = db.collection('Users').doc(currentUser.uid).get().then((doc) => setThisUser(doc.data()))
-    }
-
-    // return () => {
-    //   myUser && myUser()
-    // }
-  }, [currentUser])
-
-  console.log(thisUser);
   const query = messagesRef.orderBy("createdAt").limit(25)
-
   // const [messages] = useCollectionData(query, { idField: "id" }) //возвращает массив объектов, где каждый объект - сообщение
   console.log(message, 'MESSSAGE');
-
   const sendMessage = async (event) => {
     event.preventDefault();
-    const { uid, photo, displayName } = thisUser;
+    const { uid, photoURL, displayName } = currentUser;
     await messagesRef.add({
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
-      photo,
+      // photoURL,
       displayName,
     }).then((doc) => db.collection('Trips').doc(tripId).update({
       "messages": firebase.firestore.FieldValue.arrayUnion(doc.id),
       "timeModified": Date.now()
     }));
-
     setFormValue("");
-
     scroll.current.scrollIntoView({ behavior: "smooth" });
-
   };
+
+  console.log(currentUser);
+
 
   return (
     <div className="chat">
       <main>
         {message && message.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-
         <span ref={scroll} />
       </main>
-
       <form onSubmit={sendMessage} className="chatForm">
         <input
           value={formValue}
@@ -90,5 +68,4 @@ const Chat = ({ tripId, messages }) => {
     </div>
   );
 };
-
 export default Chat;

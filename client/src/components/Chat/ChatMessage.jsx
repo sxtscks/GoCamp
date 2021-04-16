@@ -24,7 +24,7 @@ const ChatMessage = (props) => {
         <img
           src={
             photo ||
-            'http://planetasharov.ru/upload/shop_1/1/3/4/item_1348/shop_items_catalog_image1348.jpg'
+            'https://firebasestorage.googleapis.com/v0/b/go-camp-610d1.appspot.com/o/sherlock-serial-sherlock-bbc-sherlock-holmes-sherlock-she-45.jpg?alt=media&token=af35c728-0041-46b8-a3a3-011de04ce32e'
           }
           width="50px"
           height="50px"

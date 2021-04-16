@@ -44,7 +44,6 @@ function TripMap({ trip, id }) {
                     db.collection('Trips').doc(id).set({
                       distance: distance
                     }, { merge: true })
-                    // dispatch(addDistance(trip.id, distance))
                   }
                 })
               })

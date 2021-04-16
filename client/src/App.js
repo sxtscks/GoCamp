@@ -19,14 +19,10 @@ import { useEffect } from 'react';
 import firebase, { db } from './firebase/firebase'
 import { useDispatch, useSelector } from 'react-redux';
 // import { setUserData } from './redux/actionCreators/userAC';
-import CategoriesList from "./components/CategoriesList/CategoriesList.jsx";
-import RecommendsList from "./components/RecommendsList/RecommendsList.jsx";
 import './App.css'
 
 import { setUserData } from './redux/reducers/userReducer';
 import AddTripForm from "./components/AddTrip/AddTripForm.js";
-import UserContextProvider from "./context/userContext.js";
-// import CurTip from "./components/CurrentTripPage/CurrentTripPage.js";
 function App() {
 
   const dispatch = useDispatch()
@@ -59,7 +55,6 @@ function App() {
 
 
   return (
-    // <UserContextProvider>
     <Router>
       <Navbar />
       <Switch>
@@ -79,19 +74,9 @@ function App() {
         </Route>
         <Route path='/create/:id'>
           <CurrentTripPage />
-          {/* <CurTip/> */}
         </Route>
         <Route path='/currentTrips'>
           <CurrentTrips />
-        </Route>
-        <Route path='/recommendations/topic/:id'>
-          <TripPage />
-        </Route>
-        <Route path='/recommendations/:id'>
-          <RecommendsList />
-        </Route>
-        <Route path='/recommendations'>
-          <CategoriesList />
         </Route>
         <Route path='/main'>
           <Main />
@@ -101,7 +86,6 @@ function App() {
         </Route>
       </Switch>
     </Router >
-    // </UserContextProvider>
   );
 }
 
