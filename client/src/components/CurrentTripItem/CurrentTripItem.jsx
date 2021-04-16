@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrentTripItem({ name, id, author, persons, waitingList }) {
+export default function CurrentTripItem({ name, id,start, end, author, persons, waitingList }) {
   const [request, setRequest] = useState(false)
   const [people, setPeople] = useState([])
 
@@ -46,7 +46,7 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
   useEffect(() => {
     if (Array.isArray(persons))
 
-      Promise.all(persons.map(persId => db.collection('Users').doc(persId).get().then((person) => person.data())))
+      Promise.all(persons.map(persId => db.collection('Users').doc(persId).get().then((person) => ({...person.data(), id: person.id}))))
         .then((persons) => setPeople(persons))
 
   }, [persons])
@@ -64,6 +64,9 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
       history.push('/login')
     }
   }
+  const dateStart = start?.toDate().toLocaleDateString()
+  const dateEnd = end?.toDate().toLocaleDateString()
+
 
 
   return (
@@ -79,14 +82,16 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
           {/* {startDate.toDate().toDateString()} - {endDate.toDate().toDateString()} */}
         </Typography>
         {
-          location.pathname === '/currentTrips' ?
+          location.pathname === '/main' ?
             <Typography variant="body2" component="p">
               {
                 persons?.length ?
                   <div>
                     Количество людей: {persons.length}
                     <br />
-                Едут: {persons.join(', ')}
+                Дата начала: {dateStart}
+                <br />
+                Дата конца: {dateEnd}
                   </div>
                   : <p>Возьми кого-нибудь с собой!</p>
               }
@@ -116,7 +121,9 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
         {people ?
           people.map((el) => {
             return <div className='d-flex'>
-              <img src={el.photo} style={{ width: 30, height: 30 }} alt="" />
+              <Link to={`profile/${el.id}`}>
+              <img src={el?.photo} style={{ width: 30, height: 30 }} alt="" />
+              </Link>
             </div>
           }) :
 

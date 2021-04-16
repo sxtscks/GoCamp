@@ -38,6 +38,7 @@ console.log(message, 'MESSSAGE');
   const sendMessage = async (event) => {
     event.preventDefault();
     const { uid, photoURL, displayName } = currentUser;
+    
     await messagesRef.add({
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),

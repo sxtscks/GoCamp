@@ -172,6 +172,7 @@ export default function Navbar() {
                         type="text"
                         fullWidth
                         onChange={inputHandler}
+                        required
                       />
                       <TextField
                         variant="outlined"
@@ -182,6 +183,8 @@ export default function Navbar() {
                         type="text"
                         fullWidth
                         onChange={inputHandler}
+                        required
+
                       />
                       <Grid container justify='space-between'>
                         <Grid item>
@@ -194,6 +197,8 @@ export default function Navbar() {
                             fullWidth
                             onChange={inputHandler}
                             style={{ width: "270px" }}
+                            required
+
                           />
                         </Grid>
                         <Grid item>
@@ -206,6 +211,8 @@ export default function Navbar() {
                             fullWidth
                             onChange={inputHandler}
                             style={{ width: "270px" }}
+                            required
+
                           />
                         </Grid>
                       </Grid>
@@ -222,7 +229,8 @@ export default function Navbar() {
               </Dialog>
               {
                 JSON.stringify(user) !== '{}' ?
-                  <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
+                
+                  <Button component={Link} to={`/profile/${user.uid}`} style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
                   : ''
               }
               {

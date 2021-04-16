@@ -25,8 +25,11 @@ function CurrentTripPage() {
       .onSnapshot((doc) => {
         let currentTrip = doc.data()
 
-        Promise.all(currentTrip.waitingList.map(personId => db.collection('Users').doc(personId).get().then(doc => ({ ...doc.data(), id: doc.id }))))
-          .then((waitingListPersons) => setTrip({ ...currentTrip, id: doc.id, waitingList: waitingListPersons }))
+        // undefined is not iterable (cannot read property Symbol(Symbol.iterator)) <<<==== oshibka !razobratsya
+
+          Promise.all(currentTrip?.waitingList?.map(personId => db.collection('Users').doc(personId).get().then(doc => ({ ...doc.data(), id: doc.id }))))
+            .then((waitingListPersons) => setTrip({ ...currentTrip, id: doc.id, waitingList: waitingListPersons }))
+
 
 
       })
@@ -35,7 +38,10 @@ function CurrentTripPage() {
     }
   }, [])
 
- 
+
+  // Отрендерить дату
+  const dateStart = trip?.startDate?.toDate().toLocaleDateString()
+  const dateEnd = trip?.endDate?.toDate().toLocaleDateString()
 
   return (
     <div className="mainCont">
