@@ -33,7 +33,7 @@ const ChatMessage = (props) => {
         />
         <p style={{ color: 'white', fontWeight: '500' }}>
           {displayName}
-          {messageData}
+          {/* {messageData} */}
         </p>
         <p className="textMes">{text}</p>
       </div>

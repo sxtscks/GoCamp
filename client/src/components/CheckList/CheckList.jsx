@@ -28,7 +28,7 @@ function CheckList({ tripId }) {
   return (
     <div>
       <ul className="list-group">
-        ndfndjf
+        
         {todos?.length ? todos.map((todo, indx) => <CheckListItem tripId={tripId} todo={todo} key={todo?.id} id={todo?.id} />) : ''}
       </ul>
     </div>

@@ -26,7 +26,7 @@ const EndTrip = ({ trip, tripId }) => {
     history.push('/currentTrips')
   }
   return (
-    <button onClick={submitHandler} >Завершить поездку</button>
+    <button onClick={submitHandler} className="btn mx-3" style={{ height: 38, fontFamily: 'Montserrat', margin: 32, fontWeight: 700, color: 'white', fontSize: 15, background: '#F46E16' }}>Завершить поездку</button>
   );
 }
 
