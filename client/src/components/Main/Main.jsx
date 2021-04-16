@@ -35,7 +35,7 @@ function Main() {
 
 
   return (
-    <div className="d-flex">
+    <div className="d-flex contMain" >
       <div className="feedContainer">
         {
           myTrips.length ?
@@ -45,7 +45,7 @@ function Main() {
             </div>
         }
       </div>
-      <div style={{ marginTop: '2.5%' }} className="mapContainer">
+      <div  className="mapContainer">
         <MainMap myTrips={myTrips} />
       </div>
     </div>
