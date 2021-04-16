@@ -36,7 +36,7 @@ function CurrentTripPage() {
   const user = useSelector(state => state.user)
   const { id } = useParams()
   const [trip, setTrip] = useState({})
-  const [persons,setPersons] = useState([])
+  const [persons, setPersons] = useState([])
   useEffect(() => {
     let currentTrip
 
@@ -54,7 +54,7 @@ function CurrentTripPage() {
     }
   }, [])
 
-  console.log('persons!',persons)
+  console.log('persons!', persons)
 
   return (
     <div className='mainCont d-flex'>
@@ -84,9 +84,9 @@ function CurrentTripPage() {
             <div className='waitersForm d-flex  flex-wrap flex-wrap-nowrap'>
               {
                 trip.waitingList?.length ? trip.waitingList.map((el) =>
-                  <div  className='mx-3' key={el.id}>
+                  <div className='mx-3' key={el.id}>
                     <WaitingPerson name={el.name} person={el} tripId={id} trip={trip} />
-                    
+
                   </div>
                 )
                   : null
@@ -119,14 +119,14 @@ function CurrentTripPage() {
           </div>
           <div className='cont2 d-flex justify-content-center'>
             <div className='members d-flex justify-content-between flex-wrap'>
-           {persons?.length ? persons.map(el=>  
-           <div className='user'>
-             <span style={{ fontFamily: 'Montserrat', fontWeight: 400, color: 'white', fontSize: 15 }}>{el.name}</span>
-                   <Avatar alt="Remy Sharp" src={el.photo} className={classes.orange}>
-        {el.name}
-      </Avatar>
-           </div>) : ''}
-           
+              {persons?.length ? persons.map(el =>
+                <div className='user'>
+                  <span style={{ fontFamily: 'Montserrat', fontWeight: 400, color: 'white', fontSize: 15 }}>{el.name}</span>
+                  <Avatar alt="Remy Sharp" src={el.photo} className={classes.orange}>
+                    {el.name}
+                  </Avatar>
+                </div>) : ''}
+
             </div>
           </div>
         </div>

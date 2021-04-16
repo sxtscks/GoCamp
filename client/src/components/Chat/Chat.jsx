@@ -12,40 +12,26 @@ import { doc } from "prettier";
 const Chat = ({ tripId, messages }) => {
   const [formValue, setFormValue] = useState('')
   const [message, setMessage] = useState([])
-
-  const [currentUser, setCurrentUser] = useState({})
-
-  const currentUserLS = JSON.parse(window.localStorage.getItem('myApp'))
-
+  // const currentUser = useSelector(state => state.user)
+  const currentUser = JSON.parse(window.localStorage.getItem('myApp'))
   const scroll = useRef();
   const messagesRef = db.collection('Messages')
-
-
   useEffect(() => {
     let currentMessages
     if (tripId) {
       currentMessages = db.collection('Trips').doc(tripId).onSnapshot((doc) => {
         Promise.all(doc.data().messages.map(mesId => {
           return db.collection('Messages').doc(mesId).get().then(doc => ({ ...doc.data(), id: doc.id }))
-        })).then(allMessages =>{ 
-          console.log({allMessages})
-          return Promise.all(allMessages.map(message => db.collection('Users').doc(message.uid).get().then(user => user.data().photo ? user.data().photo : '')
-          .then(usersWithPhoto => {
-            return allMessages.map((el, i) => ({...el, photo: usersWithPhoto[i]})) })
-          ))})
-          .then(users => setMessage(users))
+        })).then(allMessages => setMessage(allMessages))
       })
     }
   }, [tripId])
-
-  console.log(message);
-
   const query = messagesRef.orderBy("createdAt").limit(25)
-
-
+  // const [messages] = useCollectionData(query, { idField: "id" }) //возвращает массив объектов, где каждый объект - сообщение
+  console.log(message, 'MESSSAGE');
   const sendMessage = async (event) => {
     event.preventDefault();
-    const { uid, photoURL, displayName } = currentUserLS;
+    const { uid, photoURL, displayName } = currentUser;
     await messagesRef.add({
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -59,14 +45,10 @@ const Chat = ({ tripId, messages }) => {
     setFormValue("");
     scroll.current.scrollIntoView({ behavior: "smooth" });
   };
-
-  console.log(message);
-
-
   return (
     <div className="chat">
       <main>
-        {message && message[0]?.map((msg) => <ChatMessage key={msg.id} message={msg} text={msg.text}/>)}
+        {message && message.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
         <span ref={scroll} />
       </main>
       <form onSubmit={sendMessage} className="chatForm">
