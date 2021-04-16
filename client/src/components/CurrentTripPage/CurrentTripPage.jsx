@@ -123,7 +123,7 @@ function CurrentTripPage() {
            <div className='user'>
              <span style={{ fontFamily: 'Montserrat', fontWeight: 400, color: 'white', fontSize: 15 }}>{el.name}</span>
                    <Avatar alt="Remy Sharp" src={el.photo} className={classes.orange}>
-        {el.name.slice(0, 1)}
+        {el.name}
       </Avatar>
            </div>) : ''}
            

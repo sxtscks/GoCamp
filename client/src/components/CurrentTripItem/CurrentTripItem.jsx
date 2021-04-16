@@ -132,7 +132,7 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
                 Подробнее
               </Button>
               : ((waitingList?.includes(user.uid)) ?
-                <Button className='buttonCreateTrip' component={Link}  to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
+                <Button disabled={!persons.includes(user.uid)} className='buttonCreateTrip' component={Link}  to={`/create/${id}`} variant="contained" color="transparent" style={{ backgroundColor: 'grey', color: 'white', fontWeight: 700 }}>
                   На рассмотрении
               </Button> :
                 <Button className='buttonCreateTrip' component={Link} onClick={(e) => handlerRequest({ e, author, id, user })}  variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
@@ -146,7 +146,7 @@ export default function CurrentTripItem({ name, id, author, persons, waitingList
         {people ?
           people.map((el) => {
             return <div className='d-flex'>
-              <img src={el.photo} style={{ width: 30, height: 30 }} alt="" />
+              <img src={el?.photo} style={{ width: 30, height: 30 }} alt="" />
             </div>
           }) :
 
