@@ -7,7 +7,11 @@ import { useSelector } from 'react-redux'
 
 const ChatMessage = (props) => {
 
+  const myText = props.text 
+
   const { text, uid, photo, createdAt, displayName } = props.message
+
+  console.log(props.message);
 
   const currentUser = useSelector(state => state.user)
 
@@ -33,7 +37,7 @@ const ChatMessage = (props) => {
         />
         <p style={{ color: 'white', fontWeight: '500' }}>
         </p>
-        <p className="textMes">{text}</p>
+        <p className="textMes">{myText}</p>
       </div>
     </div>
   )

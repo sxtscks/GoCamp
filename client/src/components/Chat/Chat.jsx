@@ -42,17 +42,6 @@ const Chat = ({ tripId, messages }) => {
 
   const query = messagesRef.orderBy("createdAt").limit(25)
 
-  // useEffect(() => {
-  //   let myUser
-  //   if (tripId) {
-  //     myUser = db.collection('Trips').doc(tripId).onSnapshot((doc) => {
-  //       Promise.all(doc.data().persons.map((el) => {
-  //         return db.collection('Users').doc(el).get().then(doc => ({...doc.data(), id: doc.id}))
-  //       })).then(allUsers => )
-  //     }
-  //   }
-  // }, [])
-
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -71,13 +60,13 @@ const Chat = ({ tripId, messages }) => {
     scroll.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  console.log(currentUserLS);
+  console.log(message);
 
 
   return (
     <div className="chat">
       <main>
-        {message && message.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+        {message && message[0]?.map((msg) => <ChatMessage key={msg.id} message={msg} text={msg.text}/>)}
         <span ref={scroll} />
       </main>
       <form onSubmit={sendMessage} className="chatForm">
