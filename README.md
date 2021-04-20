@@ -21,3 +21,7 @@
 ```bash
 npm start
 ```
+или
+```bash
+yarn start
+```
