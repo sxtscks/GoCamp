@@ -152,7 +152,7 @@ export default function Navbar() {
 </Button>
               <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <form onSubmit={handlerSubmit}>
-                  <DialogTitle disableTypography="true" style={{fontFamily: 'Montserrat', fontWeight: 700, fontSize: '21px' }} id="form-dialog-title">Создать поездку</DialogTitle>
+                  <DialogTitle disableTypography="true" style={{ fontFamily: 'Montserrat', fontWeight: 700, fontSize: '21px' }} id="form-dialog-title">Создать поездку</DialogTitle>
                   <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
                     <CloseIcon />
                   </IconButton>
@@ -168,6 +168,7 @@ export default function Navbar() {
                         type="text"
                         fullWidth
                         onChange={inputHandler}
+                        required
                       />
                       <TextField
                         variant="outlined"
@@ -178,6 +179,8 @@ export default function Navbar() {
                         type="text"
                         fullWidth
                         onChange={inputHandler}
+                        required
+
                       />
                       <Grid container justify='space-between'>
                         <Grid item>
@@ -190,6 +193,8 @@ export default function Navbar() {
                             fullWidth
                             onChange={inputHandler}
                             style={{ width: "270px" }}
+                            required
+
                           />
                         </Grid>
                         <Grid item>
@@ -202,6 +207,8 @@ export default function Navbar() {
                             fullWidth
                             onChange={inputHandler}
                             style={{ width: "270px" }}
+                            required
+
                           />
                         </Grid>
                       </Grid>
@@ -218,7 +225,8 @@ export default function Navbar() {
               </Dialog>
               {
                 JSON.stringify(user) !== '{}' ?
-                  <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
+
+                  <Button component={Link} to={`/profile/${user.uid}`} style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
                   : ''
               }
               {

@@ -142,3 +142,42 @@
     color: #ffff;
     font-size: 25px;
 }
+
+.formTodoList::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+.formTodoList::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+.formTodoList::-webkit-scrollbar-thumb {
+  background: #f46e16;
+  border-radius: 10px;
+}
+
+.waitersForm::-webkit-scrollbar {
+  height: 0.25rem;
+}
+
+.waitersForm::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+.waitersForm::-webkit-scrollbar-thumb {
+  background: #f46e16;
+  border-radius: 10px;
+}
+
+.members::-webkit-scrollbar {
+  height: 0.25rem;
+}
+
+.members::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+.members::-webkit-scrollbar-thumb {
+  background: #f46e16;
+  border-radius: 10px;
+}

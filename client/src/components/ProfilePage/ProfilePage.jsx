@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Trip from './TripsHistory/Trip/Trip';
 import { Grid } from '@material-ui/core';
+import { useParams } from 'react-router-dom'
 
 
 const ProfilePage = () => {
@@ -33,10 +34,11 @@ const ProfilePage = () => {
 
   const classes = useStyles();
 
+  const {id} = useParams()
   useEffect(() => {
     let currentUser
     if (userFromState.uid) {
-      currentUser = db.collection('Users').doc(userFromState.uid)
+      currentUser = db.collection('Users').doc(id)
         .onSnapshot((doc) => setUser(doc.data()))
     }
   }, [userFromState]) 

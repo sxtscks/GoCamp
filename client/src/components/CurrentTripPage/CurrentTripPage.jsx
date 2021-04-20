@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { db } from "../../firebase/firebase";
 import { Grid } from '@material-ui/core';
 import CheckList from '../CheckList/CheckList'
@@ -16,6 +16,8 @@ import WaitingPerson from '../WaitingPerson/WaitingPerson'
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import { deepOrange } from '@material-ui/core/colors'
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +38,7 @@ function CurrentTripPage() {
   const user = useSelector(state => state.user)
   const { id } = useParams()
   const [trip, setTrip] = useState({})
-  const [persons,setPersons] = useState([])
+  const [persons, setPersons] = useState([])
   useEffect(() => {
     let currentTrip
 
@@ -54,7 +56,10 @@ function CurrentTripPage() {
     }
   }, [])
 
-  console.log('persons!',persons)
+
+  // Отрендерить дату
+  const dateStart = trip?.startDate?.toDate().toLocaleDateString()
+  const dateEnd = trip?.endDate?.toDate().toLocaleDateString()
 
   return (
     <div className='mainCont d-flex'>
@@ -112,14 +117,16 @@ function CurrentTripPage() {
           </div>
           <div className='cont2 d-flex justify-content-center'>
             <div className='members d-flex justify-content-between flex-wrap'>
-           {persons?.length ? persons.map(el=>  
-           <div className='user'>
-             <span style={{ fontFamily: 'Montserrat', fontWeight: 400, color: 'white', fontSize: 15 }}>{el.name}</span>
-                   <Avatar alt="Remy Sharp" src={el.photo} className={classes.orange}>
-        {el.name}
-      </Avatar>
-           </div>) : ''}
-           
+              {persons?.length ? persons.map(el =>
+                <div className='user'>
+                  <span style={{ fontFamily: 'Montserrat', fontWeight: 400, color: 'white', fontSize: 15 }}>{el.name}</span>
+                  <Link to={`/profile/${el.id}`}>
+                  <Avatar alt="Remy Sharp" src={el.photo} className={classes.orange}>
+                    {el.name}
+                  </Avatar>
+                  </Link>
+                </div>) : ''}
+
             </div>
           </div>
         </div>

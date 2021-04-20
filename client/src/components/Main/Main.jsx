@@ -33,14 +33,13 @@ function Main() {
 
 
 
-
   return (
     <>
     <div className="comtMain d-flex">
       <div className="feedContainer">
         {
           myTrips.length ?
-          myTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} author={trip.author} waitingList={trip.waitingList} persons={trip.persons} /></ul>)
+          myTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} start={trip.startDate} end={trip.endDate} author={trip.author} waitingList={trip.waitingList} persons={trip.persons} /></ul>)
             : <div className='d-flex justify-content-center align-items-center' style={{paddingTop: '300px'}}>
               <Preloader />
             </div>

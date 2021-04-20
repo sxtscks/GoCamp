@@ -46,7 +46,7 @@ export default function Achievements() {
     }
   }, [])
 
-  const lastTripObj = lastTrips.find((trip) => trip.persons.includes(user.uid))
+  const lastTripObj = lastTrips?.find((trip) => trip?.persons?.includes(user.uid))
 
 
   return (
