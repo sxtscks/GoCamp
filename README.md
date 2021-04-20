@@ -19,9 +19,11 @@
 ## Запуск
 В папкe /client запустить команду
 ```bash
+npm i
 npm start
 ```
 или
 ```bash
+yarn
 yarn start
 ```
