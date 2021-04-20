@@ -1,55 +1,34 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import Divider from '@material-ui/core/Divider';
-
+import Trip from './Trip/Trip';
+import { Grid } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: 360,
+    maxWidth: 330,
     backgroundColor: theme.palette.background.paper,
   },
 }));
-
-export default function TripsHistory() {
+export default function TripsHistory({ userFinishedTrips, userFutureTrips }) {
   const classes = useStyles();
-
   return (
-    <List className={classes.root}>
-      <h2>Trips</h2>
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-          <BeachAccessIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Геленджик" secondary="Jan 9, 2014" />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-          <BeachAccessIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Алтай" secondary="Jan 7, 2014" />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <BeachAccessIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="У бабушки" secondary="July 20, 2014" />
-      </ListItem>
-    </List>
+    <div>
+      <Grid container direction="row" justify="center" alignItems="center" flexWrap="nowrap">
+        {/* <List className={classes.root}>
+          <h2>Past Trips:</h2>
+          {userFinishedTrips
+            ? userFinishedTrips.map((trip, index) => <Trip key={index} trip={trip} />)
+            : 'No trips before'
+          }
+        </List> */}
+        <List className={classes.root}>
+          {userFutureTrips
+            ? userFutureTrips.map((trip, index) => <Trip key={index} trip={trip} />)
+            : 'Создай новую поездку!'
+          }
+        </List>
+      </Grid>
+    </div>
   );
 }

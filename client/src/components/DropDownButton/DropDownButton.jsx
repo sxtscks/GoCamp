@@ -72,11 +72,11 @@ export default function DropDownButton() {
               {...TransitionProps}
               style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
             >
-              <Paper style={{background: '#32384d', marginLeft: '55px', marginTop: '10px'}}>
+              <Paper style={{background: '#32384d', marginLeft: '100px', marginTop: '10px'}}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem style={{fontFamily: 'Montserrat', color: 'white', fontWeight: 600 }} component={Link} to="/recommendations" onClick={handleClose}>Рекомендации</MenuItem>
-                    <MenuItem style={{fontFamily: 'Montserrat', color: 'white', fontWeight: 600 }} component={Link} to="/currentTrips" onClick={handleClose}>Текущие</MenuItem>
+                    <MenuItem style={{fontFamily: 'Montserrat', color: 'white', fontWeight: 600 }} component={Link} to="/currentTrips" onClick={handleClose}>Мои поездки</MenuItem>
+                    <MenuItem style={{fontFamily: 'Montserrat', color: 'white', fontWeight: 600 }} component={Link} to="/main" onClick={handleClose}>Карта приключений</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

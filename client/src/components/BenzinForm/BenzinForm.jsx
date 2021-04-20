@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { db } from "../../firebase/firebase";
 
-function BenzinForm({ trip }) {
+
+function BenzinForm({ trip, id }) {
   const [cost, setCost] = useState('')
   const [km, setKm] = useState('')
   const handlerKm = (e) => {
     e.preventDefault()
     setKm(e.target.value)
   }
-
+  
+  const user = useSelector(state => state.user)
   const handlerCost = (e) => {
     e.preventDefault()
-
     if (!e.target.km.value.match(/^\d+$/)) {
       alert('В поле "Расстояние" должно стоять числовое значение(только цифры)!');
       return e.target.km.value = ''
     } else {
-
       return setCost(`${Math.floor((e.target.km.value * e.target.gas.value) / e.target.person.value)} рублей с человека`)
     }
   }
@@ -28,7 +30,7 @@ function BenzinForm({ trip }) {
           <div className="kmText" style={{ fontFamily: 'Montserrat', margin: 5, fontWeight: 700, color: 'white', fontSize: 15, textAlign: 'end' }}>
             <span>Расстояние:</span>
           </div>
-          <input value={trip.distance ? Math.floor(trip.distance.value / 1000) : ''} type="text" style={{ width: 100, margin: 5 }} name='km' className="form-control" id="exampleFormControlInput1" placeholder="km" onChange={handlerKm} />
+          <input value={trip?.distance ? Math.floor(trip.distance.value / 1000) : ''} type="text" style={{ width: 100, margin: 5 }} name='km' className="form-control" id="exampleFormControlInput1" placeholder="km" onChange={handlerKm} />
         </div>
         <div className="gas">
           <div className="gasText" style={{ fontFamily: 'Montserrat', margin: 5, fontWeight: 700, color: 'white', fontSize: 15, textAlign: 'end' }}>

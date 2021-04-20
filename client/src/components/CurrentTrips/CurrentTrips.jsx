@@ -1,32 +1,49 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { getTrips } from '../../redux/actionCreators/tripsAC'
+import { useEffect, useState } from 'react'
 import CurrentTripItem from '../CurrentTripItem/CurrentTripItem'
-import todosReducer from '../../redux/reducers/todosReducer'
+import { db } from "../../firebase/firebase";
+import './CurrentTrips.css'
 
 function CurrentTrips() {
 
-  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
 
-  const trips = useSelector(state => state.trips)
 
-  // useEffect(() => {
-  //   dispatch(getTrips(trips))
-  // }, [])
+  const [myTrips, setMyTrips] = useState([])
 
-  console.log(trips);
+
+
+  useEffect(() => {
+    let currentUser
+    currentUser = db.collection("Trips")
+      .onSnapshot((querySnapshot) => {
+        setMyTrips(querySnapshot.docs.map(trip => ({ ...trip.data(), id: trip.id })))
+      })
+    return () => {
+      currentUser && currentUser()
+    }
+  }, [])
+
+  const filteredArr = myTrips.filter((trip) => trip.persons.includes(user.uid))
+
+  const sortedTrips = filteredArr.sort((a, b) => a.startDate - b.startDate)
+
+
 
   return (
-    <div style={{ marginTop: '5%' }} className="container">
-      <div>
-        <h2>Текущие Поездки:</h2>
+    <>
+    <div className='currentTripPage'>
+      <div className="container d-flex justify-content-center align-items-center flex-column">
+        {
+          sortedTrips.length ?
+            sortedTrips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} id={trip.id} /></ul>)
+            : <div className='d-flex justify-content-center align-items-center' style={{ padding: '370px' }}>
+              <h3>Список пуст. Создай новую поездку!</h3>
+            </div>
+        }
       </div>
-        {/* {
-          trips.length ?
-            trips.map((trip) => <ul><CurrentTripItem key={trip.id} name={trip.name} place={trip.place} coordinates={trip.coordinates} author={trip.author} startDate={trip.startDate} endDate={trip.endDate} persons={trip.persons} id={trip.id}  /></ul>)
-            : <h3>Список пуст. Создайте новую поездку!</h3>
-        } */}
-    </div>
+      </div>
+    </>
   )
 }
 

@@ -1,26 +1,41 @@
 .landing {
-    background:  linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('./background.svg') no-repeat;
+    background:  linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('./landingBG.jpg') no-repeat;
     background-attachment: fixed;
     background-size:100%;
 }
 
 .firstScreen {
-    margin-left: 25%;
+    /* margin-left: 25%; */
+    margin-top: 5px;
     display:flex;
     justify-content: center;
     flex-direction: column;
     align-self: center;
-    width: 50%;
+    /* width:6; */
     height: 100vh;
     color: white;
+ 
 }
 
 .textOne h1 {
     text-align: center;
 }
-.textTwo h2 {
+.textOne {
     text-align: center;
+    font-size: 160px;
+    font-weight: 700;
+    
+    
 }
+
+
+.textTwo {
+  
+  text-align: center;
+    font-size: 45px;
+    font-weight: 500;
+}
+
 .textThree {
     text-align: center;
     margin: 10px;
@@ -45,7 +60,7 @@
 .secondScreen {
   height: 760px;
   color: #333;
-	background: #f6f6f6;
+	background: #ebebeb;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
@@ -60,24 +75,35 @@
 }
 
 .thirdScreen {
-  height: 560px;
-  color: #333;
-	background: #217ca3;
-}
-
-.thirdPageContent {
   display: flex;
   justify-content: center;
+  height: 100vh;
+  color: #333;
+	background: url('./landos4.png') center;
+  background-size: cover;
+  justify-content: center;
+  /* background-repeat: no-repeat; */
 }
 
-.thirdPageContent h3 {
+
+/* .thirdPageContent {
+  display: flex;
+  justify-content: center;
+  background: url('./landos3.png');
+  background-size: 110vh;
+  background-repeat: no-repeat;
+  height:100%;
+  width:55vw;
+} */
+
+/* .thirdPageContent h3 {
   margin-top: 50px;
-}
+} */
 
 .footer {
-  height: 90px;
+  height: 50px;
   color: white;
-	background: #333;
+	background: #32384d;
   display:flex;
   justify-content: center;
   flex-direction: column;
@@ -99,3 +125,57 @@
   font-family: Montserrat, sans-serif;
   font-weight: 400;
 }
+
+.thirdScreentext {
+  font-family: Montserrat, sans-serif;
+  text-align: center;
+  font-weight: 700;
+  font-size: 4vh;
+  padding-top: 250px;
+  color: #32384d;
+}
+
+.buttonCreateTrip1 {
+  width:350px;
+  height:50px;
+}
+
+.imgCont {
+  margin-left: 30px;
+  width: 160px;
+}
+
+.txtCont {
+  padding-left: 10px;
+  width: 300px;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  align-self: center;
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.conflex {
+  margin-top: 150px;
+  border-radius: 10px;
+  border: 3 solid rgba(0,0,0,.125);
+  margin-left: 40px;
+  width:500px;
+  background-color:white;
+  padding: 10px
+}
+
+
+/* .conflex {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid rgba(0,0,0,.125);
+  border-radius: 11px;
+} */

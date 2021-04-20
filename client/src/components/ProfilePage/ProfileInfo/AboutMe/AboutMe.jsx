@@ -1,80 +1,119 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { useSelector } from 'react-redux';
+import { db } from '../../../../firebase/firebase'
+import { ThemeProvider } from 'styled-components';
+const theme = createMuiTheme({
+  typography: {
+    fontSize: 10
+  },
 
+})
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    maxWidth: 752,
+    maxWidth: 190,
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
   },
   title: {
-    margin: theme.spacing(4, 0, 2),
+    margin: theme.spacing(3, 0, 1),
+    fontSize: "18px",
   },
 }));
-
-// function generate(element) {
-//   return [0, 1, 2].map((value) =>
-//     React.cloneElement(element, {
-//       key: value,
-//     }),
-//   );
-// }
-
-export default function AboutMe() {
+export default function AboutMe(props) {
+  const [editModeTel, setEditModeTel] = useState(false);
+  const [editModeAbout, setEditModeAbout] = useState(false);
+  const userIdInFirebase = useSelector(state => state.user.uid)
+  const activateEditMode = () => {
+    setEditModeTel(true);
+  }
+  const deactivateEditMode = () => {
+    setEditModeTel(false);
+  }
+  const activateEditModeAbout = () => {
+    setEditModeAbout(true);
+  }
+  const deactivateEditModeAbout = () => {
+    setEditModeAbout(false);
+  }
+  const onTelephoneChange = (event) => {
+    let userTelephone = event.target.value;
+    db.collection("Users").doc(userIdInFirebase).set({
+      phone: userTelephone
+    }, { merge: true })
+  }
+  const onAboutUserChange = (event) => {
+    let aboutUserText = event.target.value;
+    db.collection("Users").doc(userIdInFirebase).set({
+      aboutMe: aboutUserText
+    }, { merge: true })
+  }
   const classes = useStyles();
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
-
   return (
     <div className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={2}>
-          <Typography variant="h6" className={classes.title}>
-          {'user.fullname'}
-          </Typography>
-          <div className={classes.demo}>
-            <List dense={dense}>
-              {/* {generate( */}
-                <ListItem>
-                  <ListItemText
-                    primary={'user.something1'}
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={'user.something2'}
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={'user.something3'}
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>
-              {/* )} */}
-            </List>
-          </div>
-        </Grid>
-      </Grid>
+      <div className={classes.demo}>
+        <List dense={dense}>
+          <ListItem >
+            <ListItemText
+              disableTypography='true'
+              className={classes.title}
+              primary={'Телефон:'}
+              secondary={
+                !props.telegram
+                  ?
+                  !editModeTel
+                    ? <div>
+                      <span onClick={activateEditMode}>{props.telegram} Введите номер телефона</span>
+                    </div>
+                    : <div>
+                      <input autoFocus={true} onBlur={deactivateEditMode} value={props.telegram} onChange={onTelephoneChange} />
+                    </div>
+                  :
+                  !editModeTel
+                    ? <div>
+                      <span onClick={activateEditMode}>{props.telegram}</span>
+                    </div>
+                    : <div>
+                      <input autoFocus={true} onBlur={deactivateEditMode} value={props.telegram} onChange={onTelephoneChange} />
+                    </div>
+              }
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              disableTypography='true'
+              className={classes.title}
+              primary={'О себе:'}
+              secondary={
+                !props.aboutUser
+                  ?
+                  !editModeAbout
+                    ? <div>
+                      <span onClick={activateEditModeAbout}>{props.aboutUser} Расскажите о себе</span>
+                    </div>
+                    : <div>
+                      <input autoFocus={true} onBlur={deactivateEditModeAbout} value={props.aboutUser} onChange={onAboutUserChange} />
+                    </div>
+                  :
+                  !editModeAbout
+                    ? <div>
+                      <span onClick={activateEditModeAbout}>{props.aboutUser}</span>
+                    </div>
+                    : <div>
+                      <input autoFocus={true} onBlur={deactivateEditModeAbout} value={props.aboutUser} onChange={onAboutUserChange} />
+                    </div>
+              }
+            />
+          </ListItem>
+        </List>
+      </div>
     </div>
   );
 }

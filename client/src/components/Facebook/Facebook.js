@@ -6,7 +6,7 @@ const Facebook = ({ facebookHandler }) => {
   return (
     <button onClick={facebookHandler} className="btn btn-primary login-facebook-text">
       <span className="google-button__icon">
-        <img style={{ width: "30px" }} src={fbLogo}></img>
+        <img style={{ width: "30px" }} src={fbLogo} alt='Facebook'></img>
       </span>
       <span className="google-button__text">
         Facebook

@@ -1,10 +1,17 @@
 .feedContainer {
+    margin-top: 5%;
     width: 50%;
-    height: 95vh;
+    max-height: 96vh;
     overflow-y: scroll
 }
 
 .mapContainer {
-    height: 100%;
+    /* margin-top: 56px; */
+    padding-top: 56px;
+    max-height: 96vh;
     width: 50%;
+}
+
+.contMain{
+    /* overflow-y: hidden */
 }

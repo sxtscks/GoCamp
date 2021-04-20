@@ -1,9 +1,9 @@
 const initState = {
-//   user: {
-//     displayName: '',
-//     token: '',
-//     uid: '',
-//   },
+  user: {
+    displayName: '',
+    token: '',
+    uid: '',
+  },
 //   todos: [
 //     { id: '32312sdsf', text: 'топор', important: false, confirmed: false },
 //     { id: 'vvdsfbs', text: 'удочки', important: false, confirmed: false },

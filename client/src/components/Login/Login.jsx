@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import firebase from '../../firebase/firebase'
 import { googleProvider, sigInFacebook } from '../../redux/reducers/userReducer'
 import { useHistory } from 'react-router-dom'
 import logo from './GoCampLogoGraph (1).png'
@@ -111,6 +109,7 @@ export default function Login() {
               name="userEmail"
               value={user.userEmail}
               onChange={inputHandler}
+              className='inputStyle'
             />
             <TextField
               variant="outlined"
@@ -124,6 +123,8 @@ export default function Login() {
               name="userPassword"
               value={user.userPassword}
               onChange={inputHandler}
+              className='inputStyle'
+
             />
             <Button
               type="submit"

@@ -1,0 +1,10 @@
+.currentTripPage {
+    background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url('mytripsPage.png') rgba(0, 0, 0, 0.3);
+    /* background:  url('mytripsPage.png') ; */
+    padding-top: 5%;
+    /* margin-top: 7% ; */
+
+    height:100vh;
+    background-size:cover;
+    background-attachment: fixed;
+}

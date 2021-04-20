@@ -24,6 +24,9 @@ import { Grid, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { addTripToFB } from '../../redux/reducers/tripReducer';
 import firebase from '../../firebase/firebase'
+import { db } from '../../firebase/firebase'
+
+
 
 const SlideInLeft = styled.div`animation: 1s ${keyframes`${slideInLeft} infinite`}`;
 
@@ -54,8 +57,11 @@ export default function Navbar() {
 
   const [open, setOpen] = React.useState(false);
 
+
+
+
   const handleClickOpen = () => {
-    if (user) {
+    if (JSON.stringify(user) !== '{}') {
       setOpen(true);
     } else {
       history.push('/login')
@@ -69,8 +75,8 @@ export default function Navbar() {
   const [trip, setTrip] = useState({
     name: '',
     place: '',
-    start: '',
-    finish: '',
+    startDate: '',
+    endDate: '',
   })
 
   const dispatch = useDispatch()
@@ -85,15 +91,24 @@ export default function Navbar() {
     if (event.target.name === 'place') {
       address = event.target.value
       const response = await fetch(
-        `https://geocode-maps.yandex.ru/1.x/?apikey=51ad9d93-9100-4ffa-8ebf-138a17d2a225&format=json&geocode=${address}`
+        `https://geocode-maps.yandex.ru/1.x/?apikey=de2b31d6-264f-4aab-b53f-b5c388f7bfde&format=json&geocode=${address}`
       );
       const resBody = await response.json()
       const coordinates = resBody?.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.Point?.pos.split(' ').map(el => +el).reverse()
       setTrip(prev => {
         return {
           ...prev,
-          coordinates,
+          coordinates: coordinates,
           [event.target.name]: event.target.value,
+        }
+      })
+
+    } else if (event.target.type === 'date') {
+      const myDate = new Date(event.target.value)
+      setTrip(prev => {
+        return {
+          ...prev,
+          [event.target.name]: myDate,
         }
       })
     } else {
@@ -103,34 +118,21 @@ export default function Navbar() {
     }
   }
 
+
+
   const handlerSubmit = (e, id) => {
     e.preventDefault()
     let tripId = ''
-    dispatch(addTripToFB(trip, user.uid))
-      .then((docref) => tripId = docref.id)
-      .then(() => history.push(`/create/${tripId}`))
+    dispatch(addTripToFB(trip, user?.uid))
+      .then((docref) => docref.id)
+      .then((tripId) => history.push(`/create/${tripId}`))
       .then(() => setOpen(false))
   }
 
-  const signOut = (e) => {
-    e.preventDefault()
-    firebase.auth().signOut()
-      .then(() => window.localStorage.removeItem('myApp'))
-      .then(() => history.push('/'))
+  const signOut = async () => {
+    await firebase.auth().signOut()
+    history.push('/')
   }
-
-  // const [local, setLocal] = useState(false)
-
-
-  // useEffect(() => {
-  //   console.log(user);
-  //   if (user) {
-  //     return setLocal(true)
-  //   } else {
-  //     return setLocal(false)
-  //   }
-  // }, [user])
-  // console.log(local);
 
   return (
     <div className={classes.root}>
@@ -141,24 +143,20 @@ export default function Navbar() {
             <Typography variant="h6" className={classes.title}>
               <div className="logoContainer ">
                 <Link to='/'><img src="/finalLogoHope.png" alt="" style={{ width: 378, margin: 6, position: 'absolute', top: 1, left: -280, paddingTop: 2, zIndex: 3 }} /></Link>
-                {/* <div style={{width:108,height:67,position:'absolute',left:-5,zIndex:2, backgroundColor:'red'}}></div> */}
-                <SlideInLeft style={{ display: 'inline-block' }}><img src="/WhiteText.svg" className="logoMove object van move-right" alt="" style={{ width: 240, marginLeft: 78, paddingTop: 5 }} /></SlideInLeft>
+                <SlideInLeft style={{ display: 'inline-block' }}><img src="/WhiteText.svg" className="logoMove object van move-right" alt="" style={{ width: 240, marginLeft: 82, paddingTop: 5 }} /></SlideInLeft>
               </div>
             </Typography>
-            <div style={{ display: 'flex', justifyContent: "space-between", width: 550 }}>
+            <div className={JSON.stringify(user) !== '{}' ? 'logined' : 'unlogged'} style={{ display: 'flex', justifyContent: "space-between" }}>
               <Button onClick={handleClickOpen} className='buttonCreateTrip' variant="contained" color="transparent" style={{ backgroundColor: '#f46e16', color: 'white', fontWeight: 700 }}>
                 Создать поездку
 </Button>
               <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <form onSubmit={handlerSubmit}>
-                  <DialogTitle id="form-dialog-title">Создать поездку</DialogTitle>
+                  <DialogTitle disableTypography="true" style={{ fontFamily: 'Montserrat', fontWeight: 700, fontSize: '21px' }} id="form-dialog-title">Создать поездку</DialogTitle>
                   <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
                     <CloseIcon />
                   </IconButton>
                   <DialogContent style={{ fontFamily: 'Montserrat' }}>
-                    <DialogContentText>
-                      Введи название поездки и выбери дату(после можно будет изменить)
-          </DialogContentText>
                     <Grid container>
                       <TextField
                         autoFocus
@@ -170,6 +168,7 @@ export default function Navbar() {
                         type="text"
                         fullWidth
                         onChange={inputHandler}
+                        required
                       />
                       <TextField
                         variant="outlined"
@@ -180,6 +179,8 @@ export default function Navbar() {
                         type="text"
                         fullWidth
                         onChange={inputHandler}
+                        required
+
                       />
                       <Grid container justify='space-between'>
                         <Grid item>
@@ -192,6 +193,8 @@ export default function Navbar() {
                             fullWidth
                             onChange={inputHandler}
                             style={{ width: "270px" }}
+                            required
+
                           />
                         </Grid>
                         <Grid item>
@@ -204,6 +207,8 @@ export default function Navbar() {
                             fullWidth
                             onChange={inputHandler}
                             style={{ width: "270px" }}
+                            required
+
                           />
                         </Grid>
                       </Grid>
@@ -211,28 +216,31 @@ export default function Navbar() {
                   </DialogContent>
                   <DialogActions>
                     <Grid container justify="center">
-                      <Button type='submit' color="primary" style={{ background: '#F46E16', color: 'white', fontWeight: 600, fontSize: '16px', height: '40px', transition: '0.3s' }}>
+                      <Button type='submit' color="primary" style={{ background: '#F46E16', color: 'white', fontWeight: 600, fontSize: '16px', height: '40px', width: '200px', marginTop: '10px', transition: '0.3s' }}>
                         Поехали
           </Button>
                     </Grid>
                   </DialogActions>
                 </form>
               </Dialog>
-              {/* {
-                local ? */}
-                  <Button component={Link} to="/profile" style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
-                  {/* : ''
-              } */}
-              <Button component={Link} to="/recommendations" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Советы</Button>
-              <Button component={Link} to="/main" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Поездки</Button>
+              {
+                JSON.stringify(user) !== '{}' ?
 
-              {/* <DropDownButton /> */}
-              {/* {
-                local ? */}
-                  <Button onClick={signOut} style={{ color: 'white', fontWeight: 700 }} color='inherit'>Выйти</Button>
-                  {/* : */}
+                  <Button component={Link} to={`/profile/${user.uid}`} style={{ color: 'white', fontWeight: 700 }}>Профиль</Button>
+                  : ''
+              }
+              {
+                JSON.stringify(user) !== '{}' ?
+                  <DropDownButton />
+                  :
+                  <Button component={Link} to="/main" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Поездки</Button>
+              }
+              {
+                JSON.stringify(user) !== '{}' ?
+                  <Button onClick={() => signOut()} style={{ color: 'white', fontWeight: 700 }} color='inherit'>Выйти</Button>
+                  :
                   <Button component={Link} to="/login" style={{ color: 'white', fontWeight: 700 }} color='inherit'>Войти</Button>
-              {/* } */}
+              }
             </div>
           </Toolbar>
         </div>

@@ -2,20 +2,26 @@ import { YMaps, Map, Placemark, RouteButton, GeolocationControl, Clusterer, Rout
 import './TripMap.css'
 import icon from './GoCampLogoGraph (1).png'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addDistance } from '../../redux/actionCreators/tripsAC'
+import { db } from "../../firebase/firebase";
 
-function TripMap({ trip }) {
 
-  const key = '51ad9d93-9100-4ffa-8ebf-138a17d2a225'
+function TripMap({ trip, id }) {
 
-  const dispatch = useDispatch()  
+  const key = 'de2b31d6-264f-4aab-b53f-b5c388f7bfde'
+  const user = useSelector(state => state.user)
+
+  const dispatch = useDispatch()
+
+  if (!user.uid) return null
 
   return (
+
     <YMaps query={{ lang: 'ru_RU', ns: "use-load-option", apikey: key }}>
       <div>
         <Map defaultState={{
-          center: trip.coordinates,
+          center: trip.coordinates ? trip.coordinates : [55.37, 35.75],
           zoom: 6,
           controls: ['zoomControl', 'fullscreenControl'],
         }}
@@ -34,10 +40,14 @@ function TripMap({ trip }) {
                   const activeRoute = multiRoute.getActiveRoute()
                   if (activeRoute) {
                     let distance = activeRoute.properties.get('distance')
-                    dispatch(addDistance(trip.id, distance))
+                    console.log('POPAL', distance);
+                    db.collection('Trips').doc(id).set({
+                      distance: distance
+                    }, { merge: true })
                   }
                 })
               })
+
             }
           }} options={{ float: 'right' }} />
           <GeolocationControl options={{ float: 'left' }} />
