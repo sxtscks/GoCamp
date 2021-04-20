@@ -33,6 +33,7 @@ function CheckList({ tripId }) {
       </ul>
     </div>
   )
+
 }
 
 export default CheckList
